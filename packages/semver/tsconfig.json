@@ -14,9 +14,9 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "lib": ["dom", "ES2015"],
-    "module": "ESNext",
-    "target": "es6"
+    "lib": ["ES2015"],
+    "module": "CommonJS",
+    "types": ["node"]
   },
   "exclude": ["node_modules"]
 }
