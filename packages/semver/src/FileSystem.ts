@@ -9,15 +9,15 @@ export async function fileExist(filePath: string): Promise<boolean> {
   }
 }
 
-export function readFile(filePath: string): Promise<string> {
+export async function readFile(filePath: string): Promise<string> {
   return fs.readFile(filePath, { encoding: "utf-8" });
 }
 
-export function readJsonFile(filePath: string) {
+export async function readJsonFile(filePath: string) {
   return readFile(filePath).then((data) => JSON.parse(data));
 }
 
-export function writeFile(
+export async function writeFile(
   filePath: string,
   data: Parameters<typeof fs.writeFile>[1]
 ) {
