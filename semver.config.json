@@ -1,0 +1,11 @@
+{
+    "tagPrefix": "${projectName}",
+    "preset": "conventional",
+    "baseBranch": "main",
+    "synced": true,
+    "workspace": [
+        "packages"
+    ],
+    "updateInternalDependencies": "patch",
+    "strategy": "last-release"
+}

@@ -2,11 +2,7 @@ import { exec, execSync } from "child_process";
 import { existsSync, statSync } from "fs";
 import { join } from "path";
 import { promisify } from "util";
-
-interface Commit {
-  hash: string;
-  message: string;
-}
+import { Commit, GitCommitOptions, GitTagOptions } from "./Types";
 
 export function getCommits(repoPath: string): Promise<Commit[]> {
   return new Promise<Commit[]>((resolve, reject) => {
@@ -46,13 +42,6 @@ export function isGitRepository(directory: string): boolean {
   }
 }
 
-type GitCommitOptions = {
-  message: string;
-  amend?: boolean;
-  author?: string;
-  date?: string;
-};
-
 export function gitCommit(options: GitCommitOptions): Promise<string> {
   const command = ["commit"];
   if (options.amend) {
@@ -75,12 +64,6 @@ export function gitCommit(options: GitCommitOptions): Promise<string> {
       }
     });
   });
-}
-
-interface GitTagOptions {
-  tag: string;
-  message?: string;
-  annotated?: boolean;
 }
 
 export function createGitTag(options: GitTagOptions): Promise<void> {
