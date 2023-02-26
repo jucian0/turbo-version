@@ -1,8 +1,9 @@
-#!/urs/bin/env node
+#!/usr/bin/node
 
 import { Command } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
+import { updatePackageVersion } from "./UpdateVersion";
 
 const program = new Command();
 
@@ -17,6 +18,7 @@ program
     "Version the application by default, following the semver.config.json specifications"
   )
   .action(() => {
+    updatePackageVersion("packages/mock", "0.0.7");
     console.log("Semver");
   });
 
