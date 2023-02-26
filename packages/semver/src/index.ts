@@ -13,13 +13,14 @@ program
   .version(packageJson.version);
 
 program
-  .command("")
+  .command("version")
   .description(
     "Version the application by default, following the semver.config.json specifications"
   )
   .action(() => {
-    updatePackageVersion("packages/mock", "0.0.7");
-    console.log("Semver");
+    updatePackageVersion("packages/mock", "0.0.7")
+      .then((resp) => console.log("resp", resp))
+      .catch((err) => console.log("err", err));
   });
 
 program.parse();

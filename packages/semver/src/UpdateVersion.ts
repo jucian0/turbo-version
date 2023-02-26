@@ -5,7 +5,7 @@ export function updatePackageVersion(
   version: string
 ): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    fs.readFile(packagePath, "utf8", (err, data) => {
+    fs.readFile(`${packagePath}/package.json`, "utf8", (err, data) => {
       if (err) {
         return reject(err);
       }
