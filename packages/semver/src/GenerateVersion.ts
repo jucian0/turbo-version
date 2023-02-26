@@ -1,8 +1,5 @@
-import conventionalRecommendedBump, {
-  Options,
-} from "conventional-recommended-bump";
+import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
-import { getCommits } from "./GitCommands";
 
 export async function generateVersion(
   currentVersion: string,

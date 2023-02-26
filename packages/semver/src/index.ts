@@ -4,6 +4,7 @@ import { Command } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { generateVersion } from "./GenerateVersion";
+import { getLastVersion } from "./GetLastVersion";
 import { setup } from "./Setup";
 import { updatePackageVersion } from "./UpdateVersion";
 
@@ -22,7 +23,9 @@ program
   .action(async () => {
     const config = await setup();
 
-    const nextVersion = generateVersion();
+    const currentVersion = await getLastVersion(config.tagPrefix);
+    const nextVersion = generateVersion(currentVersion, config.preset);
+
     setup()
       .then((data) => {
         data.workspace.forEach((pkgPath) => {
