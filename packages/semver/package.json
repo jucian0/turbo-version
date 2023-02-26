@@ -24,14 +24,16 @@
     "@types/node": "18.14.0",
     "@types/conventional-changelog": "^3.1.1",
     "@types/conventional-recommended-bump": "^6.1.0",
-    "@types/semver": "^7.3.13"
+    "@types/semver": "^7.3.13",
+    "@types/git-semver-tags": "^4.1.1"
   },
   "dependencies": {
     "conventional-changelog": "^3.1.25",
     "conventional-recommended-bump": "^6.1.0",
     "git-repository": "^0.1.4",
     "semver": "^7.3.8",
-    "commander": "^10.0.0"
+    "commander": "^10.0.0",
+    "git-semver-tags": "^4.1.1"
   },
   "publishConfig": {
     "access": "public"
