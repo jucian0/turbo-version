@@ -6,13 +6,12 @@
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "version": "turbo run version"
+    "semver": "turbo run semver"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
     "prettier": "^2.5.1",
-    "turbo": "latest",
-    "semver": "workspace:*"
+    "turbo": "latest"
   },
   "packageManager": "pnpm@7.15.0"
 }

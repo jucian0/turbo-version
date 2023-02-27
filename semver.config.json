@@ -3,8 +3,8 @@
     "preset": "conventional",
     "baseBranch": "main",
     "synced": true,
-    "workspace": [
-        "packages"
+    "packages": [
+        "packages/mock"
     ],
     "updateInternalDependencies": "patch",
     "strategy": "last-release"

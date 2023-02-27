@@ -42,6 +42,19 @@ export function isGitRepository(directory: string): boolean {
   }
 }
 
+export function gitAdd(files: string[]): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const command = `git add ${files.join(" ")}`;
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve();
+    });
+  });
+}
+
 export function gitCommit(options: GitCommitOptions): Promise<string> {
   const command = ["commit"];
   if (options.amend) {

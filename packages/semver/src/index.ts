@@ -5,6 +5,7 @@ import { Command } from "commander";
 import packageJson from "../package.json";
 import { generateVersion } from "./GenerateVersion";
 import { getLastVersion } from "./GetLastVersion";
+import { createGitTag, gitAdd, gitCommit } from "./GitCommands";
 import { setup } from "./Setup";
 import { updatePackageVersion } from "./UpdateVersion";
 
@@ -24,19 +25,22 @@ program
     const config = await setup();
 
     const currentVersion = await getLastVersion(config.tagPrefix);
-    const nextVersion = generateVersion(currentVersion, config.preset);
+    const nextVersion = await generateVersion(currentVersion, config.preset);
 
-    setup()
-      .then((data) => {
-        data.workspace.forEach((pkgPath) => {
-          updatePackageVersion(pkgPath, "0.0.7")
-            .then((resp) => console.log("resp", resp))
-            .catch((err) => console.log(err));
-        });
-      })
-      .catch((err) => {
-        console.error(err);
+    try {
+      config.workspace.forEach((pkgPath) => {
+        updatePackageVersion(pkgPath, nextVersion)
+          .then((resp) => console.log("resp", resp))
+          .catch((err) => console.log(err));
       });
+      await gitAdd(config.workspace);
+      await gitCommit({
+        message: `New version generated ${nextVersion}`,
+      });
+      await createGitTag({
+        tag: nextVersion,
+      });
+    } catch (err) {}
   });
 
 program.parse();

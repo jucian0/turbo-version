@@ -1,6 +1,5 @@
 import gitSemverTags from "git-semver-tags";
 import semver from "semver";
-import { promisify } from "util";
 
 export async function getLastVersion(tagPrefix: string): Promise<string> {
   return new Promise((resolve, reject) => {

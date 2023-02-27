@@ -6,21 +6,21 @@ importers:
     specifiers:
       eslint: ^7.32.0
       prettier: ^2.5.1
-      semver: workspace:*
       turbo: latest
     devDependencies:
       eslint: 7.32.0
       prettier: 2.8.0
-      semver: link:packages/semver
       turbo: 1.8.2
 
   packages/mock:
     specifiers:
       eslint: ^7.32.0
+      semver: workspace:*
       tsup: ^5.10.1
       typescript: ^4.5.3
     devDependencies:
       eslint: 7.32.0
+      semver: link:../semver
       tsup: 5.12.9_typescript@4.9.3
       typescript: 4.9.3
 
@@ -28,6 +28,7 @@ importers:
     specifiers:
       '@types/conventional-changelog': ^3.1.1
       '@types/conventional-recommended-bump': ^6.1.0
+      '@types/git-semver-tags': ^4.1.1
       '@types/node': 18.14.0
       '@types/semver': ^7.3.13
       commander: ^10.0.0
@@ -35,6 +36,7 @@ importers:
       conventional-recommended-bump: ^6.1.0
       eslint: ^7.32.0
       git-repository: ^0.1.4
+      git-semver-tags: ^4.1.1
       semver: ^7.3.8
       tsup: ^5.10.1
       typescript: ^4.5.3
@@ -43,10 +45,12 @@ importers:
       conventional-changelog: 3.1.25
       conventional-recommended-bump: 6.1.0
       git-repository: 0.1.4
+      git-semver-tags: 4.1.1
       semver: 7.3.8
     devDependencies:
       '@types/conventional-changelog': 3.1.1
       '@types/conventional-recommended-bump': 6.1.0
+      '@types/git-semver-tags': 4.1.1
       '@types/node': 18.14.0
       '@types/semver': 7.3.13
       eslint: 7.32.0
@@ -184,6 +188,10 @@ packages:
     resolution: {integrity: sha512-vE2lbXxqJ0AqMDoP4N6d+WVfbcBla9+z8IL6e+37JNQIwYZCYY0z3J7hdpY8D/VGwFZ0yIYQLcqk8eCnfXsaEg==}
     dependencies:
       '@types/node': 18.14.0
+    dev: true
+
+  /@types/git-semver-tags/4.1.1:
+    resolution: {integrity: sha512-6RrosMDOX0rU233ldLAuF4WbF61S44GeQV56D+sV7SG4ZGEXd43LjIgr87NFsD9cE1Kr+n5NMHFRTFpk4MeNxw==}
     dev: true
 
   /@types/minimist/1.2.2:
