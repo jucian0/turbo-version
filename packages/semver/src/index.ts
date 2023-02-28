@@ -12,7 +12,7 @@ import { updatePackageVersion } from "./UpdateVersion";
 const program = new Command();
 
 program
-  .name("Version")
+  .name("Turbo Semver")
   .description("Semver Turborepo")
   .version(packageJson.version);
 
@@ -24,23 +24,36 @@ program
   .action(async () => {
     const config = await setup();
 
+    /**
+     * It's necessary to validate last version, and next version by project name
+     */
+
     const currentVersion = await getLastVersion(config.tagPrefix);
-    const nextVersion = await generateVersion(currentVersion, config.preset);
+    const nextVersion = await generateVersion(
+      currentVersion,
+      config.preset,
+      config.tagPrefix
+    );
 
     try {
-      config.workspace.forEach((pkgPath) => {
+      config.packages.forEach((pkgPath) => {
         updatePackageVersion(pkgPath, nextVersion)
-          .then((resp) => console.log("resp", resp))
-          .catch((err) => console.log(err));
+          .then(async () => {
+            await gitAdd([`${pkgPath}/package.json`]);
+            await gitCommit({
+              message: `New version generated ${config.tagPrefix}${nextVersion}`,
+            });
+            await createGitTag({
+              tag: `${config.tagPrefix}${nextVersion}`,
+              message: `New Version ${new Date().toISOString()}`,
+              annotated: true,
+            });
+          })
+          .catch((err) => err);
       });
-      await gitAdd(config.workspace);
-      await gitCommit({
-        message: `New version generated ${nextVersion}`,
-      });
-      await createGitTag({
-        tag: nextVersion,
-      });
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   });
 
 program.parse();

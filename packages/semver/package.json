@@ -1,5 +1,5 @@
 {
-  "name": "semver",
+  "name": "turbo-semver",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -33,7 +33,9 @@
     "git-repository": "^0.1.4",
     "semver": "^7.3.8",
     "commander": "^10.0.0",
-    "git-semver-tags": "^4.1.1"
+    "git-semver-tags": "^4.1.1",
+    "inquirer": "8.2.5",
+    "chalk": "4.1.2"
   },
   "publishConfig": {
     "access": "public"

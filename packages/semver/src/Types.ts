@@ -21,7 +21,7 @@ export type Config = {
   preset: string;
   baseBranch: string;
   synced: boolean;
-  workspace: string[];
+  packages: string[];
   updateInternalDependencies:
     | "major"
     | "minor"

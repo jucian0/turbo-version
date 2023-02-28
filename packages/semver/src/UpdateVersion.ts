@@ -14,7 +14,7 @@ export function updatePackageVersion(
       packageJson.version = version;
 
       fs.writeFile(
-        packagePath,
+        `${packagePath}/package.json`,
         JSON.stringify(packageJson, null, 2),
         "utf8",
         (err) => {

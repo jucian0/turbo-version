@@ -1,7 +1,12 @@
 import gitSemverTags from "git-semver-tags";
 import semver from "semver";
+import chalk from "chalk";
+import { log } from "./Log";
 
-export async function getLastVersion(tagPrefix: string): Promise<string> {
+export async function getLastVersion(
+  tagPrefix: string,
+  projectName: string
+): Promise<string> {
   return new Promise((resolve, reject) => {
     gitSemverTags({ tagPrefix }, (err, data) => {
       if (err) {
@@ -18,7 +23,16 @@ export async function getLastVersion(tagPrefix: string): Promise<string> {
         });
 
       const [version] = versions.sort(semver.rcompare);
-      resolve(version);
+
+      if (!version) {
+        log(
+          "warning",
+          "Could not find any previous TAG, assuming v0.0.0",
+          projectName
+        );
+      }
+
+      resolve(version ?? "0.0.0");
     });
   });
 }

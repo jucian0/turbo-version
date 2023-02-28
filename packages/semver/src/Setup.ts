@@ -5,9 +5,9 @@ import { Config } from "./Types";
 export function setup(): Promise<Config> {
   const localProcess = cwd();
   return new Promise((resolve, reject) => {
-    fs.readFile(`${localProcess}/semver.conofig.json`, "utf-8", (err, data) => {
+    fs.readFile(`${localProcess}/semver.config.json`, "utf-8", (err, data) => {
       if (err) {
-        reject("Could not locate the Sever config file");
+        reject("Could not locate the Semver config file");
       }
 
       try {

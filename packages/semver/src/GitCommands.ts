@@ -68,6 +68,8 @@ export function gitCommit(options: GitCommitOptions): Promise<string> {
   }
   command.push(`-m "${options.message}"`);
 
+  command.push("--no-verify");
+
   return new Promise((resolve, reject) => {
     exec(`git ${command.join(" ")}`, (error, stdout, stderr) => {
       if (error) {
