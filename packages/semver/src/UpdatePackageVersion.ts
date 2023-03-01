@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { log } from "./Log";
 
 export function updatePackageVersion(
   packagePath: string,
@@ -24,6 +25,27 @@ export function updatePackageVersion(
           resolve();
         }
       );
+    });
+  });
+}
+
+export function updateAllPackagesVersion(
+  packages: string[],
+  nextVersion: string
+): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    packages.forEach(async (pkgPath) => {
+      try {
+        await updatePackageVersion(pkgPath, nextVersion);
+      } catch (err) {
+        reject(err);
+      }
+      log({
+        step: "package_json_success",
+        message: `Packages info updated`,
+        projectName: "Workspace",
+      });
+      resolve(true);
     });
   });
 }

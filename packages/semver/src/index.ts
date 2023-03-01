@@ -4,12 +4,8 @@ import { Command } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { byPackageFlux } from "./ByPackageFlux";
-import { generateVersion } from "./GenerateVersion";
-import { getLastVersion } from "./GetLastVersion";
-import { createGitTag, gitAdd, gitCommit } from "./GitCommands";
 import { setup } from "./Setup";
 import { syncedFlux } from "./SyncedFlux";
-import { updatePackageVersion } from "./UpdateVersion";
 
 const program = new Command();
 

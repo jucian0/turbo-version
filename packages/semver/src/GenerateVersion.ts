@@ -25,9 +25,14 @@ export async function generateVersion(
               message: `There is no change since last release.`,
               projectName: "Workspace",
             });
-            return reject("There is no change since last release.");
+            return reject();
           }
-          const next = semver.inc(currentVersion, type);
+          const next = semver.inc(currentVersion, type) ?? currentVersion;
+          log({
+            step: "calculate_version_success",
+            message: `New Version calculated ${next}`,
+            projectName: "Workspace",
+          });
           resolve(next.toString());
         }
       );
