@@ -3,10 +3,12 @@
 import { Command } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
+import { byPackageFlux } from "./ByPackageFlux";
 import { generateVersion } from "./GenerateVersion";
 import { getLastVersion } from "./GetLastVersion";
 import { createGitTag, gitAdd, gitCommit } from "./GitCommands";
 import { setup } from "./Setup";
+import { syncedFlux } from "./SyncedFlux";
 import { updatePackageVersion } from "./UpdateVersion";
 
 const program = new Command();
@@ -24,36 +26,10 @@ program
   .action(async () => {
     const config = await setup();
 
-    /**
-     * It's necessary to validate last version, and next version by project name
-     */
-
-    const currentVersion = await getLastVersion(config.tagPrefix);
-    const nextVersion = await generateVersion(
-      currentVersion,
-      config.preset,
-      config.tagPrefix
-    );
-
-    try {
-      config.packages.forEach((pkgPath) => {
-        updatePackageVersion(pkgPath, nextVersion)
-          .then(async () => {
-            await gitAdd([`${pkgPath}/package.json`]);
-            await gitCommit({
-              message: `New version generated ${config.tagPrefix}${nextVersion}`,
-            });
-            await createGitTag({
-              tag: `${config.tagPrefix}${nextVersion}`,
-              message: `New Version ${new Date().toISOString()}`,
-              annotated: true,
-            });
-          })
-          .catch((err) => err);
-      });
-    } catch (err) {
-      console.error(err);
+    if (config.synced) {
+      return syncedFlux(config);
     }
+    return byPackageFlux(config);
   });
 
 program.parse();

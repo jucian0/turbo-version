@@ -50,5 +50,5 @@ export function _logStep({
   const msg = `${chalk.bold(`[${projectName}]`)} ${iconMap.get(
     step
   )} ${message}`;
-  console.log(msg);
+  return console.log(msg);
 }

@@ -22,6 +22,14 @@ export function getCommits(repoPath: string): Promise<Commit[]> {
   });
 }
 
+export function getCommitsLength(latestTag: string) {
+  const amount = execSync(`git log ${latestTag}.. --oneline | wc -l`)
+    .toString()
+    .trim();
+
+  return Number(amount);
+}
+
 export function isGitRepository(directory: string): boolean {
   const gitDir = join(directory, ".git");
 
@@ -82,9 +90,8 @@ export function gitCommit(options: GitCommitOptions): Promise<string> {
 }
 
 export function createGitTag(options: GitTagOptions): Promise<void> {
-  const { tag, message = "", annotated = true } = options;
-  const tagOption = annotated ? "-a" : "-m";
-  const command = `git tag ${tagOption} "${message}" ${tag}`;
+  const { tag, message = "" } = options;
+  const command = `git tag -a -m "${message}" ${tag}`;
 
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
