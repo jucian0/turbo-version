@@ -2,6 +2,7 @@ import { exec, execSync } from "child_process";
 import { existsSync, statSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
+import { promisify } from "util";
 import { log } from "./Log";
 import { Commit, GitCommitOptions, GitTagOptions } from "./Types";
 
@@ -63,24 +64,24 @@ function createGitTag(options: GitTagOptions): Promise<void> {
   });
 }
 
-//const execProcess = promisify(exec);
+const execProcess = promisify(exec);
 
-// export async function gitPush(
-//   branchName: string,
-//   remoteName: string = "origin"
-// ): Promise<void> {
-//   try {
-//     const { stdout, stderr } = await execProcess(
-//       `git push ${remoteName} ${branchName}`
-//     );
-//     if (stderr) {
-//       throw new Error(stderr);
-//     }
-//     console.log(stdout);
-//   } catch (error: any) {
-//     console.error(`Error: ${error.message}`);
-//   }
-// }
+export async function gitPush(
+  branchName: string,
+  remoteName: string = "origin"
+): Promise<void> {
+  try {
+    const { stdout, stderr } = await execProcess(
+      `git push ${remoteName} ${branchName}`
+    );
+    if (stderr) {
+      throw new Error(stderr);
+    }
+    console.log(stdout);
+  } catch (error: any) {
+    console.error(`Error: ${error.message}`);
+  }
+}
 
 //  async function gitPull(
 //   branchName: string,
@@ -118,6 +119,7 @@ export function getCommits(repoPath: string): Promise<Commit[]> {
 }
 
 export function getCommitsLength(latestTag: string) {
+  console.log(latestTag);
   const amount = execSync(`git log ${latestTag}.. --oneline | wc -l`)
     .toString()
     .trim();
@@ -149,7 +151,7 @@ export async function getLastTag(projectName: string): Promise<string> {
   return new Promise((resolve, reject) => {
     exec("git describe --tags --abbrev=0", (err, data) => {
       if (err) {
-        reject(err);
+        //reject(err);
       }
       if (!data) {
         log({
@@ -157,6 +159,7 @@ export async function getLastTag(projectName: string): Promise<string> {
           message: "Could not find any previous TAG, assuming v0.0.0",
           step: "warning",
         });
+        // reject(false);
       }
       resolve(data.toString().trim());
     });

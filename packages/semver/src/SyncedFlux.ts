@@ -1,3 +1,4 @@
+import { generateAllChangelogs } from "./GenerateChangelog";
 import { generateVersion } from "./GenerateVersion";
 import { getLastTag, gitProcess } from "./GitCommands";
 import { log } from "./Log";
@@ -15,6 +16,7 @@ export async function syncedFlux(config: Config) {
     const nextTag = `${config.tagPrefix}${nextVersion}`;
 
     await updateAllPackagesVersion(config.packages, nextVersion);
+    await generateAllChangelogs(config.packages, config.preset, latestVersion);
 
     await gitProcess(["."], nextTag);
 

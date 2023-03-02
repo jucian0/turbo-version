@@ -17,9 +17,10 @@ export async function generateVersion(
             reject(err);
           }
           const type = recommendation.releaseType ?? "patch";
-          const currentVersion = semver.parse(latestTag.replace(tagPrefix, ""));
+          const currentVersion =
+            semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
-          if (!currentVersion || getCommitsLength(latestTag) === 0) {
+          if (latestTag && getCommitsLength(latestTag) === 0) {
             log({
               step: "nothing_changed",
               message: `There is no change since last release.`,
