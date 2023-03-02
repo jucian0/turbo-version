@@ -56,12 +56,9 @@ export async function generateChangelog(
     flags: "w+",
   });
 
-  outputStream.write(existingChangelog);
+  // outputStream.write(existingChangelog);
 
-  conventionalChangelog(options, context, {
-    path: `${pkgPath}`,
-    merge: null,
-  })
+  conventionalChangelog(options)
     .pipe(outputStream)
     .on("close", () => {
       console.log("Success");
