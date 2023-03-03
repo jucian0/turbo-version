@@ -21,7 +21,9 @@ importers:
       '@types/semver': ^7.3.13
       chalk: 4.1.2
       commander: ^10.0.0
+      compare-func: ^2.0.0
       conventional-changelog: ^3.1.25
+      conventional-changelog-angular: ^5.0.13
       conventional-recommended-bump: ^6.1.0
       eslint: ^7.32.0
       git-repository: ^0.1.4
@@ -33,7 +35,9 @@ importers:
     dependencies:
       chalk: 4.1.2
       commander: 10.0.0
+      compare-func: 2.0.0
       conventional-changelog: 3.1.25
+      conventional-changelog-angular: 5.0.13
       conventional-recommended-bump: 6.1.0
       git-repository: 0.1.4
       git-semver-tags: 4.1.1

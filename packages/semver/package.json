@@ -35,7 +35,9 @@
     "commander": "^10.0.0",
     "git-semver-tags": "^4.1.1",
     "inquirer": "8.2.5",
-    "chalk": "4.1.2"
+    "chalk": "4.1.2",
+    "compare-func": "^2.0.0",
+    "conventional-changelog-angular": "^5.0.13"
   },
   "publishConfig": {
     "access": "public"

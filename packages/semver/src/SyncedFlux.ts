@@ -16,7 +16,7 @@ export async function syncedFlux(config: Config) {
     const nextTag = `${config.tagPrefix}${nextVersion}`;
 
     await updateAllPackagesVersion(config.packages, nextVersion);
-    await generateAllChangelogs(config.packages, config.preset, latestVersion);
+    await generateAllChangelogs(config, nextVersion);
 
     await gitProcess(["."], nextTag);
 
