@@ -4,7 +4,7 @@ import { getCommits } from "./GitCommands";
 import * as fs from "fs";
 
 import { Config } from "./Types";
-import { WriteChangelogConfig } from "../semver.schema";
+import { log } from "./Log";
 
 export async function generateChangelog(
   config: Config,
@@ -13,12 +13,17 @@ export async function generateChangelog(
 ) {
   const context = { version: nextVersion };
 
-  let changelog = "";
+  // fs.writeFileSync(`${pkgPath}/CHANGELOG.md`, `# Changelog \n \n`, "utf-8");
+
+  const outputStream = fs.createWriteStream(`${pkgPath}/CHANGELOG.md`, {
+    flags: "w+",
+  });
 
   conventionalChangelog(
     {
       preset: config.preset,
       tagPrefix: config.tagPrefix,
+      releaseCount: 0,
     },
     context,
     {
@@ -26,42 +31,21 @@ export async function generateChangelog(
       path: pkgPath,
     } as conventionalChangelog.Options
   )
-    .on("error", function (err) {
-      //  reject(err);
+    .pipe(outputStream)
+    .on("close", () => {
+      log({
+        step: "changelog_success",
+        message: `Success changelog generated`,
+        projectName: pkgPath.split("/")[1],
+      });
     })
-
-    .on("data", function (buffer: ArrayBuffer) {
-      changelog += buffer.toString();
-    })
-
-    .on("end", function () {
-      fs.writeFileSync(
-        `${pkgPath}/CHANGELOG.md`,
-        `# Changelog` +
-          "\n" +
-          (changelog + buildExistingContent(`${pkgPath}/CHANGELOG.md`)).replace(
-            /\n+$/,
-            "\n"
-          ),
-        "utf8"
-      );
+    .on("error", (err) => {
+      log({
+        step: "failure",
+        message: `Error generating changelog`,
+        projectName: pkgPath.split("/")[1],
+      });
     });
-}
-
-const START_OF_LAST_RELEASE_PATTERN =
-  /(^#+ \[?[0-9]+\.[0-9]+\.[0-9]+|<a name=)/m;
-
-function buildExistingContent(changelogPath: string) {
-  const existingContent = fs.readFileSync(changelogPath, "utf-8");
-  const existingContentStart = existingContent.search(
-    START_OF_LAST_RELEASE_PATTERN
-  );
-  // find the position of the last release and remove header:
-  if (existingContentStart !== -1) {
-    return existingContent.substring(existingContentStart);
-  }
-
-  return existingContent;
 }
 
 export function generateAllChangelogs(
