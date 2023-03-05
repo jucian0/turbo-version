@@ -1,8 +1,8 @@
-import { promises as fs } from "fs";
+import { promises as fs, accessSync, constants } from "fs";
 
-export async function fileExist(filePath: string): Promise<boolean> {
+export function fileExist(filePath: string) {
   try {
-    await fs.access(filePath, fs.constants.R_OK || fs.constants.W_OK);
+    accessSync(filePath, constants.R_OK || constants.W_OK);
     return true;
   } catch (err) {
     return false;

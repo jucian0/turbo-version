@@ -16,7 +16,7 @@ export async function generateVersion(
           if (err) {
             reject(err);
           }
-          const type = recommendation.releaseType ?? "patch";
+          const type = recommendation?.releaseType ?? "patch";
           const currentVersion =
             semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
@@ -24,7 +24,7 @@ export async function generateVersion(
             log({
               step: "nothing_changed",
               message: `There is no change since last release.`,
-              projectName: "Workspace",
+              pkgName: "Workspace",
             });
             return reject();
           }
@@ -32,7 +32,7 @@ export async function generateVersion(
           log({
             step: "calculate_version_success",
             message: `New Version calculated ${next}`,
-            projectName: "Workspace",
+            pkgName: "Workspace",
           });
           resolve(next.toString());
         }

@@ -1,10 +1,9 @@
 import conventionalChangelog from "conventional-changelog";
-import { cwd } from "process";
-import { getCommits } from "./GitCommands";
 import * as fs from "fs";
 
 import { Config } from "./Types";
 import { log } from "./Log";
+import { extractPgkName, resolvePkgPath } from "./Utils";
 
 export async function generateChangelog(
   config: Config,
@@ -13,39 +12,44 @@ export async function generateChangelog(
 ) {
   const context = { version: nextVersion };
 
-  // fs.writeFileSync(`${pkgPath}/CHANGELOG.md`, `# Changelog \n \n`, "utf-8");
+  return new Promise((resolve, reject) => {
+    const outputStream = fs.createWriteStream(
+      resolvePkgPath(`${pkgPath}/CHANGELOG.md`),
+      {
+        flags: "w+",
+      }
+    );
 
-  const outputStream = fs.createWriteStream(`${pkgPath}/CHANGELOG.md`, {
-    flags: "w+",
+    conventionalChangelog(
+      {
+        preset: config.preset,
+        tagPrefix: config.tagPrefix,
+        releaseCount: 0,
+      },
+      context,
+      {
+        merges: null,
+        path: pkgPath,
+      } as conventionalChangelog.Options
+    )
+      .pipe(outputStream)
+      .on("close", () => {
+        log({
+          step: "changelog_success",
+          message: `Success changelog generated`,
+          pkgName: extractPgkName(pkgPath),
+        });
+        resolve(true);
+      })
+      .on("error", (err) => {
+        log({
+          step: "failure",
+          message: `Error generating changelog`,
+          pkgName: extractPgkName(pkgPath),
+        });
+        reject();
+      });
   });
-
-  conventionalChangelog(
-    {
-      preset: config.preset,
-      tagPrefix: config.tagPrefix,
-      releaseCount: 0,
-    },
-    context,
-    {
-      merges: null,
-      path: pkgPath,
-    } as conventionalChangelog.Options
-  )
-    .pipe(outputStream)
-    .on("close", () => {
-      log({
-        step: "changelog_success",
-        message: `Success changelog generated`,
-        projectName: pkgPath.split("/")[1],
-      });
-    })
-    .on("error", (err) => {
-      log({
-        step: "failure",
-        message: `Error generating changelog`,
-        projectName: pkgPath.split("/")[1],
-      });
-    });
 }
 
 export function generateAllChangelogs(
@@ -58,8 +62,9 @@ export function generateAllChangelogs(
         await generateChangelog(config, pkgPath, nextVersion);
       } catch (err) {
         reject(err);
+      } finally {
+        resolve(true);
       }
-      resolve(true);
     });
   });
 }

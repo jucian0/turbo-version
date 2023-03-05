@@ -19,12 +19,6 @@ export async function syncedFlux(config: Config) {
     await generateAllChangelogs(config, nextVersion);
 
     await gitProcess(["."], nextTag);
-
-    log({
-      step: "tag_success",
-      message: `New Version ${nextTag}`,
-      projectName: "Workspace",
-    });
   } catch (err: any) {
     if (err) {
       throw err;

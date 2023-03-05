@@ -45,5 +45,5 @@ export type LogStep =
 export type LogProps = {
   step: LogStep;
   message: string;
-  projectName: string;
+  pkgName: string;
 };

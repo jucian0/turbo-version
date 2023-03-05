@@ -14,10 +14,8 @@ const iconMap = new Map<LogStep, string>([
   ["push_success", "🚀"],
 ]);
 
-export function log<T>({ step, message, projectName }: LogProps) {
-  const msg = `${chalk.bold(`[${projectName}]`)} ${iconMap.get(
-    step
-  )} ${message}`;
+export function log<T>({ step, message, pkgName }: LogProps) {
+  const msg = `${chalk.bold(`[${pkgName}]`)} ${iconMap.get(step)} ${message}`;
 
   console.log(msg);
 }

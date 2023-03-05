@@ -147,19 +147,15 @@ export function isGitRepository(directory: string): boolean {
   }
 }
 
-export async function getLastTag(projectName: string): Promise<string> {
+export async function getLastTag(pkgName: string): Promise<string> {
   return new Promise((resolve, reject) => {
     exec("git describe --tags --abbrev=0", (err, data) => {
-      if (err) {
-        //reject(err);
-      }
       if (!data) {
         log({
-          projectName,
+          pkgName,
           message: "Could not find any previous TAG, assuming v0.0.0",
           step: "warning",
         });
-        // reject(false);
       }
       resolve(data.toString().trim());
     });
@@ -179,6 +175,11 @@ export async function gitProcess(files: string[], nextTag: string) {
     await createGitTag({
       tag: nextTag,
       message: `New Version ${nextTag} generated at ${new Date().toISOString()}`,
+    });
+    log({
+      step: "tag_success",
+      message: `New Tag version ${nextTag}`,
+      pkgName: "Workspace",
     });
   } catch (err) {
     return err;
