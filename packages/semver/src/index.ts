@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Command } from "commander";
+import { Command, Option } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { byPackageFlux } from "./ByPackageFlux";
@@ -14,17 +14,38 @@ program
   .description("Semver Turborepo")
   .version(packageJson.version);
 
+program.option("-s, --synced");
+
 program
-  .command("version")
+  .addOption(
+    new Option("-b, --bump <version>", "next version").choices([
+      "patch",
+      "minor",
+      "major",
+      "premajor",
+      "preminor",
+      "prepatch",
+      "prerelease",
+    ])
+  )
   .description(
     "Version the application by default, following the semver.config.json specifications"
   )
-  .action(async () => {
+  .action(async (options) => {
     const config = await setup();
+    const isSynced = options.synced ?? config.synced;
 
-    if (config.synced) {
+    if (isSynced) {
+      if (options.bump) {
+        return syncedFlux(config, options.bump);
+      }
       return syncedFlux(config);
     }
+
+    if (options.bump) {
+      return byPackageFlux(config, options.bump);
+    }
+
     return byPackageFlux(config);
   });
 

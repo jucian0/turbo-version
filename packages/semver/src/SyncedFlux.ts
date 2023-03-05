@@ -5,13 +5,14 @@ import { log } from "./Log";
 import { Config } from "./Types";
 import { updateAllPackagesVersion } from "./UpdatePackageVersion";
 
-export async function syncedFlux(config: Config) {
+export async function syncedFlux(config: Config, type?: string) {
   try {
     const latestVersion = await getLastTag("Workspace");
     const nextVersion = await generateVersion(
       latestVersion,
       config.preset,
-      config.tagPrefix
+      config.tagPrefix,
+      type
     );
     const nextTag = `${config.tagPrefix}${nextVersion}`;
 

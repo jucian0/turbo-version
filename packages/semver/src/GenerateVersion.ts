@@ -6,7 +6,8 @@ import { log } from "./Log";
 export async function generateVersion(
   latestTag: string,
   preset: string,
-  tagPrefix: string
+  tagPrefix: string,
+  type?: string
 ): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
@@ -16,7 +17,7 @@ export async function generateVersion(
           if (err) {
             reject(err);
           }
-          const type = recommendation?.releaseType ?? "patch";
+          const recommended = recommendation?.releaseType ?? "patch";
           const currentVersion =
             semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
@@ -28,7 +29,9 @@ export async function generateVersion(
             });
             return reject();
           }
-          const next = semver.inc(currentVersion, type) ?? currentVersion;
+          const next =
+            semver.inc(currentVersion, (type as any) ?? recommended) ??
+            currentVersion;
           log({
             step: "calculate_version_success",
             message: `New Version calculated ${next}`,
