@@ -100,21 +100,25 @@ export async function gitPush(
 //   }
 // }
 
-export function getCommits(repoPath: string): Promise<Commit[]> {
+export function getCommits(pkgPath: string): Promise<Commit[]> {
   return new Promise<Commit[]>((resolve, reject) => {
-    exec('git log --format="%H %s"', { cwd: repoPath }, (err, stdout) => {
-      if (err) {
-        return reject(err);
+    exec(
+      `git log --format="%H %s" ${pkgPath}`,
+      { cwd: cwd() },
+      (err, stdout) => {
+        if (err) {
+          return reject(err);
+        }
+        const commits = stdout
+          .split("\n")
+          .filter(Boolean)
+          .map((commit) => {
+            const [hash, message] = commit.split(" ");
+            return { hash, message };
+          });
+        resolve(commits);
       }
-      const commits = stdout
-        .split("\n")
-        .filter(Boolean)
-        .map((commit) => {
-          const [hash, message] = commit.split(" ");
-          return { hash, message };
-        });
-      resolve(commits);
-    });
+    );
   });
 }
 
@@ -184,4 +188,20 @@ export async function gitProcess(files: string[], nextTag: string) {
   } catch (err) {
     return err;
   }
+}
+
+export async function gitAffectedFiles(): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    const command = `git log --pretty=format: --name-only --diff-filter=A | awk -F/ '{print $2}' | uniq`;
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject(error);
+      } else if (stderr) {
+        reject(error);
+      } else {
+        const affectedData = stdout.trim().split("\n");
+        resolve(affectedData);
+      }
+    });
+  });
 }

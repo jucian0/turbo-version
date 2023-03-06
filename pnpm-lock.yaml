@@ -15,6 +15,7 @@ importers:
   packages/semver:
     specifiers:
       '@types/conventional-changelog': ^3.1.1
+      '@types/conventional-commits-parser': ^3.0.3
       '@types/conventional-recommended-bump': ^6.1.0
       '@types/git-semver-tags': ^4.1.1
       '@types/node': 18.14.0
@@ -24,6 +25,7 @@ importers:
       compare-func: ^2.0.0
       conventional-changelog: ^3.1.25
       conventional-changelog-angular: ^5.0.13
+      conventional-commits-parser: 3.2.4
       conventional-recommended-bump: ^6.1.0
       eslint: ^7.32.0
       git-repository: ^0.1.4
@@ -38,6 +40,7 @@ importers:
       compare-func: 2.0.0
       conventional-changelog: 3.1.25
       conventional-changelog-angular: 5.0.13
+      conventional-commits-parser: 3.2.4
       conventional-recommended-bump: 6.1.0
       git-repository: 0.1.4
       git-semver-tags: 4.1.1
@@ -45,6 +48,7 @@ importers:
       semver: 7.3.8
     devDependencies:
       '@types/conventional-changelog': 3.1.1
+      '@types/conventional-commits-parser': 3.0.3
       '@types/conventional-recommended-bump': 6.1.0
       '@types/git-semver-tags': 4.1.1
       '@types/node': 18.14.0

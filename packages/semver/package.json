@@ -25,7 +25,8 @@
     "@types/conventional-changelog": "^3.1.1",
     "@types/conventional-recommended-bump": "^6.1.0",
     "@types/semver": "^7.3.13",
-    "@types/git-semver-tags": "^4.1.1"
+    "@types/git-semver-tags": "^4.1.1",
+    "@types/conventional-commits-parser": "^3.0.3"
   },
   "dependencies": {
     "conventional-changelog": "^3.1.25",
@@ -37,7 +38,8 @@
     "inquirer": "8.2.5",
     "chalk": "4.1.2",
     "compare-func": "^2.0.0",
-    "conventional-changelog-angular": "^5.0.13"
+    "conventional-changelog-angular": "^5.0.13",
+    "conventional-commits-parser": "3.2.4"
   },
   "publishConfig": {
     "access": "public"
