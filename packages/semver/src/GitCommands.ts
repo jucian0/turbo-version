@@ -4,22 +4,16 @@ import { join } from "path";
 import { cwd } from "process";
 import { promisify } from "util";
 import { log } from "./Log";
-import { Commit, GitCommitOptions, GitTagOptions } from "./Types";
+import { GitCommitOptions, GitTagOptions } from "./Types";
 
-function gitAdd(files: string[]): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const command = `git add ${files.join(" ")}`;
-    exec(command, (error) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve();
-    });
-  });
+const promisifiedExec = promisify(exec);
+
+async function gitAdd(files: string[]) {
+  const command = `git add ${files.join(" ")}`;
+  return promisifiedExec(command);
 }
 
-function gitCommit(options: GitCommitOptions): Promise<string> {
+async function gitCommit(options: GitCommitOptions) {
   const command = ["commit"];
   if (options.amend) {
     command.push("--amend");
@@ -31,56 +25,23 @@ function gitCommit(options: GitCommitOptions): Promise<string> {
     command.push(`--date="${options.date}"`);
   }
   command.push(`-m "${options.message}"`);
-
   command.push("--no-verify");
 
-  return new Promise((resolve, reject) => {
-    exec(`git ${command.join(" ")}`, (error, stdout, stderr) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(stdout.trim());
-      }
-    });
-  });
+  return promisifiedExec(`git ${command.join(" ")}`);
 }
 
-function createGitTag(options: GitTagOptions): Promise<void> {
+async function createGitTag(options: GitTagOptions) {
   const { tag, message = "" } = options;
   const command = `git tag -a -m "${message}" ${tag}`;
 
-  return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      if (stderr) {
-        reject(stderr.trim());
-        return;
-      }
-      resolve();
-    });
-  });
+  return promisifiedExec(command);
 }
-
-const execProcess = promisify(exec);
 
 export async function gitPush(
   branchName: string,
   remoteName: string = "origin"
-): Promise<void> {
-  try {
-    const { stdout, stderr } = await execProcess(
-      `git push ${remoteName} ${branchName}`
-    );
-    if (stderr) {
-      throw new Error(stderr);
-    }
-    console.log(stdout);
-  } catch (error: any) {
-    console.error(`Error: ${error.message}`);
-  }
+) {
+  return promisifiedExec(`git push ${remoteName} ${branchName}`);
 }
 
 //  async function gitPull(
@@ -100,27 +61,22 @@ export async function gitPush(
 //   }
 // }
 
-export function getCommits(pkgPath: string): Promise<Commit[]> {
-  return new Promise<Commit[]>((resolve, reject) => {
-    exec(
-      `git log --format="%H %s" ${pkgPath}`,
-      { cwd: cwd() },
-      (err, stdout) => {
-        if (err) {
-          return reject(err);
-        }
-        const commits = stdout
-          .split("\n")
-          .filter(Boolean)
-          .map((commit) => {
-            const [hash, message] = commit.split(" ");
-            return { hash, message };
-          });
-        resolve(commits);
-      }
-    );
-  });
-}
+// export function getCommits(pkgPath: string): Promise<Commit[]> {
+//   return promisifiedExec(`git log --format="%H %s" ${pkgPath}`, { cwd: cwd() })
+//     .then(({ stdout }) => {
+//       const commits = stdout
+//         .split("\n")
+//         .filter(Boolean)
+//         .map((commit) => {
+//           const [hash, message] = commit.split(" ");
+//           return { hash, message };
+//         });
+//       return commits;
+//     })
+//     .catch((error) => {
+//       throw error;
+//     });
+// }
 
 export function getCommitsLength(latestTag: string) {
   console.log(latestTag);
@@ -151,57 +107,31 @@ export function isGitRepository(directory: string): boolean {
   }
 }
 
-export async function getLastTag(pkgName: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    exec("git describe --tags --abbrev=0", (err, data) => {
-      if (!data) {
-        log({
-          pkgName,
-          message: "Could not find any previous TAG, assuming v0.0.0",
-          step: "warning",
-        });
-      }
-      resolve(data.toString().trim());
-    });
-  });
-}
-
 export async function gitProcess(files: string[], nextTag: string) {
   try {
     if (!isGitRepository(cwd())) {
-      throw Error("Not a git repository (or any parent up to mount point /)");
+      throw new Error(
+        "Not a git repository (or any parent up to mount point /)"
+      );
     }
 
     await gitAdd(files);
     await gitCommit({
       message: `New version generated ${nextTag}`,
     });
+
+    const tagMessage = `New Version ${nextTag} generated at ${new Date().toISOString()}`;
     await createGitTag({
       tag: nextTag,
-      message: `New Version ${nextTag} generated at ${new Date().toISOString()}`,
+      message: tagMessage,
     });
+
     log({
       step: "tag_success",
       message: `New Tag version ${nextTag}`,
       pkgName: "Workspace",
     });
-  } catch (err) {
-    return err;
+  } catch (err: any) {
+    throw new Error(`Failed to create new version: ${err.message}`);
   }
-}
-
-export async function gitAffectedFiles(): Promise<string[]> {
-  return new Promise((resolve, reject) => {
-    const command = `git log --pretty=format: --name-only --diff-filter=A | awk -F/ '{print $2}' | uniq`;
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        reject(error);
-      } else if (stderr) {
-        reject(error);
-      } else {
-        const affectedData = stdout.trim().split("\n");
-        resolve(affectedData);
-      }
-    });
-  });
 }

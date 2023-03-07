@@ -1,30 +1,40 @@
-import conventionalCommitsParser from "conventional-commits-parser";
-import { cwd } from "process";
-import { getCommits, gitAffectedFiles } from "./GitCommands";
+import { readJsonFile } from "./FileSystem";
+import { formatTag, formatTagPrefix } from "./FormatTag";
+import { generateAllChangelogs, generateChangelog } from "./GenerateChangelog";
+import { generateVersion } from "./GenerateVersion";
+import { getLatestTag } from "./GetLatestTag";
+import { gitProcess } from "./GitCommands";
 import { Config } from "./Types";
+import { updatePackageVersion } from "./UpdatePackageVersion";
+import { extractPgkName } from "./Utils";
 
 export async function byPackageFlux(config: Config, type?: string) {
-  const filteredPkgs = await gitAffectedFiles();
+  config.packages.forEach(async (pkg) => {
+    try {
+      // const pkgJson = await readJsonFile(`${pkg}/package.json`);
 
-  const commits = await getCommits(cwd() + "/packages/acme-core");
+      const tagPrefix = formatTagPrefix({
+        tagPrefix: config.tagPrefix,
+        pkgName: extractPgkName(pkg),
+        synced: config.synced,
+      });
 
-  /**
-   * validate if there are any commits in the package folder
-   * if true - generate a recommended version
-   */
+      const latestTag = await getLatestTag(tagPrefix);
+      const nextVersion = await generateVersion(
+        latestTag,
+        config.preset,
+        tagPrefix,
+        undefined,
+        pkg
+      );
 
-  /**
-   * validate if there are commits in the root of the monorepo
-   * if true -> generate the recommended bump, and validate if the recommended bum is bigger than packages recommendation
-   * if true -> apply for the root recommendations for all packages that has a small bump recommendation
-   */
+      const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
-  /**
-   * validate if a update action affects other packages by internal dependencies
-   * if true -> validate if the affected packages are already going to be updated too by its internal commits
-   * if true -> just apply the recommended update
-   * if false - > apply a patch update.
-   */
-
-  console.log(commits, `<<<<<<<<<<<<<<<<<`);
+      await updatePackageVersion(pkg, nextVersion);
+      await generateChangelog(config, pkg, nextVersion);
+      await gitProcess([pkg], nextTag);
+    } catch (err) {
+      console.log(err);
+    }
+  });
 }

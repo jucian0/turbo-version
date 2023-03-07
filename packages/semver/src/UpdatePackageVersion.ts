@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import { cwd } from "process";
 import { fileExist } from "./FileSystem";
 import { log } from "./Log";
 import { extractPgkName, resolvePkgPath } from "./Utils";
