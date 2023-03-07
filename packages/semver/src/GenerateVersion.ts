@@ -29,7 +29,7 @@ export async function generateVersion(
               message: `There is no change since last release.`,
               pkgName: extractPgkName(pkgPath ?? "Workspace"),
             });
-            return reject();
+            reject();
           }
           const next =
             semver.inc(currentVersion, type ?? recommended) ?? currentVersion;

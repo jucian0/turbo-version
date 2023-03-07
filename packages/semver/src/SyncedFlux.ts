@@ -1,13 +1,14 @@
 import { generateAllChangelogs } from "./GenerateChangelog";
 import { generateVersion } from "./GenerateVersion";
-import { getLastTag, gitProcess } from "./GitCommands";
+import { getLatestTag } from "./GetLatestTag";
+import { gitProcess } from "./GitCommands";
 import { log } from "./Log";
 import { Config } from "./Types";
 import { updateAllPackagesVersion } from "./UpdatePackageVersion";
 
 export async function syncedFlux(config: Config, type?: string) {
   try {
-    const latestVersion = await getLastTag("Workspace");
+    const latestVersion = await getLatestTag("v");
     const nextVersion = await generateVersion(
       latestVersion,
       config.preset,

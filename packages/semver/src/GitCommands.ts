@@ -79,7 +79,6 @@ export async function gitPush(
 // }
 
 export function getCommitsLength(latestTag: string) {
-  console.log(latestTag);
   const amount = execSync(`git log ${latestTag}.. --oneline | wc -l`)
     .toString()
     .trim();

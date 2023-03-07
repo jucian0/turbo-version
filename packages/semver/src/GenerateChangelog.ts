@@ -60,7 +60,6 @@ export function generateAllChangelogs(
   return new Promise((resolve, reject) => {
     config.packages.forEach(async (pkgPath) => {
       try {
-        console.log("change here");
         await generateChangelog("", "", pkgPath, nextVersion);
       } catch (err) {
         reject(err);
