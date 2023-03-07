@@ -6,7 +6,8 @@ import { log } from "./Log";
 import { extractPgkName, resolvePkgPath } from "./Utils";
 
 export async function generateChangelog(
-  config: Config,
+  tagPrefix: string,
+  preset: string,
   pkgPath: string,
   nextVersion: string
 ) {
@@ -22,8 +23,8 @@ export async function generateChangelog(
 
     conventionalChangelog(
       {
-        preset: config.preset,
-        tagPrefix: config.tagPrefix,
+        preset,
+        tagPrefix,
         releaseCount: 0,
       },
       context,
@@ -59,7 +60,8 @@ export function generateAllChangelogs(
   return new Promise((resolve, reject) => {
     config.packages.forEach(async (pkgPath) => {
       try {
-        await generateChangelog(config, pkgPath, nextVersion);
+        console.log("change here");
+        await generateChangelog("", "", pkgPath, nextVersion);
       } catch (err) {
         reject(err);
       } finally {

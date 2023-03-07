@@ -31,8 +31,8 @@ export async function byPackageFlux(config: Config, type?: string) {
       const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
       await updatePackageVersion(pkg, nextVersion);
-      await generateChangelog(config, pkg, nextVersion);
-      await gitProcess([pkg], nextTag);
+      await generateChangelog(tagPrefix, config.preset, pkg, nextVersion);
+      await gitProcess([pkg], nextTag, extractPgkName(pkg));
     } catch (err) {
       console.log(err);
     }

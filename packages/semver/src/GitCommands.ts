@@ -107,7 +107,11 @@ export function isGitRepository(directory: string): boolean {
   }
 }
 
-export async function gitProcess(files: string[], nextTag: string) {
+export async function gitProcess(
+  files: string[],
+  nextTag: string,
+  pkgName?: string
+) {
   try {
     if (!isGitRepository(cwd())) {
       throw new Error(
@@ -129,7 +133,7 @@ export async function gitProcess(files: string[], nextTag: string) {
     log({
       step: "tag_success",
       message: `New Tag version ${nextTag}`,
-      pkgName: "Workspace",
+      pkgName: pkgName ?? "Workspace",
     });
   } catch (err: any) {
     throw new Error(`Failed to create new version: ${err.message}`);
