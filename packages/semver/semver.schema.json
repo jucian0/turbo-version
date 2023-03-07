@@ -30,7 +30,7 @@
             "type": "boolean",
             "description": "Whether or not the local Git repository is synced with the remote repository"
         },
-        "workspace": {
+        "packages": {
             "type": "array",
             "items": {
                 "type": "string"
