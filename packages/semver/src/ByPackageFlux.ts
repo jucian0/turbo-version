@@ -8,8 +8,8 @@ import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function byPackageFlux(config: Config, type?: string) {
+  const { preset } = config;
   for (const pkg of config.packages) {
-    const { preset } = config;
     const pkgJson = await readJsonFile(`${pkg}/package.json`);
     const pkgName = pkgJson.name;
     try {
