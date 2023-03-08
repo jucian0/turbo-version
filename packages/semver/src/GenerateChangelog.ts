@@ -5,13 +5,21 @@ import { Config } from "./Types";
 import { log } from "./Log";
 import { resolvePkgPath } from "./Utils";
 
-export async function generateChangelog(
-  tagPrefix: string,
-  preset: string,
-  pkgPath: string,
-  nextVersion: string,
-  pkgName: string
-) {
+type ChangeLog = {
+  tagPrefix: string;
+  preset: string;
+  pkgPath: string;
+  nextVersion: string;
+  pkgName: string;
+};
+
+export async function generateChangelog({
+  tagPrefix,
+  preset,
+  pkgPath,
+  nextVersion,
+  pkgName,
+}: ChangeLog) {
   const context = { version: nextVersion };
 
   return new Promise((resolve, reject) => {
@@ -58,19 +66,19 @@ export async function generateChangelog(
   });
 }
 
-export function generateAllChangelogs(
-  config: Config,
-  nextVersion: string
-): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    config.packages.forEach(async (pkgPath) => {
-      try {
-        await generateChangelog("", "", pkgPath, nextVersion, "");
-      } catch (err) {
-        reject(err);
-      } finally {
-        resolve(true);
-      }
-    });
-  });
-}
+// export function generateAllChangelogs(
+//   config: Config,
+//   nextVersion: string
+// ): Promise<boolean> {
+//   return new Promise((resolve, reject) => {
+//     config.packages.forEach(async (pkgPath) => {
+//       try {
+//         await generateChangelog("", "", pkgPath, nextVersion, "", "", "");
+//       } catch (err) {
+//         reject(err);
+//       } finally {
+//         resolve(true);
+//       }
+//     });
+//   });
+// }

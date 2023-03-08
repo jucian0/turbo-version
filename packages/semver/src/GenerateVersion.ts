@@ -7,14 +7,23 @@ import { cwd } from "process";
 
 const recommendedBumpAsync = promisify(conventionalRecommendedBump);
 
-export async function generateVersion(
-  latestTag: string,
-  preset: string,
-  tagPrefix: string,
-  type?: semver.ReleaseType,
-  pkgPath?: string,
-  pkgName?: string
-): Promise<string> {
+type Version = {
+  latestTag: string;
+  preset: string;
+  tagPrefix: string;
+  type?: semver.ReleaseType;
+  pkgPath?: string;
+  pkgName?: string;
+};
+
+export async function generateVersion({
+  latestTag,
+  preset,
+  tagPrefix,
+  type,
+  pkgPath,
+  pkgName,
+}: Version) {
   try {
     const recommendation: any = await recommendedBumpAsync(
       Object.assign(
@@ -30,8 +39,6 @@ export async function generateVersion(
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
     const amountCommits = getCommitsLength(latestTag, pkgPath ?? cwd());
-
-    console.log(amountCommits);
 
     if (latestTag && amountCommits === 0) {
       throw new Error("There is no change since the last release.");

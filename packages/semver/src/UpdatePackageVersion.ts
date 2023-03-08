@@ -3,10 +3,11 @@ import { fileExist } from "./FileSystem";
 import { log } from "./Log";
 import { extractPgkName, resolvePkgPath } from "./Utils";
 
-export function updatePackageVersion(
-  pkgPath: string,
-  version: string
-): Promise<void> {
+type PackageVersion = {
+  pkgPath: string;
+  version: string;
+};
+export function updatePackageVersion({ pkgPath, version }: PackageVersion) {
   const packageJsonPath = resolvePkgPath(`${pkgPath}/package.json`);
   return new Promise<void>((resolve, reject) => {
     if (!fileExist(packageJsonPath)) {
@@ -48,18 +49,18 @@ export function updatePackageVersion(
   });
 }
 
-export function updateAllPackagesVersion(
-  packages: string[],
-  nextVersion: string
-): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    packages.forEach(async (pkgPath) => {
-      try {
-        await updatePackageVersion(pkgPath, nextVersion);
-        resolve(true);
-      } catch (err) {
-        reject(err);
-      }
-    });
-  });
-}
+// export function updateAllPackagesVersion(
+//   packages: string[],
+//   nextVersion: string
+// ): Promise<boolean> {
+//   return new Promise((resolve, reject) => {
+//     packages.forEach(async (pkgPath) => {
+//       try {
+//         await updatePackageVersion(pkgPath, nextVersion, "", "", "", "");
+//         resolve(true);
+//       } catch (err) {
+//         reject(err);
+//       }
+//     });
+//   });
+// }

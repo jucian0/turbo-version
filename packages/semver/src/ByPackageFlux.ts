@@ -9,6 +9,7 @@ import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function byPackageFlux(config: Config, type?: string) {
   for (const pkg of config.packages) {
+    const { preset } = config;
     const pkgJson = await readJsonFile(`${pkg}/package.json`);
     const pkgName = pkgJson.name;
     try {
@@ -19,27 +20,27 @@ export async function byPackageFlux(config: Config, type?: string) {
       });
 
       const latestTag = await getLatestTag(tagPrefix);
-      const nextVersion = await generateVersion(
+      const nextVersion = await generateVersion({
         latestTag,
-        config.preset,
+        preset,
         tagPrefix,
-        undefined,
-        pkg,
-        pkgName
-      );
+        type: undefined,
+        pkgPath: pkg,
+        pkgName,
+      });
 
       const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
-      await updatePackageVersion(pkg, nextVersion);
-      await generateChangelog(
+      await updatePackageVersion({ pkgPath: pkg, version: nextVersion });
+      await generateChangelog({
         tagPrefix,
-        config.preset,
-        pkg,
+        preset,
+        pkgPath: pkg,
         nextVersion,
-        pkgName
-      );
+        pkgName,
+      });
 
-      await gitProcess([pkg], nextTag, pkgName);
+      await gitProcess({ files: [pkg], nextTag, pkgName });
     } catch (err: any) {}
   }
 }

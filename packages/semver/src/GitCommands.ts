@@ -4,17 +4,40 @@ import { join } from "path";
 import { cwd } from "process";
 import { promisify } from "util";
 import { log } from "./Log";
-import { GitCommitOptions, GitTagOptions } from "./Types";
+
+type GitTagOptions = {
+  tag: string;
+  message?: string;
+  annotated?: boolean;
+};
+
+type GitCommit = {
+  message: string;
+  amend?: boolean;
+  author?: string;
+  date?: string;
+};
+
+type GitProcess = {
+  files: string[];
+  nextTag: string;
+  pkgName?: string;
+};
+
+type GitPush = {
+  branch: string;
+  remote: string;
+};
 
 const promisifiedExec = promisify(exec);
 
 async function gitAdd(files: string[]) {
   const command = `git add ${files.join(" ")}`;
 
-  return promisifiedExec(command).then(() => console.log(">>>>>>>>>>>>>>>>1"));
+  return promisifiedExec(command);
 }
 
-async function gitCommit(options: GitCommitOptions) {
+async function gitCommit(options: GitCommit) {
   const command = ["commit"];
   if (options.amend) {
     command.push("--amend");
@@ -28,62 +51,21 @@ async function gitCommit(options: GitCommitOptions) {
   command.push(`-m "chore: ${options.message}"`);
   command.push("--no-verify");
 
-  return promisifiedExec(`git ${command.join(" ")}`).then(() =>
-    console.log(">>>>>>>>>>>>>>>>2")
-  );
+  return promisifiedExec(`git ${command.join(" ")}`);
 }
 
 async function createGitTag(options: GitTagOptions) {
   const { tag, message = "" } = options;
   const command = `git tag -a -m "${message}" ${tag}`;
 
-  return promisifiedExec(command).then(() => console.log(">>>>>>>>>>>>>>>>3"));
+  return promisifiedExec(command);
 }
 
-export async function gitPush(
-  branchName: string,
-  remoteName: string = "origin"
-) {
-  return promisifiedExec(`git push ${remoteName} ${branchName}`);
+export async function gitPush({ remote, branch }: GitPush) {
+  return promisifiedExec(`git push ${remote} ${branch}`);
 }
-
-//  async function gitPull(
-//   branchName: string,
-//   remoteName: string = "origin"
-// ): Promise<void> {
-//   try {
-//     const { stdout, stderr } = await execProcess(
-//       `git pull ${remoteName} ${branchName}`
-//     );
-//     if (stderr) {
-//       throw new Error(stderr);
-//     }
-//     console.log(stdout);
-//   } catch (error: any) {
-//     console.error(`Error: ${error.message}`);
-//   }
-// }
-
-// export function getCommits(pkgPath: string): Promise<Commit[]> {
-//   return promisifiedExec(`git log --format="%H %s" ${pkgPath}`, { cwd: cwd() })
-//     .then(({ stdout }) => {
-//       const commits = stdout
-//         .split("\n")
-//         .filter(Boolean)
-//         .map((commit) => {
-//           const [hash, message] = commit.split(" ");
-//           return { hash, message };
-//         });
-//       return commits;
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-// }
 
 export function getCommitsLength(latestTag: string, pkgRoot: string) {
-  //exec(`git log --pretty=format:%h,%an,%ae,%s --abbrev-commit --no-merges ${latestTag}..HEAD -- ${pkgRoot}`, (err, stdout, stderr) => {
-
   const amount = execSync(
     `git log --pretty=format:%h,%an,%ae,%s --abbrev-commit --no-merges ${latestTag}..HEAD -- ${pkgRoot} --oneline | wc -l`
   )
@@ -93,7 +75,7 @@ export function getCommitsLength(latestTag: string, pkgRoot: string) {
   return Number(amount);
 }
 
-export function isGitRepository(directory: string): boolean {
+export function isGitRepository(directory: string) {
   const gitDir = join(directory, ".git");
 
   if (!existsSync(gitDir)) {
@@ -113,11 +95,7 @@ export function isGitRepository(directory: string): boolean {
   }
 }
 
-export async function gitProcess(
-  files: string[],
-  nextTag: string,
-  pkgName?: string
-) {
+export async function gitProcess({ files, nextTag, pkgName }: GitProcess) {
   try {
     if (!isGitRepository(cwd())) {
       throw new Error(
