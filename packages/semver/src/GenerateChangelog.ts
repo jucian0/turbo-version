@@ -3,13 +3,14 @@ import * as fs from "fs";
 
 import { Config } from "./Types";
 import { log } from "./Log";
-import { extractPgkName, resolvePkgPath } from "./Utils";
+import { resolvePkgPath } from "./Utils";
 
 export async function generateChangelog(
   tagPrefix: string,
   preset: string,
   pkgPath: string,
-  nextVersion: string
+  nextVersion: string,
+  pkgName: string
 ) {
   const context = { version: nextVersion };
 
@@ -26,6 +27,10 @@ export async function generateChangelog(
         preset,
         tagPrefix,
         releaseCount: 0,
+        lernaPackage: pkgName,
+        pkg: {
+          path: pkgPath,
+        },
       },
       context,
       {
@@ -38,7 +43,7 @@ export async function generateChangelog(
         log({
           step: "changelog_success",
           message: `Success changelog generated`,
-          pkgName: extractPgkName(pkgPath),
+          pkgName: pkgName,
         });
         resolve(true);
       })
@@ -46,7 +51,7 @@ export async function generateChangelog(
         log({
           step: "failure",
           message: `Error generating changelog`,
-          pkgName: extractPgkName(pkgPath),
+          pkgName: pkgName,
         });
         reject();
       });
@@ -60,7 +65,7 @@ export function generateAllChangelogs(
   return new Promise((resolve, reject) => {
     config.packages.forEach(async (pkgPath) => {
       try {
-        await generateChangelog("", "", pkgPath, nextVersion);
+        await generateChangelog("", "", pkgPath, nextVersion, "");
       } catch (err) {
         reject(err);
       } finally {

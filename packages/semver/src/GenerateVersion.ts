@@ -3,6 +3,7 @@ import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
 import { getCommitsLength } from "./GitCommands";
 import { log } from "./Log";
+import { rejects } from "assert";
 
 const recommendedBumpAsync = promisify(conventionalRecommendedBump);
 
@@ -28,6 +29,8 @@ export async function generateVersion(
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
+    console.log(getCommitsLength(latestTag), latestTag);
+
     if (latestTag && getCommitsLength(latestTag) === 0) {
       log({
         step: "nothing_changed",
@@ -37,14 +40,16 @@ export async function generateVersion(
       throw new Error("There is no change since the last release.");
     }
 
-    const next =
-      semver.inc(currentVersion, type ?? recommended) ?? currentVersion;
+    const next = semver.inc(currentVersion, type ?? recommended);
 
     log({
       step: "calculate_version_success",
       message: `New version calculated: ${next}`,
       pkgName: pkgName ?? "Workspace",
     });
+    if (!next) {
+      throw new Error("There is no change since the last release.");
+    }
     return next.toString();
   } catch (error: any) {
     log({

@@ -8,7 +8,6 @@ import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function byPackageFlux(config: Config, type?: string) {
-  const promises = [];
   for (const pkg of config.packages) {
     const pkgJson = await readJsonFile(`${pkg}/package.json`);
     const pkgName = pkgJson.name;
@@ -31,15 +30,18 @@ export async function byPackageFlux(config: Config, type?: string) {
 
       const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
-      promises.push(updatePackageVersion(pkg, nextVersion));
-      promises.push(
-        generateChangelog(tagPrefix, config.preset, pkg, nextVersion)
+      await updatePackageVersion(pkg, nextVersion);
+      await generateChangelog(
+        tagPrefix,
+        config.preset,
+        pkg,
+        nextVersion,
+        pkgName
       );
-      promises.push(gitProcess([pkg], nextTag, pkgName));
+
+      await gitProcess([pkg], nextTag, pkgName);
     } catch (err: any) {
       console.log(err);
     }
   }
-
-  await Promise.all(promises);
 }

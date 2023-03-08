@@ -25,7 +25,7 @@ async function gitCommit(options: GitCommitOptions) {
   if (options.date) {
     command.push(`--date="${options.date}"`);
   }
-  command.push(`-m "${options.message}"`);
+  command.push(`-m "chore: ${options.message}"`);
   command.push("--no-verify");
 
   return promisifiedExec(`git ${command.join(" ")}`);
