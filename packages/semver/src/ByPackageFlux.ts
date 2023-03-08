@@ -1,21 +1,21 @@
 import { readJsonFile } from "./FileSystem";
 import { formatTag, formatTagPrefix } from "./FormatTag";
-import { generateAllChangelogs, generateChangelog } from "./GenerateChangelog";
+import { generateChangelog } from "./GenerateChangelog";
 import { generateVersion } from "./GenerateVersion";
 import { getLatestTag } from "./GetLatestTag";
 import { gitProcess } from "./GitCommands";
 import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
-import { extractPgkName } from "./Utils";
 
 export async function byPackageFlux(config: Config, type?: string) {
-  config.packages.forEach(async (pkg) => {
+  const promises = [];
+  for (const pkg of config.packages) {
+    const pkgJson = await readJsonFile(`${pkg}/package.json`);
+    const pkgName = pkgJson.name;
     try {
-      // const pkgJson = await readJsonFile(`${pkg}/package.json`);
-
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
-        pkgName: extractPgkName(pkg),
+        pkgName: pkgName,
         synced: config.synced,
       });
 
@@ -25,16 +25,21 @@ export async function byPackageFlux(config: Config, type?: string) {
         config.preset,
         tagPrefix,
         undefined,
-        pkg
+        pkg,
+        pkgName
       );
 
       const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
-      await updatePackageVersion(pkg, nextVersion);
-      await generateChangelog(tagPrefix, config.preset, pkg, nextVersion);
-      await gitProcess([pkg], nextTag, extractPgkName(pkg));
-    } catch (err) {
+      promises.push(updatePackageVersion(pkg, nextVersion));
+      promises.push(
+        generateChangelog(tagPrefix, config.preset, pkg, nextVersion)
+      );
+      promises.push(gitProcess([pkg], nextTag, pkgName));
+    } catch (err: any) {
       console.log(err);
     }
-  });
+  }
+
+  await Promise.all(promises);
 }

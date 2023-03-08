@@ -12,6 +12,7 @@ const iconMap = new Map<LogStep, string>([
   ["post_target_success", "🎉"],
   ["tag_success", "🔖"],
   ["push_success", "🚀"],
+  ["calculate_version_failure", "❌"],
 ]);
 
 export function log<T>({ step, message, pkgName }: LogProps) {

@@ -16,12 +16,12 @@ export function updatePackageVersion(
           "Could not find the package.json file, make sure your `semver.config.json` is right configured!",
         pkgName: extractPgkName(pkgPath),
       });
-      return reject();
+      reject();
     }
 
     fs.readFile(packageJsonPath, "utf8", (err, data) => {
       if (err) {
-        return reject(err);
+        reject(err);
       }
 
       const packageJson = JSON.parse(data);

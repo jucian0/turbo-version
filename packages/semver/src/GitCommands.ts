@@ -10,6 +10,7 @@ const promisifiedExec = promisify(exec);
 
 async function gitAdd(files: string[]) {
   const command = `git add ${files.join(" ")}`;
+
   return promisifiedExec(command);
 }
 

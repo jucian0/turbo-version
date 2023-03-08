@@ -40,7 +40,8 @@ export type LogStep =
   | "tag_success"
   | "post_target_success"
   | "push_success"
-  | "commit_success";
+  | "commit_success"
+  | "calculate_version_failure";
 
 export type LogProps = {
   step: LogStep;
