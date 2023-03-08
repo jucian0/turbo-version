@@ -35,10 +35,10 @@ export async function generateChangelog({
         preset,
         tagPrefix,
         releaseCount: 0,
-        lernaPackage: pkgName,
-        pkg: {
-          path: pkgPath,
-        },
+        //lernaPackage: pkgName,
+        // pkg: {
+        //   path: pkgPath,
+        // },
       },
       context,
       {

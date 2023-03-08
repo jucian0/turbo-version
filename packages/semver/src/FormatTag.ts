@@ -2,7 +2,7 @@ import { createTemplateString } from "./TemplateString";
 
 type TagFormat = {
   tagPrefix?: string;
-  pkgName: string;
+  pkgName?: string;
   synced: boolean;
 };
 
