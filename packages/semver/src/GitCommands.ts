@@ -11,7 +11,7 @@ const promisifiedExec = promisify(exec);
 async function gitAdd(files: string[]) {
   const command = `git add ${files.join(" ")}`;
 
-  return promisifiedExec(command);
+  return promisifiedExec(command).then(() => console.log(">>>>>>>>>>>>>>>>1"));
 }
 
 async function gitCommit(options: GitCommitOptions) {
@@ -28,14 +28,16 @@ async function gitCommit(options: GitCommitOptions) {
   command.push(`-m "chore: ${options.message}"`);
   command.push("--no-verify");
 
-  return promisifiedExec(`git ${command.join(" ")}`);
+  return promisifiedExec(`git ${command.join(" ")}`).then(() =>
+    console.log(">>>>>>>>>>>>>>>>2")
+  );
 }
 
 async function createGitTag(options: GitTagOptions) {
   const { tag, message = "" } = options;
   const command = `git tag -a -m "${message}" ${tag}`;
 
-  return promisifiedExec(command);
+  return promisifiedExec(command).then(() => console.log(">>>>>>>>>>>>>>>>3"));
 }
 
 export async function gitPush(
@@ -79,8 +81,12 @@ export async function gitPush(
 //     });
 // }
 
-export function getCommitsLength(latestTag: string) {
-  const amount = execSync(`git log ${latestTag}.. --oneline | wc -l`)
+export function getCommitsLength(latestTag: string, pkgRoot: string) {
+  //exec(`git log --pretty=format:%h,%an,%ae,%s --abbrev-commit --no-merges ${latestTag}..HEAD -- ${pkgRoot}`, (err, stdout, stderr) => {
+
+  const amount = execSync(
+    `git log --pretty=format:%h,%an,%ae,%s --abbrev-commit --no-merges ${latestTag}..HEAD -- ${pkgRoot} --oneline | wc -l`
+  )
     .toString()
     .trim();
 

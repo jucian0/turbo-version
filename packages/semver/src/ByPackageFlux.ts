@@ -40,8 +40,6 @@ export async function byPackageFlux(config: Config, type?: string) {
       );
 
       await gitProcess([pkg], nextTag, pkgName);
-    } catch (err: any) {
-      console.log(err);
-    }
+    } catch (err: any) {}
   }
 }

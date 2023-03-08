@@ -3,7 +3,7 @@ import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
 import { getCommitsLength } from "./GitCommands";
 import { log } from "./Log";
-import { rejects } from "assert";
+import { cwd } from "process";
 
 const recommendedBumpAsync = promisify(conventionalRecommendedBump);
 
@@ -29,14 +29,11 @@ export async function generateVersion(
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
-    console.log(getCommitsLength(latestTag), latestTag);
+    const amountCommits = getCommitsLength(latestTag, pkgPath ?? cwd());
 
-    if (latestTag && getCommitsLength(latestTag) === 0) {
-      log({
-        step: "nothing_changed",
-        message: `There is no change since the last release.`,
-        pkgName: pkgName ?? "Workspace",
-      });
+    console.log(amountCommits);
+
+    if (latestTag && amountCommits === 0) {
       throw new Error("There is no change since the last release.");
     }
 

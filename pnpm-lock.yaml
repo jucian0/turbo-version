@@ -28,6 +28,7 @@ importers:
       conventional-commits-parser: 3.2.4
       conventional-recommended-bump: ^6.1.0
       eslint: ^7.32.0
+      git-raw-commits: 2.0.11
       git-repository: ^0.1.4
       git-semver-tags: ^4.1.1
       inquirer: 8.2.5
@@ -42,6 +43,7 @@ importers:
       conventional-changelog-angular: 5.0.13
       conventional-commits-parser: 3.2.4
       conventional-recommended-bump: 6.1.0
+      git-raw-commits: 2.0.11
       git-repository: 0.1.4
       git-semver-tags: 4.1.1
       inquirer: 8.2.5
