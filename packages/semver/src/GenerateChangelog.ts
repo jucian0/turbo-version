@@ -65,20 +65,3 @@ export async function generateChangelog({
       });
   });
 }
-
-// export function generateAllChangelogs(
-//   config: Config,
-//   nextVersion: string
-// ): Promise<boolean> {
-//   return new Promise((resolve, reject) => {
-//     config.packages.forEach(async (pkgPath) => {
-//       try {
-//         await generateChangelog("", "", pkgPath, nextVersion, "", "", "");
-//       } catch (err) {
-//         reject(err);
-//       } finally {
-//         resolve(true);
-//       }
-//     });
-//   });
-// }

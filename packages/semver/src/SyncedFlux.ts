@@ -1,4 +1,3 @@
-//import { generateAllChangelogs } from "./GenerateChangelog";
 import { cwd } from "process";
 import { readJsonFile } from "./FileSystem";
 import { formatTag, formatTagPrefix } from "./FormatTag";
@@ -6,10 +5,8 @@ import { generateChangelog } from "./GenerateChangelog";
 import { generateVersion } from "./GenerateVersion";
 import { getLatestTag } from "./GetLatestTag";
 import { gitProcess } from "./GitCommands";
-import { log } from "./Log";
 import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
-//import { updateAllPackagesVersion } from "./UpdatePackageVersion";
 
 export async function syncedFlux(config: Config, type?: string) {
   try {

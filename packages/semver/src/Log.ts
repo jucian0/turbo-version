@@ -10,8 +10,7 @@ export type LogStep =
   | "tag_success"
   | "post_target_success"
   | "push_success"
-  | "commit_success"
-  | "calculate_version_failure";
+  | "commit_success";
 
 export type LogProps = {
   step: LogStep;
@@ -19,7 +18,7 @@ export type LogProps = {
   pkgName: string;
 };
 
-const iconMap = new Map<LogStep, string>([
+const iconMap: Map<LogStep, string> = new Map([
   ["failure", "❌"],
   ["warning", "🟠"],
   ["nothing_changed", "🟢"],
@@ -30,11 +29,12 @@ const iconMap = new Map<LogStep, string>([
   ["post_target_success", "🎉"],
   ["tag_success", "🔖"],
   ["push_success", "🚀"],
-  ["calculate_version_failure", "❌"],
 ]);
 
-export function log<T>({ step, message, pkgName }: LogProps) {
-  const msg = `${chalk.bold(`[${pkgName}]`)} ${iconMap.get(step)} ${message}`;
+export function log({ step, message, pkgName }: LogProps) {
+  const icon = iconMap.get(step)?.toString() ?? "";
+  const boldPkgName = chalk.bold(`[${pkgName}]`);
+  const msg = `${boldPkgName} ${icon} ${message}`;
 
   console.log(msg);
 }
