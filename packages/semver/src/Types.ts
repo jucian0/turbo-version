@@ -11,3 +11,10 @@ export type Config = {
     | "no-internal-update";
   strategy: "first-release" | "next-release" | "last-release";
 };
+
+export type PkgJson = {
+  name: string;
+  version: string;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+};

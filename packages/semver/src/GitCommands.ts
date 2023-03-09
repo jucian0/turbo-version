@@ -75,6 +75,19 @@ export function getCommitsLength(latestTag: string, pkgRoot: string) {
   return Number(amount);
 }
 
+export function getFoldersWithCommits() {
+  const gitCommand =
+    'git log --pretty=format: --name-only | grep "/" | sort -u';
+
+  try {
+    const result = execSync(gitCommand);
+    const folders = result.toString().trim().split("\n");
+    return folders;
+  } catch (error) {
+    return [];
+  }
+}
+
 export function isGitRepository(directory: string) {
   const gitDir = join(directory, ".git");
 

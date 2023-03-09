@@ -13,8 +13,8 @@ export async function readFile(filePath: string): Promise<string> {
   return fs.readFile(filePath, { encoding: "utf-8" });
 }
 
-export async function readJsonFile(filePath: string) {
-  return readFile(filePath).then((data) => JSON.parse(data));
+export async function readJsonFile<T>(filePath: string) {
+  return readFile(filePath).then((data) => JSON.parse(data) as T);
 }
 
 export async function writeFile(

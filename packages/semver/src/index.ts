@@ -4,6 +4,8 @@ import { Command, Option } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { asyncFlux } from "./AsyncFlux";
+import { getFoldersWithCommits } from "./GitCommands";
+import { filterPackages } from "./ResolveInternalDependencies";
 import { setup } from "./Setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
@@ -34,7 +36,6 @@ program
   )
   .action(async (options) => {
     const config = await setup();
-    console.log(options);
     if (config.synced) {
       if (options.bump) {
         return syncedFlux(config, options.bump);
@@ -49,7 +50,11 @@ program
       return asyncFlux(config, options.bump);
     }
 
-    return asyncFlux(config);
+    const folders = getFoldersWithCommits();
+    const result = filterPackages(config.packages, folders);
+
+    console.log(result);
+    // return asyncFlux(config); return this code back
   });
 
 program.parse();

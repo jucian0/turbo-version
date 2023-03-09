@@ -4,14 +4,14 @@ import { generateChangelog } from "./GenerateChangelog";
 import { generateVersion } from "./GenerateVersion";
 import { getLatestTag } from "./GetLatestTag";
 import { gitProcess } from "./GitCommands";
-import { Config } from "./Types";
+import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset } = config;
 
   for (const pkg of config.packages) {
-    const pkgJson = await readJsonFile(`${pkg}/package.json`);
+    const pkgJson = await readJsonFile<PkgJson>(`${pkg}/package.json`);
     const pkgName = pkgJson.name;
     try {
       const tagPrefix = formatTagPrefix({
