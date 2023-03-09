@@ -5,6 +5,7 @@ import { Command, Option } from "commander";
 import packageJson from "../package.json";
 import { asyncFlux } from "./AsyncFlux";
 import { setup } from "./Setup";
+import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
 
 const program = new Command();
@@ -14,7 +15,7 @@ program
   .description("Semver Turborepo")
   .version(packageJson.version);
 
-program.option("-s, --synced");
+program.option("-t, --target <project>", "project you want to bump version");
 
 program
   .addOption(
@@ -33,9 +34,8 @@ program
   )
   .action(async (options) => {
     const config = await setup();
-    const isSynced = options.synced ?? config.synced;
-
-    if (isSynced) {
+    console.log(options);
+    if (config.synced) {
       if (options.bump) {
         return syncedFlux(config, options.bump);
       }
@@ -43,6 +43,9 @@ program
     }
 
     if (options.bump) {
+      if (options.target) {
+        return singleFlux(config, options);
+      }
       return asyncFlux(config, options.bump);
     }
 
@@ -50,3 +53,16 @@ program
   });
 
 program.parse();
+
+/**
+ * Async mode
+ * pnpm semver -b minor -t ui -> bump a specific package version, defined by args -b, and -t.
+ * pnpm semver -b minor -> bump all packages versions, defined by arg -b.
+ * pnpm semver -> bump all packages versions affected by commits since last release.
+ */
+
+/**
+ * Synced mode
+ * pnpm semver -> bump all packages versions for all packages in synced mode.
+ * pnpm semver -> bump all packages versions affected by commits since last release.
+ */
