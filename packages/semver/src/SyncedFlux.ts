@@ -8,7 +8,7 @@ import { gitProcess } from "./GitCommands";
 import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
-export async function syncedFlux(config: Config, type?: string) {
+export async function syncedFlux(config: Config, type?: any) {
   try {
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
@@ -21,7 +21,7 @@ export async function syncedFlux(config: Config, type?: string) {
       latestTag,
       preset,
       tagPrefix,
-      type: undefined,
+      type,
     });
     const nextTag = formatTag({ tagPrefix, version: nextVersion });
 

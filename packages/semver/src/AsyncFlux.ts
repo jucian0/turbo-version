@@ -7,7 +7,7 @@ import { gitProcess } from "./GitCommands";
 import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
-export async function byPackageFlux(config: Config, type?: string) {
+export async function asyncFlux(config: Config, type?: any) {
   const { preset } = config;
 
   for (const pkg of config.packages) {
@@ -25,7 +25,7 @@ export async function byPackageFlux(config: Config, type?: string) {
         latestTag,
         preset,
         tagPrefix,
-        type: undefined,
+        type,
         pkgPath: pkg,
         pkgName,
       });

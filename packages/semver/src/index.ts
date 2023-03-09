@@ -3,7 +3,7 @@
 import { Command, Option } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
-import { byPackageFlux } from "./ByPackageFlux";
+import { asyncFlux } from "./AsyncFlux";
 import { setup } from "./Setup";
 import { syncedFlux } from "./SyncedFlux";
 
@@ -43,10 +43,10 @@ program
     }
 
     if (options.bump) {
-      return byPackageFlux(config, options.bump);
+      return asyncFlux(config, options.bump);
     }
 
-    return byPackageFlux(config);
+    return asyncFlux(config);
   });
 
 program.parse();
