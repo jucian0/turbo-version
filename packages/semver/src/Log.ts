@@ -1,6 +1,7 @@
 import chalk from "chalk";
 
 export type LogStep =
+  | "affected_packages"
   | "nothing_changed"
   | "failure"
   | "warning"
@@ -19,6 +20,7 @@ export type LogProps = {
 };
 
 const iconMap: Map<LogStep, string> = new Map([
+  ["affected_packages", "📜"],
   ["failure", "❌"],
   ["warning", "🟠"],
   ["nothing_changed", "🟢"],

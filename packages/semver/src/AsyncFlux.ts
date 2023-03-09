@@ -3,14 +3,27 @@ import { formatTag, formatTagPrefix } from "./FormatTag";
 import { generateChangelog } from "./GenerateChangelog";
 import { generateVersion } from "./GenerateVersion";
 import { getLatestTag } from "./GetLatestTag";
-import { gitProcess } from "./GitCommands";
+import { getFoldersWithCommits, gitProcess } from "./GitCommands";
+import { log } from "./Log";
+import { filterPackages } from "./ResolveInternalDependencies";
 import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset } = config;
+  const affectedPackages = filterPackages(
+    config.packages,
+    getFoldersWithCommits()
+  );
 
-  for (const pkg of config.packages) {
+  log({
+    step: "affected_packages",
+    message: `Working on ${affectedPackages.toString()}`,
+    pkgName: "Workspace",
+  });
+
+  for (const pkg of affectedPackages) {
+    // move this line to filterPackages, to return an object with basic information instead of just a path
     const pkgJson = await readJsonFile<PkgJson>(`${pkg}/package.json`);
     const pkgName = pkgJson.name;
     try {
