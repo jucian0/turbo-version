@@ -40,7 +40,6 @@ export async function generateVersion({
 
     const amountCommits = getCommitsLength(latestTag, pkgPath ?? cwd());
 
-    console.log(amountCommits, type, latestTag);
     if (latestTag && amountCommits === 0 && !type) {
       throw new Error("There is no change since the last release.");
     }
@@ -62,6 +61,7 @@ export async function generateVersion({
       message: `Failed to calculate version: ${error.message}`,
       pkgName: pkgName ?? "Workspace",
     });
-    throw error;
+    // needs a validation here
+    // throw error;
   }
 }
