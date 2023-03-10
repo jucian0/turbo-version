@@ -1,4 +1,4 @@
-import { promises as fs, accessSync, constants } from "fs";
+import { promises as fs, accessSync, constants, readFileSync } from "fs";
 
 export function fileExist(filePath: string) {
   try {
@@ -9,12 +9,17 @@ export function fileExist(filePath: string) {
   }
 }
 
-export async function readFile(filePath: string): Promise<string> {
-  return fs.readFile(filePath, { encoding: "utf-8" });
+export async function readFile(filePath: string) {
+  return readFileSync(filePath, { encoding: "utf-8" });
 }
 
-export async function readJsonFile<T>(filePath: string) {
-  return readFile(filePath).then((data) => JSON.parse(data) as T);
+export function readJsonFile<T>(filePath: string): T {
+  try {
+    const data = readFileSync(filePath, { encoding: "utf-8" });
+    return JSON.parse(data);
+  } catch {
+    return {} as T;
+  }
 }
 
 export async function writeFile(

@@ -5,7 +5,7 @@ import { generateVersion } from "./GenerateVersion";
 import { getLatestTag } from "./GetLatestTag";
 import { getFoldersWithCommits, gitProcess } from "./GitCommands";
 import { log } from "./Log";
-import { filterPackages } from "./ResolveInternalDependencies";
+import { filterPackages, getDependents } from "./GetDependents";
 import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
@@ -18,18 +18,27 @@ export async function asyncFlux(config: Config, type?: any) {
 
   log({
     step: "affected_packages",
-    message: `Working on ${affectedPackages.toString()}`,
+    message: `Working on ${affectedPackages
+      .map((n) => n.package.name)
+      .toString()} packages.`,
     pkgName: "Workspace",
   });
 
   for (const pkg of affectedPackages) {
+    const pkgName = pkg.package.name;
+    const pkgPath = pkg.path;
+    const dependents = getDependents(
+      config.packages.filter((p) => p !== pkgPath),
+      pkgName
+    );
+
+    console.log(dependents, pkgName);
+
     // move this line to filterPackages, to return an object with basic information instead of just a path
-    const pkgJson = await readJsonFile<PkgJson>(`${pkg}/package.json`);
-    const pkgName = pkgJson.name;
     try {
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
-        pkgName: pkgName,
+        pkgName,
         synced: config.synced,
       });
 
@@ -39,22 +48,22 @@ export async function asyncFlux(config: Config, type?: any) {
         preset,
         tagPrefix,
         type,
-        pkgPath: pkg,
+        pkgPath,
         pkgName,
       });
 
       const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
-      await updatePackageVersion({ pkgPath: pkg, version: nextVersion });
+      await updatePackageVersion({ pkgPath, version: nextVersion });
       await generateChangelog({
         tagPrefix,
         preset,
-        pkgPath: pkg,
+        pkgPath,
         nextVersion,
         pkgName,
       });
 
-      await gitProcess({ files: [pkg], nextTag, pkgName });
+      await gitProcess({ files: [pkgPath], nextTag, pkgName });
     } catch (err: any) {}
   }
 }
