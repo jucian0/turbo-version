@@ -4,8 +4,6 @@ import { Command, Option } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { asyncFlux } from "./AsyncFlux";
-import { getFoldersWithCommits } from "./GitCommands";
-import { filterPackages } from "./GetDependents";
 import { setup } from "./Setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";

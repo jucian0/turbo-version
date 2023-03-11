@@ -41,20 +41,19 @@ export async function asyncFlux(config: Config, type?: any) {
         pkgName,
       });
 
-      const nextTag = formatTag({ tagPrefix, version: nextVersion });
+      if (nextVersion) {
+        const nextTag = formatTag({ tagPrefix, version: nextVersion });
+        await updatePackageVersion({ pkgPath, version: nextVersion });
+        await generateChangelog({
+          tagPrefix,
+          preset,
+          pkgPath,
+          nextVersion,
+          pkgName,
+        });
 
-      await updatePackageVersion({ pkgPath, version: nextVersion });
-      await generateChangelog({
-        tagPrefix,
-        preset,
-        pkgPath,
-        nextVersion,
-        pkgName,
-      });
-
-      await gitProcess({ files: [pkgPath], nextTag, pkgName });
+        await gitProcess({ files: [pkgPath], nextTag, pkgName });
+      }
     }
-  } catch (err) {
-    // console.log(err);
-  }
+  } catch (err) {}
 }

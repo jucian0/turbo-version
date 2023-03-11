@@ -52,7 +52,7 @@ export async function generateVersion({
       pkgName: pkgName ?? "Workspace",
     });
     if (!next) {
-      throw new Error("There is no change since the last release.");
+      return null;
     }
     return next.toString();
   } catch (error: any) {
@@ -61,7 +61,6 @@ export async function generateVersion({
       message: `Failed to calculate version: ${error.message}`,
       pkgName: pkgName ?? "Workspace",
     });
-    // needs a validation here
-    // throw error;
+    return null;
   }
 }
