@@ -1,11 +1,11 @@
-import { readJsonFile } from "./FileSystem";
-import { formatTag, formatTagPrefix } from "./FormatTag";
-import { generateChangelog } from "./GenerateChangelog";
-import { generateVersion } from "./GenerateVersion";
-import { getLatestTag } from "./GetLatestTag";
-import { gitProcess } from "./GitCommands";
+import { readJsonFile } from "./utils/FileSystem";
+import { formatTag, formatTagPrefix } from "./utils/FormatTag";
+import { generateChangelog } from "./utils/GenerateChangelog";
+import { generateVersion } from "./utils/GenerateVersion";
+import { getLatestTag } from "./utils/GetLatestTag";
+import { gitProcess } from "./utils/GitCommands";
 import { Config, PkgJson } from "./Types";
-import { updatePackageVersion } from "./UpdatePackageVersion";
+import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 
 export async function singleFlux(config: Config, options: any) {
   const { preset, baseBranch: branch } = config;
@@ -14,7 +14,7 @@ export async function singleFlux(config: Config, options: any) {
   const pkgsJson = [];
 
   for (const pkg of config.packages) {
-    const pkgJson = await readJsonFile<PkgJson>(`${pkg}/package.json`);
+    const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
 
     if (pkgNames.some((name) => name === pkgJson.name)) {
       pkgJson.path = pkg;
@@ -23,12 +23,11 @@ export async function singleFlux(config: Config, options: any) {
   }
 
   for (const json of pkgsJson) {
-    const pkgName = json.name;
-    const pkgPath = json.path;
+    const {name, path} = json;
 
     const tagPrefix = formatTagPrefix({
       tagPrefix: config.tagPrefix,
-      pkgName: json.name,
+      name: json.name,
       synced: config.synced,
     });
 
@@ -38,23 +37,23 @@ export async function singleFlux(config: Config, options: any) {
       preset,
       tagPrefix,
       type,
-      pkgPath,
-      pkgName,
+      path,
+      name,
     });
 
-    if (version && pkgName && version && pkgPath) {
+    if (version && name && version && path) {
       const nextTag = formatTag({ tagPrefix, version });
 
-      await updatePackageVersion({ pkgPath, version });
+      await updatePackageVersion({ path, version,name });
       await generateChangelog({
         tagPrefix,
         preset,
-        pkgPath,
+        path,
         version,
-        pkgName,
+        name,
       });
 
-      await gitProcess({ files: [pkgPath], nextTag, pkgName, branch });
+      await gitProcess({ files: [path], nextTag, name, branch });
     }
   }
 }

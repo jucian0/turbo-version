@@ -1,43 +1,47 @@
 import { cwd } from "process";
-import { readJsonFile } from "./FileSystem";
-import { formatTag, formatTagPrefix } from "./FormatTag";
-import { generateChangelog } from "./GenerateChangelog";
-import { generateVersion } from "./GenerateVersion";
-import { getLatestTag } from "./GetLatestTag";
-import { gitProcess } from "./GitCommands";
-import { Config } from "./Types";
-import { updatePackageVersion } from "./UpdatePackageVersion";
+import { readJsonFile } from "./utils/FileSystem";
+import { formatTag, formatTagPrefix } from "./utils/FormatTag";
+import { generateChangelog } from "./utils/GenerateChangelog";
+import { generateVersion } from "./utils/GenerateVersion";
+import { getLatestTag } from "./utils/GetLatestTag";
+import { gitProcess } from "./utils/GitCommands";
+import { Config, PkgJson } from "./Types";
+import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
     });
-    const preset = config.preset;
+    const {preset, baseBranch:branch} = config;
 
     const latestTag = await getLatestTag(tagPrefix);
 
-    const nextVersion = await generateVersion({
+    const version = await generateVersion({
       latestTag,
       preset,
       tagPrefix,
       type,
     });
-    const nextTag = formatTag({ tagPrefix, version: nextVersion });
 
-    for (const pkg of config.packages) {
-      const pkgJson = await readJsonFile(`${pkg}/package.json`);
-      const pkgName = pkgJson.name;
+    if(version){
 
-      await updatePackageVersion({ pkgPath: pkg, version: nextVersion });
-      await generateChangelog({
-        tagPrefix,
-        preset,
-        pkgPath: pkg,
-        nextVersion,
-        pkgName,
-      });
+      const nextTag = formatTag({ tagPrefix, version });
+  
+      for (const pkg of config.packages) {
+        const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
+        const name = pkgJson.name;
+  
+        await updatePackageVersion({ path: pkg, version,name });
+        await generateChangelog({
+          tagPrefix,
+          preset,
+          path: pkg,
+          version,
+          name,
+        });
+      }
+      await gitProcess({ files: [cwd()], nextTag, branch });
     }
-    await gitProcess({ files: [cwd()], nextTag });
   } catch (err) {}
 }

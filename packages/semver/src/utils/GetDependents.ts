@@ -1,6 +1,6 @@
 import { readJsonFile } from "./FileSystem";
 import { getFoldersWithCommits } from "./GitCommands";
-import { Config, PkgJson } from "./Types";
+import { Config, PkgJson } from "../Types";
 
 type Package = {
   path: string;

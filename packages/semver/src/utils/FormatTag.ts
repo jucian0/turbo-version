@@ -2,19 +2,19 @@ import { createTemplateString } from "./TemplateString";
 
 type TagFormat = {
   tagPrefix?: string;
-  pkgName?: string;
+  name?: string;
   synced: boolean;
 };
 
 export function formatTagPrefix({
   tagPrefix,
-  pkgName,
+  name,
   synced,
 }: TagFormat): string {
   if (tagPrefix != null) {
     return createTemplateString(tagPrefix, {
-      target: pkgName,
-      pkgName: pkgName,
+      target: name,
+      pkgName: name,
     });
   }
 
@@ -22,7 +22,7 @@ export function formatTagPrefix({
     return "v";
   }
 
-  return `${pkgName}-`;
+  return `${name}-`;
 }
 
 export function formatTag({

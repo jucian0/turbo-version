@@ -1,4 +1,5 @@
 import { promises as fs, accessSync, constants, readFileSync } from "fs";
+import { cwd } from "process";
 
 export function fileExist(filePath: string) {
   try {
@@ -27,4 +28,8 @@ export async function writeFile(
   data: Parameters<typeof fs.writeFile>[1]
 ) {
   fs.writeFile(filePath, data, { encoding: "utf-8" });
+}
+
+export function resolvePkgPath(relativePath: string) {
+  return `${cwd()}/${relativePath}`;
 }

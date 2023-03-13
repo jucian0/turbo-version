@@ -1,30 +1,28 @@
 import conventionalChangelog from "conventional-changelog";
 import * as fs from "fs";
-
-import { Config } from "./Types";
+import { resolvePkgPath } from "./FileSystem";
 import { log } from "./Log";
-import { resolvePkgPath } from "./Utils";
 
 type ChangeLog = {
   tagPrefix: string;
   preset: string;
-  pkgPath: string;
+  path: string;
   version: string;
-  pkgName: string;
+  name: string;
 };
 
 export async function generateChangelog({
   tagPrefix,
   preset,
-  pkgPath,
+  path,
   version,
-  pkgName,
+  name,
 }: ChangeLog) {
   const context = { version };
 
   return new Promise((resolve, reject) => {
     const outputStream = fs.createWriteStream(
-      resolvePkgPath(`${pkgPath}/CHANGELOG.md`),
+      resolvePkgPath(`${path}/CHANGELOG.md`),
       {
         flags: "w+",
       }
@@ -35,15 +33,11 @@ export async function generateChangelog({
         preset,
         tagPrefix,
         releaseCount: 0,
-        //lernaPackage: pkgName,
-        // pkg: {
-        //   path: pkgPath,
-        // },
       },
       context,
       {
         merges: null,
-        path: pkgPath,
+        path,
       } as conventionalChangelog.Options
     )
       .pipe(outputStream)
@@ -51,7 +45,7 @@ export async function generateChangelog({
         log({
           step: "changelog_success",
           message: `Success changelog generated`,
-          pkgName: pkgName,
+          pkgName: name,
         });
         resolve(true);
       })
@@ -59,7 +53,7 @@ export async function generateChangelog({
         log({
           step: "failure",
           message: `Error generating changelog`,
-          pkgName: pkgName,
+          pkgName: name,
         });
         reject();
       });

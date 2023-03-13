@@ -12,8 +12,8 @@ type Version = {
   preset: string;
   tagPrefix: string;
   type?: semver.ReleaseType;
-  pkgPath?: string;
-  pkgName?: string;
+  path?: string;
+  name?: string;
 };
 
 export async function generateVersion({
@@ -21,8 +21,8 @@ export async function generateVersion({
   preset,
   tagPrefix,
   type,
-  pkgPath,
-  pkgName,
+  path,
+  name,
 }: Version) {
   try {
     const recommendation: any = await recommendedBumpAsync(
@@ -31,14 +31,14 @@ export async function generateVersion({
           preset,
           tagPrefix,
         },
-        pkgPath ? { lernaPackage: pkgName, path: pkgPath } : {}
+        path ? { lernaPackage: name, path } : {}
       )
     );
     const recommended = recommendation?.releaseType;
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
-    const amountCommits = getCommitsLength(pkgPath ?? cwd());
+    const amountCommits = getCommitsLength(path ?? cwd());
 
     if (latestTag && amountCommits === 0 && !type) {
       throw new Error("There is no change since the last release.");
@@ -49,7 +49,7 @@ export async function generateVersion({
     log({
       step: "calculate_version_success",
       message: `New version calculated: ${next}`,
-      pkgName: pkgName ?? "Workspace",
+      pkgName: name ?? "Workspace",
     });
     if (!next) {
       return null;
@@ -59,7 +59,7 @@ export async function generateVersion({
     log({
       step: "failure",
       message: `Failed to calculate version: ${error.message}`,
-      pkgName: pkgName ?? "Workspace",
+      pkgName: name ?? "Workspace",
     });
     return null;
   }

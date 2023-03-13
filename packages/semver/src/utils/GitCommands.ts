@@ -22,7 +22,7 @@ type GitCommit = {
 type GitProcess = {
   files: string[];
   nextTag: string;
-  pkgName?: string;
+  name?: string;
   branch: string;
 };
 
@@ -133,7 +133,7 @@ async function getLastTag(): Promise<string | null> {
 export async function gitProcess({
   files,
   nextTag,
-  pkgName,
+  name,
   branch,
 }: GitProcess) {
   try {
@@ -157,7 +157,7 @@ export async function gitProcess({
     log({
       step: "tag_success",
       message: `New Tag version ${nextTag}`,
-      pkgName: pkgName ?? "Workspace",
+      pkgName: name ?? "Workspace",
     });
 
     // await gitPush({ remote: "origin", branch });
@@ -171,7 +171,7 @@ export async function gitProcess({
     log({
       step: "post_target_success",
       message: `Everything is done!!`,
-      pkgName: pkgName ?? "Workspace",
+      pkgName: name ?? "Workspace",
     });
   } catch (err: any) {
     console.log(err);

@@ -1,12 +1,12 @@
-import { formatTag, formatTagPrefix } from "./FormatTag";
-import { generateChangelog } from "./GenerateChangelog";
-import { generateVersion } from "./GenerateVersion";
-import { getLatestTag } from "./GetLatestTag";
-import { gitProcess } from "./GitCommands";
-import { log } from "./Log";
-import { summarizePackages } from "./GetDependents";
+import { formatTag, formatTagPrefix } from "./utils/FormatTag";
+import { generateChangelog } from "./utils/GenerateChangelog";
+import { generateVersion } from "./utils/GenerateVersion";
+import { getLatestTag } from "./utils/GetLatestTag";
+import { gitProcess } from "./utils/GitCommands";
+import { log } from "./utils/Log";
+import { summarizePackages } from "./utils/GetDependents";
 import { Config } from "./Types";
-import { updatePackageVersion } from "./UpdatePackageVersion";
+import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -30,12 +30,12 @@ export async function asyncFlux(config: Config, type?: any) {
       pkgName: "Workspace",
     });
     for (const pkg of packages) {
-      const pkgName = pkg.package.name;
-      const pkgPath = pkg.path;
+      const name = pkg.package.name;
+      const path = pkg.path;
 
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
-        pkgName,
+        name,
         synced: config.synced,
       });
 
@@ -45,22 +45,22 @@ export async function asyncFlux(config: Config, type?: any) {
         preset,
         tagPrefix,
         type: type ?? pkg.type,
-        pkgPath,
-        pkgName,
+        path,
+        name,
       });
 
       if (version) {
         const nextTag = formatTag({ tagPrefix, version });
-        await updatePackageVersion({ pkgPath, version });
+        await updatePackageVersion({ path, version,name });
         await generateChangelog({
           tagPrefix,
           preset,
-          pkgPath,
+          path,
           version,
-          pkgName,
+          name,
         });
 
-        await gitProcess({ files: [pkgPath], nextTag, pkgName, branch });
+        await gitProcess({ files: [path], nextTag, name, branch });
       }
     }
   } catch (err) {}
