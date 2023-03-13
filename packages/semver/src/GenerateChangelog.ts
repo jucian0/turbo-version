@@ -9,7 +9,7 @@ type ChangeLog = {
   tagPrefix: string;
   preset: string;
   pkgPath: string;
-  nextVersion: string;
+  version: string;
   pkgName: string;
 };
 
@@ -17,10 +17,10 @@ export async function generateChangelog({
   tagPrefix,
   preset,
   pkgPath,
-  nextVersion,
+  version,
   pkgName,
 }: ChangeLog) {
-  const context = { version: nextVersion };
+  const context = { version };
 
   return new Promise((resolve, reject) => {
     const outputStream = fs.createWriteStream(

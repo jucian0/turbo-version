@@ -13,6 +13,15 @@ export async function asyncFlux(config: Config, type?: any) {
 
   try {
     const packages = await summarizePackages(config);
+
+    if (packages.length === 0 && !type) {
+      log({
+        step: "nothing_changed",
+        message: `Nothing changed since last release.`,
+        pkgName: "Workspace",
+      });
+      return;
+    }
     log({
       step: "affected_packages",
       message: `Working on ${packages
@@ -31,7 +40,7 @@ export async function asyncFlux(config: Config, type?: any) {
       });
 
       const latestTag = await getLatestTag(tagPrefix);
-      const nextVersion = await generateVersion({
+      const version = await generateVersion({
         latestTag,
         preset,
         tagPrefix,
@@ -40,14 +49,14 @@ export async function asyncFlux(config: Config, type?: any) {
         pkgName,
       });
 
-      if (nextVersion) {
-        const nextTag = formatTag({ tagPrefix, version: nextVersion });
-        await updatePackageVersion({ pkgPath, version: nextVersion });
+      if (version) {
+        const nextTag = formatTag({ tagPrefix, version });
+        await updatePackageVersion({ pkgPath, version });
         await generateChangelog({
           tagPrefix,
           preset,
           pkgPath,
-          nextVersion,
+          version,
           pkgName,
         });
 

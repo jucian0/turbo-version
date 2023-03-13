@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import chalk from "chalk";
+import figlet from "figlet";
 import { Command, Option } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
@@ -7,6 +9,8 @@ import { asyncFlux } from "./AsyncFlux";
 import { setup } from "./Setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
+
+const name = "Turbo Semver";
 
 const program = new Command();
 
@@ -33,6 +37,10 @@ program
     "Version the application by default, following the semver.config.json specifications"
   )
   .action(async (options) => {
+    console.log(
+      chalk.hex("#FF1F57")(figlet.textSync(name)),
+      chalk.hex("#0096FF")(`v${packageJson.version}`)
+    );
     const config = await setup();
     if (config.synced) {
       if (options.bump) {

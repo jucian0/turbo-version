@@ -160,13 +160,13 @@ export async function gitProcess({
       pkgName: pkgName ?? "Workspace",
     });
 
-    await gitPush({ remote: "origin", branch });
+    // await gitPush({ remote: "origin", branch });
 
-    log({
-      step: "push_success",
-      message: `Successfully pushed to remote branch ${branch}`,
-      pkgName: pkgName ?? "Workspace",
-    });
+    // log({
+    //   step: "push_success",
+    //   message: `Successfully pushed to remote branch ${branch}`,
+    //   pkgName: pkgName ?? "Workspace",
+    // });
 
     log({
       step: "post_target_success",
