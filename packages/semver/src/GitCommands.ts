@@ -174,6 +174,7 @@ export async function gitProcess({
       pkgName: pkgName ?? "Workspace",
     });
   } catch (err: any) {
+    console.log(err);
     throw new Error(`Failed to create new version: ${err.message}`);
   }
 }
