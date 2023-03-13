@@ -50,7 +50,6 @@ function filterPackages(pkgs: string[], folders: string[]): Package[] {
 export async function summarizePackages(config: Config): Promise<Package[]> {
   try {
     const folders = await getFoldersWithCommits();
-
     const filteredPackages = filterPackages(config.packages, folders);
 
     const packages = filteredPackages.reduce((packages, pkg) => {

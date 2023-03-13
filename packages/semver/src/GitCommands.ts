@@ -80,8 +80,14 @@ export function getCommitsLength(latestTag: string, pkgRoot: string) {
 export async function getFoldersWithCommits() {
   try {
     const tag = await getLastTag();
-    const gitCommand = `git log --pretty=format: --name-only ${tag}..HEAD | grep "/" | sort -u`;
+    let gitCommand = "";
+    if (tag) {
+      gitCommand = `git log --pretty=format: --name-only ${tag}..HEAD | grep "/" | sort -u`;
+    } else {
+      gitCommand = `git log --pretty=format: --name-only | grep "/" | sort -u`;
+    }
     const result = execSync(gitCommand);
+
     const folders = result.toString().trim().split("\n");
     return folders;
   } catch (error) {
@@ -109,17 +115,17 @@ export function isGitRepository(directory: string) {
   }
 }
 
-async function getLastTag(): Promise<string> {
-  const { stdout, stderr } = await promisifiedExec(
-    "git describe --abbrev=0 --tags"
-  );
+async function getLastTag(): Promise<string | null> {
+  try {
+    const { stdout, stderr } = await promisifiedExec(
+      "git describe --abbrev=0 --tags"
+    );
 
-  if (stderr) {
-    throw new Error(`stderr: ${stderr}`);
+    const lastTag = stdout.trim();
+    return lastTag;
+  } catch {
+    return null;
   }
-
-  const lastTag = stdout.trim();
-  return lastTag;
 }
 
 export async function gitProcess({
