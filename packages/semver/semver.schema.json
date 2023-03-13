@@ -46,14 +46,6 @@
                 "no-internal-update"
             ],
             "description": "How to update internal dependencies between packages"
-        },
-        "strategy": {
-            "type": "string",
-            "enum": [
-                "last-commit",
-                "last-release"
-            ],
-            "description": "The strategy used for determining the release version"
         }
     },
     "definitions": {
@@ -203,7 +195,6 @@
         "baseBranch",
         "synced",
         "workspace",
-        "updateInternalDependencies",
-        "strategy"
+        "updateInternalDependencies"
     ]
 }

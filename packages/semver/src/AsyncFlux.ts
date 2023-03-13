@@ -9,7 +9,7 @@ import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function asyncFlux(config: Config, type?: any) {
-  const { preset, strategy } = config;
+  const { preset, baseBranch: branch } = config;
 
   try {
     const packages = await summarizePackages(config);
@@ -51,7 +51,7 @@ export async function asyncFlux(config: Config, type?: any) {
           pkgName,
         });
 
-        await gitProcess({ files: [pkgPath], nextTag, pkgName, strategy });
+        await gitProcess({ files: [pkgPath], nextTag, pkgName, branch });
       }
     }
   } catch (err) {}

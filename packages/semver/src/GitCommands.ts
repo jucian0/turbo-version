@@ -23,7 +23,7 @@ type GitProcess = {
   files: string[];
   nextTag: string;
   pkgName?: string;
-  strategy?: string;
+  branch: string;
 };
 
 type GitPush = {
@@ -64,7 +64,8 @@ async function createGitTag(options: GitTagOptions) {
 }
 
 export async function gitPush({ remote, branch }: GitPush) {
-  return promisifiedExec(`git push ${remote} ${branch}`);
+  const gitCommand = `git push ${remote} ${branch} --tags`;
+  return promisifiedExec(gitCommand);
 }
 
 export function getCommitsLength(pkgRoot: string) {
@@ -133,7 +134,7 @@ export async function gitProcess({
   files,
   nextTag,
   pkgName,
-  strategy,
+  branch,
 }: GitProcess) {
   try {
     if (!isGitRepository(cwd())) {
@@ -153,17 +154,23 @@ export async function gitProcess({
       message: tagMessage,
     });
 
-    if (strategy === "last-release") {
-      await createGitTag({
-        tag: strategy,
-        message: `Last release strategy ${new Date().toISOString()}`,
-        args: "--force",
-      });
-    }
-
     log({
       step: "tag_success",
       message: `New Tag version ${nextTag}`,
+      pkgName: pkgName ?? "Workspace",
+    });
+
+    await gitPush({ remote: "origin", branch });
+
+    log({
+      step: "push_success",
+      message: `Successfully pushed to remote branch ${branch}`,
+      pkgName: pkgName ?? "Workspace",
+    });
+
+    log({
+      step: "post_target_success",
+      message: `Everything is done!!`,
       pkgName: pkgName ?? "Workspace",
     });
   } catch (err: any) {
