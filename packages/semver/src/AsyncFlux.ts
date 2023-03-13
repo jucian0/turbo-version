@@ -9,11 +9,10 @@ import { Config } from "./Types";
 import { updatePackageVersion } from "./UpdatePackageVersion";
 
 export async function asyncFlux(config: Config, type?: any) {
-  const { preset } = config;
+  const { preset, strategy } = config;
 
   try {
-    const packages = summarizePackages(config);
-    // console.log(packages);
+    const packages = await summarizePackages(config);
     log({
       step: "affected_packages",
       message: `Working on ${packages
@@ -52,7 +51,7 @@ export async function asyncFlux(config: Config, type?: any) {
           pkgName,
         });
 
-        await gitProcess({ files: [pkgPath], nextTag, pkgName });
+        await gitProcess({ files: [pkgPath], nextTag, pkgName, strategy });
       }
     }
   } catch (err) {}

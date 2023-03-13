@@ -50,8 +50,7 @@
         "strategy": {
             "type": "string",
             "enum": [
-                "first-release",
-                "next-release",
+                "last-commit",
                 "last-release"
             ],
             "description": "The strategy used for determining the release version"

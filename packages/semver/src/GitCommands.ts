@@ -9,6 +9,7 @@ type GitTagOptions = {
   tag: string;
   message?: string;
   annotated?: boolean;
+  args?: string;
 };
 
 type GitCommit = {
@@ -22,6 +23,7 @@ type GitProcess = {
   files: string[];
   nextTag: string;
   pkgName?: string;
+  strategy?: string;
 };
 
 type GitPush = {
@@ -55,8 +57,8 @@ async function gitCommit(options: GitCommit) {
 }
 
 async function createGitTag(options: GitTagOptions) {
-  const { tag, message = "" } = options;
-  const command = `git tag -a -m "${message}" ${tag}`;
+  const { tag, message = "", args = "" } = options;
+  const command = `git tag -a -m "${message}" ${tag} ${args}`;
 
   return promisifiedExec(command);
 }
@@ -75,11 +77,10 @@ export function getCommitsLength(latestTag: string, pkgRoot: string) {
   return Number(amount);
 }
 
-export function getFoldersWithCommits() {
-  const gitCommand =
-    'git log --pretty=format: --name-only | grep "/" | sort -u';
-
+export async function getFoldersWithCommits() {
   try {
+    const tag = await getLastTag();
+    const gitCommand = `git log --pretty=format: --name-only ${tag}..HEAD | grep "/" | sort -u`;
     const result = execSync(gitCommand);
     const folders = result.toString().trim().split("\n");
     return folders;
@@ -108,7 +109,25 @@ export function isGitRepository(directory: string) {
   }
 }
 
-export async function gitProcess({ files, nextTag, pkgName }: GitProcess) {
+async function getLastTag(): Promise<string> {
+  const { stdout, stderr } = await promisifiedExec(
+    "git describe --abbrev=0 --tags"
+  );
+
+  if (stderr) {
+    throw new Error(`stderr: ${stderr}`);
+  }
+
+  const lastTag = stdout.trim();
+  return lastTag;
+}
+
+export async function gitProcess({
+  files,
+  nextTag,
+  pkgName,
+  strategy,
+}: GitProcess) {
   try {
     if (!isGitRepository(cwd())) {
       throw new Error(
@@ -126,6 +145,14 @@ export async function gitProcess({ files, nextTag, pkgName }: GitProcess) {
       tag: nextTag,
       message: tagMessage,
     });
+
+    if (strategy === "last-release") {
+      await createGitTag({
+        tag: strategy,
+        message: `Last release strategy ${new Date().toISOString()}`,
+        args: "--force",
+      });
+    }
 
     log({
       step: "tag_success",

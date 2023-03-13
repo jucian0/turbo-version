@@ -47,23 +47,24 @@ function filterPackages(pkgs: string[], folders: string[]): Package[] {
     }));
 }
 
-export function summarizePackages(config: Config) {
-  const filteredPackages = filterPackages(
-    config.packages,
-    getFoldersWithCommits()
-  );
+export async function summarizePackages(config: Config): Promise<Package[]> {
+  try {
+    const folders = await getFoldersWithCommits();
 
-  const dependentsPKgs = filteredPackages;
+    const filteredPackages = filterPackages(config.packages, folders);
 
-  filteredPackages.forEach((pkg) => {
-    const dependents = getDependents(
-      config.packages.filter((p) => p !== pkg.package.name),
-      pkg.package.name,
-      config.updateInternalDependencies
-    ).filter((d) => dependentsPKgs.every((p) => p.path !== d.path));
+    const packages = filteredPackages.reduce((packages, pkg) => {
+      const dependents = getDependents(
+        config.packages,
+        pkg.package.name,
+        config.updateInternalDependencies
+      );
 
-    dependentsPKgs.concat(dependents);
-  });
+      return [...packages, ...dependents];
+    }, filteredPackages);
 
-  return dependentsPKgs;
+    return packages;
+  } catch (err) {
+    return err as any;
+  }
 }
