@@ -67,14 +67,15 @@ export async function gitPush({ remote, branch }: GitPush) {
   return promisifiedExec(`git push ${remote} ${branch}`);
 }
 
-export function getCommitsLength(latestTag: string, pkgRoot: string) {
-  const amount = execSync(
-    `git log --pretty=format:%h,%an,%ae,%s --abbrev-commit --no-merges ${latestTag}..HEAD -- ${pkgRoot} --oneline | wc -l`
-  )
-    .toString()
-    .trim();
+export function getCommitsLength(pkgRoot: string) {
+  try {
+    const gitCommand = `git rev-list --count HEAD ^$(git describe --tags --abbrev=0) ${pkgRoot}`;
+    const amount = execSync(gitCommand).toString().trim();
 
-  return Number(amount);
+    return Number(amount);
+  } catch {
+    return 0;
+  }
 }
 
 export async function getFoldersWithCommits() {

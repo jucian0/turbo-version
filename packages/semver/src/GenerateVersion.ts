@@ -38,7 +38,7 @@ export async function generateVersion({
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
-    const amountCommits = getCommitsLength(latestTag, pkgPath ?? cwd());
+    const amountCommits = getCommitsLength(pkgPath ?? cwd());
 
     if (latestTag && amountCommits === 0 && !type) {
       throw new Error("There is no change since the last release.");

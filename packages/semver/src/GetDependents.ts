@@ -59,7 +59,11 @@ export async function summarizePackages(config: Config): Promise<Package[]> {
         config.updateInternalDependencies
       );
 
-      return [...packages, ...dependents];
+      const filtered = dependents.filter((d) =>
+        packages.every((p) => p.path !== d.path)
+      );
+
+      return [...packages, ...filtered];
     }, filteredPackages);
 
     return packages;
