@@ -38,3 +38,38 @@ If there are no commit messages to determine the bump kind, the tool will defaul
 ### Sync
 
 - `-b, --bump <version>`: Specifies the type of update. The available options are `patch`, `minor`, `major`, `premajor`, `preminor`, `prepatch`, `prerelease`. If not specified, all packages will be updated based on the commit messages since the last release.
+
+## Semantic Commit Messages
+
+Turboversion analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, Turboversion might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, Turboversion might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
+
+Format: `<type>(<scope>): <subject>`
+
+`<scope>` is optional, but in a monorepo context, it's really helpful to determine the package that you worked.
+
+### Example
+
+```
+feat: add hat wobble
+^--^  ^------------^
+|     |
+|     +-> Summary in present tense.
+|
++-------> Type: chore, docs, feat, fix, refactor, style, or test.
+```
+
+More Examples:
+
+- `feat`: (new feature for the user, not a new feature for build script)
+- `fix`: (bug fix for the user, not a fix to a build script)
+- `docs`: (changes to the documentation)
+- `style`: (formatting, missing semi colons, etc; no production code change)
+- `refactor`: (refactoring production code, eg. renaming a variable)
+- `test`: (adding missing tests, refactoring tests; no production code change)
+- `chore`: (updating grunt tasks etc; no production code change)
+
+References:
+
+- https://www.conventionalcommits.org/
+- https://seesparkbox.com/foundry/semantic_commit_messages
+- http://karma-runner.github.io/1.0/dev/git-commit-msg.html
