@@ -8,7 +8,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "semver": "turbo run semver",
     "test": "turbo run test",
-    "test:watch": "turbo run test:watch"
+    "test:watch": "turbo run test:watch",
+    "release": "turbo run release"
+
   },
   "devDependencies": {
     "eslint": "^7.32.0",
