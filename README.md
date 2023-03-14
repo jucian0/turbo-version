@@ -1,8 +1,6 @@
 # Turboversion
 
-This is a command-line tool that allows you to bump the versions of your packages in a monorepo project according to Semantic Versioning.
-
-By automating the versioning process, **Turboversion** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
+This is a command-line tool that allows you to bump the versions of your packages in a monorepo project according to Semantic Versioning.By automating the versioning process, **Turboversion** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
 
 ## Usage
 
@@ -16,7 +14,7 @@ yarn add -D turboversion
 
 ### Synced
 
-In synced mode, all packages in the monorepo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages in the monorepo.
+In `synced` mode, all packages in the monorepo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages in the monorepo.
 
 For example, if you have a monorepo with three packages (package A, package B, and package C), and you release version 1.0.0 in synced mode, all three packages will have the same version number (1.0.0) and git tag (v1.0.0). If you make changes to package A and release a new version (e.g., 1.1.0), all three packages will be updated to version 1.1.0 with the git tag v1.1.0.
 
@@ -30,7 +28,7 @@ In async mode, if the user does not specify the bump kind, the tool will automat
 
 If there are no commit messages to determine the bump kind, the tool will default to the "patch" version bump. Once the bump kind is determined, the tool will update the version for all affected packages and generate the appropriate version tags. If the user specifies the target package, only that specific package will be updated; otherwise, all affected packages will be updated.
 
-## Args
+## Arguments
 
 ### Async
 
