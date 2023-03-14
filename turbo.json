@@ -25,8 +25,6 @@
       "persistent": true
     },
     "release": {
-      "cache": false,
-      "persistent": true, 
       "dependsOn": [
         "^build"
       ]
