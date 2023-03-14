@@ -2,9 +2,11 @@
 
 This is a command-line tool that allows you to bump the versions of your packages in a monorepo project according to Semantic Versioning.
 
+By automating the versioning process, **Turboversion** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
+
 ## Usage
 
-You can use Turboversion in two ways: **synced**, **async** mode, and **manually** or **affected** packages by commits since the last release.
+You can use **Turboversion** in two ways: **synced**, **async** mode, and **manually** or **affected** packages by commits since the last release.
 
 ```bash
 
@@ -41,7 +43,7 @@ If there are no commit messages to determine the bump kind, the tool will defaul
 
 ## Semantic Commit Messages
 
-Turboversion analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, Turboversion might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, Turboversion might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
+**Turboversion** analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, **Turboversion** might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, **Turboversion** might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
 
 Format: `<type>(<scope>): <subject>`
 
