@@ -6,6 +6,12 @@ This is a command-line tool that allows you to bump the versions of your package
 
 You can use Turboversion in two ways: **synced**, **async** mode, and **manually** or **affected** packages by commits since the last release.
 
+```bash
+
+yarn add -D turboversion
+
+```
+
 ### Synced
 
 In synced mode, all packages in the monorepo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages in the monorepo.
