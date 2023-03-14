@@ -10,7 +10,7 @@ import { setup } from "./Setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
 
-const name = "Turbo Semver";
+const name = "TurboVersion";
 
 const program = new Command();
 
@@ -34,29 +34,34 @@ program
     ])
   )
   .description(
-    "Version the application by default, following the semver.config.json specifications"
+    "Version the application by default, following the turbov.config.json specifications"
   )
   .action(async (options) => {
     console.log(
       chalk.hex("#FF1F57")(figlet.textSync(name)),
       chalk.hex("#0096FF")(`v${packageJson.version}`)
     );
-    const config = await setup();
-    if (config.synced) {
+    try{
+
+      const config = await setup();
+      if (config.synced) {
+        if (options.bump) {
+          return syncedFlux(config, options.bump);
+        }
+        return syncedFlux(config);
+      }
+  
       if (options.bump) {
-        return syncedFlux(config, options.bump);
+        if (options.target) {
+          return singleFlux(config, options);
+        }
+        return asyncFlux(config, options.bump);
       }
-      return syncedFlux(config);
+  
+      return asyncFlux(config);
+    }catch(err){
+      console.error(chalk.red(`ERROR: ${err}`))
     }
-
-    if (options.bump) {
-      if (options.target) {
-        return singleFlux(config, options);
-      }
-      return asyncFlux(config, options.bump);
-    }
-
-    return asyncFlux(config);
   });
 
 program.parse();

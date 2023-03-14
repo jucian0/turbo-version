@@ -1,10 +1,10 @@
 {
     "tagPrefix": "v",
-    "preset": "conventional",
+    "preset": "angular",
     "baseBranch": "main",
     "synced": true,
     "packages": [
-        "packages/mock"
+        "packages/turboversion"
     ],
     "updateInternalDependencies": "patch",
     "strategy": "last-release"

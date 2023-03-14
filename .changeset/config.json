@@ -7,6 +7,6 @@
   "access": "public",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@turbo-semver/docs"
+    "@turboversion/docs"
   ]
 }

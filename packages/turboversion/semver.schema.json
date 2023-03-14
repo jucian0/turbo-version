@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "tagPrefix": {
+            "type": "string",
+            "description": "The prefix used for Git tags, usually the project name"
+        },
+        "preset": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "enum": [
+                        "angular",
+                        "conventional"
+                    ],
+                    "default": "angular"
+                }
+            ],
+            "description": "The commit message convention preset used by commitizen"
+        },
+        "baseBranch": {
+            "type": "string",
+            "description": "The Git branch that should be used as the base for versioning"
+        },
+        "synced": {
+            "type": "boolean",
+            "description": "Whether or not the local Git repository is synced with the remote repository"
+        },
+        "packages": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "The directories in the repository that contain packages"
+        },
+        "updateInternalDependencies": {
+            "type": "string",
+            "enum": [
+                "major",
+                "minor",
+                "patch",
+                false
+            ],
+            "description": "How to update internal dependencies between packages"
+        }
+    },
+    
+    "required": [
+        "tagPrefix",
+        "preset",
+        "baseBranch",
+        "synced",
+        "workspace",
+        "updateInternalDependencies"
+    ]
+}

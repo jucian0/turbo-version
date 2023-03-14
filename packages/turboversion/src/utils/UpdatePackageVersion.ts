@@ -14,7 +14,7 @@ export function updatePackageVersion({ path, version, name }: PackageVersion) {
       log({
         step: "failure",
         message:
-          "Could not find the package.json file, make sure your `semver.config.json` is right configured!",
+          "Could not find the package.json file, make sure your `turbov.config.json` is right configured!",
         pkgName:name,
       });
       reject();

@@ -13,7 +13,8 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "turboversion":"workspace:*"
   },
   "packageManager": "pnpm@7.15.0"
 }
