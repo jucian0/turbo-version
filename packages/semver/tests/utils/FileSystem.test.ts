@@ -1,9 +1,10 @@
 import {describe, expect, test} from '@jest/globals';
+import { cwd } from 'process';
 import { fileExist, readFile, readJsonFile, writeFile, resolvePkgPath } from '../../src/utils/FileSystem';
 
 describe('fileExist', () => {
   test('returns true when file exists', () => {
-    expect(fileExist('example.txt')).toBe(true);
+    expect(fileExist(`${cwd()}/tests/utils/file.txt`)).toBe(true);
   });
 
   test('returns false when file does not exist', () => {
@@ -13,14 +14,14 @@ describe('fileExist', () => {
 
 describe('readFile', () => {
   test('reads file contents correctly', async () => {
-    const data = await readFile('example.txt');
+    const data = await readFile(`${cwd()}/tests/utils/file.txt`);
     expect(data).toBe('example file contents');
   });
 });
 
 describe('readJsonFile', () => {
   test('reads JSON file contents correctly', () => {
-    const data = readJsonFile<{ name: string }>('example.json');
+    const data = readJsonFile<{ name: string }>(`${cwd()}/tests/utils/file.json`);
     expect(data.name).toBe('John');
   });
 
