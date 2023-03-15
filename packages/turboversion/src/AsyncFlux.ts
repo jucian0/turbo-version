@@ -63,20 +63,21 @@ export async function asyncFlux(config: Config, type?: any) {
         });
 
         await gitProcess({ files: [path], nextTag, name, branch });
+      }
+    }
+    if (config.publishConfig) {
+      for (const pkg of packages) {
+        const {
+          path,
+          package: { name, version },
+        } = pkg;
 
-        if (config.publishConfig) {
-          for (const pkg of config.packages) {
-            const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
-            const name = pkgJson.name;
-
-            await publish({
-              packageManager: config.publishConfig.packageManager ?? "npm",
-              path: pkg,
-              tag: pkgJson.version,
-              name,
-            });
-          }
-        }
+        await publish({
+          packageManager: config.publishConfig.packageManager ?? "npm",
+          path,
+          tag: version,
+          name: name,
+        });
       }
     }
   } catch (err) {}

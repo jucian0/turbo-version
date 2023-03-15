@@ -57,17 +57,12 @@ export async function singleFlux(config: Config, options: any) {
       await gitProcess({ files: [path], nextTag, name, branch });
 
       if (config.publishConfig) {
-        for (const pkg of config.packages) {
-          const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
-          const name = pkgJson.name;
-
-          await publish({
-            packageManager: config.publishConfig.packageManager ?? "npm",
-            path: pkg,
-            tag: pkgJson.version,
-            name,
-          });
-        }
+        await publish({
+          packageManager: config.publishConfig.packageManager ?? "npm",
+          path: path,
+          tag: version,
+          name,
+        });
       }
     }
   }
