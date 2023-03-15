@@ -6,6 +6,7 @@ import { getLatestTag } from "./utils/GetLatestTag";
 import { gitProcess } from "./utils/GitCommands";
 import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
+import { publish } from "./utils/Publish";
 
 export async function singleFlux(config: Config, options: any) {
   const { preset, baseBranch: branch } = config;
@@ -23,7 +24,7 @@ export async function singleFlux(config: Config, options: any) {
   }
 
   for (const json of pkgsJson) {
-    const {name, path} = json;
+    const { name, path } = json;
 
     const tagPrefix = formatTagPrefix({
       tagPrefix: config.tagPrefix,
@@ -44,7 +45,7 @@ export async function singleFlux(config: Config, options: any) {
     if (version && name && version && path) {
       const nextTag = formatTag({ tagPrefix, version });
 
-      await updatePackageVersion({ path, version,name });
+      await updatePackageVersion({ path, version, name });
       await generateChangelog({
         tagPrefix,
         preset,
@@ -54,6 +55,20 @@ export async function singleFlux(config: Config, options: any) {
       });
 
       await gitProcess({ files: [path], nextTag, name, branch });
+
+      if (config.publishConfig) {
+        for (const pkg of config.packages) {
+          const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
+          const name = pkgJson.name;
+
+          await publish({
+            packageManager: config.publishConfig.packageManager ?? "npm",
+            path: pkg,
+            tag: pkgJson.version,
+            name,
+          });
+        }
+      }
     }
   }
 }

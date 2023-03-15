@@ -130,12 +130,7 @@ async function getLastTag(): Promise<string | null> {
   }
 }
 
-export async function gitProcess({
-  files,
-  nextTag,
-  name,
-  branch,
-}: GitProcess) {
+export async function gitProcess({ files, nextTag, name, branch }: GitProcess) {
   try {
     if (!isGitRepository(cwd())) {
       throw new Error(
@@ -168,11 +163,11 @@ export async function gitProcess({
     //   pkgName: pkgName ?? "Workspace",
     // });
 
-    log({
-      step: "post_target_success",
-      message: `Everything is done!!`,
-      pkgName: name ?? "Workspace",
-    });
+    // log({
+    //   step: "post_target_success",
+    //   message: `Everything is done!!`,
+    //   pkgName: name ?? "Workspace",
+    // });
   } catch (err: any) {
     console.log(err);
     throw new Error(`Failed to create new version: ${err.message}`);

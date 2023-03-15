@@ -9,7 +9,7 @@ export type LogStep =
   | "package_json_success"
   | "changelog_success"
   | "tag_success"
-  | "post_target_success"
+  | "publish_success"
   | "push_success"
   | "commit_success";
 
@@ -28,7 +28,7 @@ const iconMap: Map<LogStep, string> = new Map([
   ["changelog_success", "📜"],
   ["commit_success", "📦"],
   ["package_json_success", "📝"],
-  ["post_target_success", "🎉"],
+  ["publish_success", "🎉"],
   ["tag_success", "🔖"],
   ["push_success", "🚀"],
 ]);

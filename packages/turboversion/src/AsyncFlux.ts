@@ -5,8 +5,10 @@ import { getLatestTag } from "./utils/GetLatestTag";
 import { gitProcess } from "./utils/GitCommands";
 import { log } from "./utils/Log";
 import { summarizePackages } from "./utils/GetDependents";
-import { Config } from "./Types";
+import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
+import { readJsonFile } from "./utils/FileSystem";
+import { publish } from "./utils/Publish";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -51,7 +53,7 @@ export async function asyncFlux(config: Config, type?: any) {
 
       if (version) {
         const nextTag = formatTag({ tagPrefix, version });
-        await updatePackageVersion({ path, version,name });
+        await updatePackageVersion({ path, version, name });
         await generateChangelog({
           tagPrefix,
           preset,
@@ -61,6 +63,20 @@ export async function asyncFlux(config: Config, type?: any) {
         });
 
         await gitProcess({ files: [path], nextTag, name, branch });
+
+        if (config.publishConfig) {
+          for (const pkg of config.packages) {
+            const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
+            const name = pkgJson.name;
+
+            await publish({
+              packageManager: config.publishConfig.packageManager ?? "npm",
+              path: pkg,
+              tag: pkgJson.version,
+              name,
+            });
+          }
+        }
       }
     }
   } catch (err) {}
