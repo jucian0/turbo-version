@@ -7,5 +7,8 @@
     "packages": [
         "packages/turboversion"
     ],
-    "updateInternalDependencies": "patch"
+    "updateInternalDependencies": "patch",
+    "publishConfig": {
+        "packageManager": "pnpm"
+    }
 }
