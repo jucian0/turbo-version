@@ -5,10 +5,10 @@ import { getLatestTag } from "./utils/GetLatestTag";
 import { gitProcess } from "./utils/GitCommands";
 import { log } from "./utils/Log";
 import { summarizePackages } from "./utils/GetDependents";
-import { Config, PkgJson } from "./Types";
+import { Config } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
-import { readJsonFile } from "./utils/FileSystem";
 import { publish } from "./utils/Publish";
+import chalk from "chalk";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -16,7 +16,7 @@ export async function asyncFlux(config: Config, type?: any) {
   try {
     const packages = await summarizePackages(config);
 
-    if (packages.length === 0 && !type) {
+    if (packages.length === 0) {
       log({
         step: "nothing_changed",
         message: `Nothing changed since last release.`,
@@ -24,13 +24,15 @@ export async function asyncFlux(config: Config, type?: any) {
       });
       return;
     }
-    log({
-      step: "affected_packages",
-      message: `Working on ${packages
-        .map((n) => n.package.name)
-        .toString()} packages.`,
-      pkgName: "Workspace",
-    });
+
+    console.log(
+      chalk.cyan(
+        `Working on ${packages
+          .map((n) => n.package.name)
+          .toString()} package(s).\n`
+      )
+    );
+
     for (const pkg of packages) {
       const name = pkg.package.name;
       const path = pkg.path;
