@@ -12,9 +12,9 @@ importers:
       eslint: 7.32.0
       prettier: 2.8.0
       turbo: 1.8.3
-      turbo-version: link:packages/turboversion
+      turbo-version: link:packages/turbo-version
 
-  packages/turboversion:
+  packages/turbo-version:
     specifiers:
       '@jest/globals': 29.5.0
       '@types/conventional-changelog': ^3.1.1
