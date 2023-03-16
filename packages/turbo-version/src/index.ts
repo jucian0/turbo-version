@@ -1,4 +1,4 @@
-#!/bin/bash
+//#!/bin/bash
 //#!/usr/bin/env node
 
 import chalk from "chalk";
