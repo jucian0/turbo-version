@@ -10,13 +10,12 @@
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "release": "turbo run release"
-
   },
   "devDependencies": {
     "eslint": "^7.32.0",
     "prettier": "^2.5.1",
     "turbo": "latest",
-    "turboversion":"workspace:*"
+    "turbo-version": "workspace:*"
   },
   "packageManager": "pnpm@7.15.0"
 }
