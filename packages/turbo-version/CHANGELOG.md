@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/jucian0/turbo-semver/compare/v0.2.2...v0.2.3) (2023-03-16)
+
+
+### Bug Fixes
+
+* #!/bin/bash ([57b66a5](https://github.com/jucian0/turbo-semver/commit/57b66a5db81d162549fbb18b5ac5cb57214afa31))
+
+
+
 ## [0.2.2](https://github.com/jucian0/turbo-semver/compare/v0.2.1...v0.2.2) (2023-03-16)
 
 
