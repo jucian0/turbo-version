@@ -1,6 +1,8 @@
-#!/usr/bin/env bash
-//#!/bin/bash
-//#!/usr/bin/env node
+#!/usr/bin/env node
+
+// #!/usr/bin/env bash
+// //#!/bin/bash
+// //#!/usr/bin/env node
 
 import chalk from "chalk";
 import figlet from "figlet";
