@@ -31,9 +31,9 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: TurboVersion 
+      - name: TurboVersion
         run: pnpm turbov
-      - name: Publish on NPM 
+      - name: Publish on NPM
         run: pnpm publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

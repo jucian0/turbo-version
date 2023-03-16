@@ -13,7 +13,9 @@
     "eslint": "^7.32.0",
     "prettier": "^2.5.1",
     "turbo": "latest",
-    "turbo-version": "workspace:*"
+    "turbo-version": "*"
   },
-  "packageManager": "pnpm@7.15.0"
+  "workspaces": [
+    "packages/*"
+  ]
 }
