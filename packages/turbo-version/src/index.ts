@@ -1,4 +1,5 @@
-#!/usr/bin/env node
+#!/bin/bash
+//#!/usr/bin/env node
 
 import chalk from "chalk";
 import figlet from "figlet";
@@ -41,8 +42,7 @@ program
       chalk.hex("#FF1F57")(figlet.textSync(name)),
       chalk.hex("#0096FF")(`v${packageJson.version}`)
     );
-    try{
-
+    try {
       const config = await setup();
       if (config.synced) {
         if (options.bump) {
@@ -50,17 +50,17 @@ program
         }
         return syncedFlux(config);
       }
-  
+
       if (options.bump) {
         if (options.target) {
           return singleFlux(config, options);
         }
         return asyncFlux(config, options.bump);
       }
-  
+
       return asyncFlux(config);
-    }catch(err){
-      console.error(chalk.red(`ERROR: ${err}`))
+    } catch (err) {
+      console.error(chalk.red(`ERROR: ${err}`));
     }
   });
 

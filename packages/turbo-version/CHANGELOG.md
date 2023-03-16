@@ -1,3 +1,7 @@
+## [0.2.1](https://github.com/jucian0/turbo-semver/compare/v0.2.0...v0.2.1) (2023-03-16)
+
+
+
 # [0.2.0](https://github.com/jucian0/turbo-semver/compare/v0.1.0...v0.2.0) (2023-03-16)
 
 
