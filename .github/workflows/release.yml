@@ -34,10 +34,13 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
+      - name: Setting up Git user
+        run: git config --global user.email "juciano@outlook.com.br" && git config --global user.name "jucian0"
+
       - name: TurboVersion
         run: pnpm turbov
       - name: Publish on NPM
         run: pnpm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
