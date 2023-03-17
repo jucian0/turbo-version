@@ -57,7 +57,7 @@ program
       return asyncFlux(config);
     } catch (err) {
       console.error(chalk.red(`ERROR: ${err}`));
-      throw err;
+      throw Error(err);
     }
   });
 

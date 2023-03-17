@@ -33,7 +33,7 @@ export async function action() {
       ghToken: GH_TOKEN,
     });
     console.log("NETRC user setup successfully.");
-  } catch (err) {
-    throw err;
+  } catch (err: any) {
+    throw Error(err);
   }
 }
