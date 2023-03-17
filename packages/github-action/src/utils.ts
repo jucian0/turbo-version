@@ -1,20 +1,16 @@
-import { exec } from "child_process";
-import { promisify } from "util";
+import { exec } from "@actions/exec";
 import * as fs from "fs";
-import { type } from "os";
-
-const promisifiedExec = promisify(exec);
 
 export async function pullBranch(branch: string) {
-  await promisifiedExec(`git pull origin ${branch}`);
+  await exec(`git pull origin ${branch}`);
 }
 
 export async function push(branch: string, { force }: any = {}) {
-  await promisifiedExec(`git push origin HEAD:${branch} --force`);
+  await exec(`git push origin HEAD:${branch} --force`);
 }
 
 export async function pushTags() {
-  await promisifiedExec("git push origin --tags");
+  await exec("git push origin --tags");
 }
 
 type NPMRC = {
@@ -32,8 +28,8 @@ export function writeNPMRC(npmrcOptions: NPMRC) {
 }
 
 export async function setupUser() {
-  await promisifiedExec("git config user.name 'github-actions[bot]'");
-  await promisifiedExec(
+  await exec("git config user.name 'github-actions[bot]'");
+  await exec(
     "git config user.email 'github-actions[bot]@users.noreply.github.com'"
   );
 }
