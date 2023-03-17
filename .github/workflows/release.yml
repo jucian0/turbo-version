@@ -28,7 +28,7 @@ jobs:
           node-version: 16.x
 
       - name: Set up authentication tokens
-        uses: ../github-action/action
+        uses: ./packages/github-action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
