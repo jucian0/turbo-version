@@ -34,6 +34,6 @@ export async function action() {
     });
     console.log("NETRC user setup successfully.");
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 }
