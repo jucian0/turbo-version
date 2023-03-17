@@ -1,9 +1,26 @@
 {
   "name": "turbo-version",
+  "description": "Automatically versioning for monorepos",
   "version": "0.2.3",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "author": {
+    "name": "jucian0",
+    "email": "juciano@outlook.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jucian0/turbo-version",
+    "homepage": "https://github.com/jucian0/turbo-version"
+  },
+  "keywords": [
+    "version",
+    "semver",
+    "monorepo",
+    "turborepo",
+    "semantic-release"
+  ],
   "license": "MIT",
   "files": [
     "dist/**"

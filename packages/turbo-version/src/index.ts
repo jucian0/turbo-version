@@ -10,14 +10,11 @@ import { setup } from "./Setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
 
-const name = "TurboVersion";
+const name = "Turbo Version";
 
 const program = new Command();
 
-program
-  .name("Turbo Semver")
-  .description("Semver Turborepo")
-  .version(packageJson.version);
+program.name("Turbo Version").description("").version(packageJson.version);
 
 program.option("-t, --target <project>", "project you want to bump version");
 
