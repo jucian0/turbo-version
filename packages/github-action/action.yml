@@ -1,0 +1,13 @@
+name: TurboVersion
+description: A GitHub action to setup NPM, and GITHUB credentials.
+runs:
+  using: "node16"
+  main: "dist/index.js"
+inputs:
+  npmRepository:
+    description: Sets up the git user for commits as `"github-actions[bot]"`. Default to `true`
+    required: false
+    default: "registry.npmjs.org"
+branding:
+  icon: "package"
+  color: "blue"

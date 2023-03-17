@@ -3,8 +3,6 @@
   "description": "Github action for Turbo Version",
   "version": "0.0.0",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "author": {
     "name": "jucian0",
     "email": "juciano@outlook.com.br"
