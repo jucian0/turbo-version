@@ -5,7 +5,8 @@
     "baseBranch": "main",
     "synced": true,
     "packages": [
-        "packages/turbo-version"
+        "packages/turbo-version",
+        "packages/github-action"
     ],
     "updateInternalDependencies": "patch",
     "publishConfig": {
