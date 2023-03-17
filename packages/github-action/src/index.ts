@@ -17,6 +17,7 @@ export async function action() {
     }
 
     await setupUser();
+    console.log("GitHub user setup successfully.");
 
     const NPM_OPTIONAL_URL = core.getInput("npmRepository");
 
@@ -25,11 +26,13 @@ export async function action() {
       filePath: NPMRC_PATH,
       repositoryURL: NPM_OPTIONAL_URL,
     });
+    console.log("NPMRC user setup successfully.");
 
     writeNETRC({
       filePath: NETRC,
       ghToken: GH_TOKEN,
     });
+    console.log("NETRC user setup successfully.");
   } catch (err) {
     console.error(err);
   }
