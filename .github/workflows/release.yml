@@ -28,7 +28,7 @@ jobs:
           node-version: 16.x
 
       - name: Set up authentication tokens
-        uses: jucian0/turbo-version/tree/main/packages/github-action@0.0.0
+        uses: ../github-action/action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
