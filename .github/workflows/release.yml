@@ -42,6 +42,9 @@ jobs:
         shell: bash
         run: git config --global user.email 'github-actions[bot]@users.noreply.github.com' && git config --global user.name 'github-actions[bot]'
 
+      - name: NPMRC
+        shell: bash
+        run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} > .npmrc
       - name: Set up authentication tokens
         uses: ./packages/github-action
         env:
