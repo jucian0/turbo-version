@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: pnpm build
 
-      - name: Install turbo-version
+      - name: Install turbo-semver
         run: pnpm i
 
       - name: Setting up Git user
@@ -51,6 +51,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: TurboVersion
+      - name: TurboSemver
         shell: bash
-        run: pnpm turbov
+        run: pnpm semver

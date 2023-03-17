@@ -1,7 +1,7 @@
 {
-  "name": "turbo-version-github-setup",
-  "description": "Github action for Turbo Version",
-  "version": "0.0.0",
+  "name": "turbo-semver-github-setup",
+  "description": "Github action for Turbo Semver",
+  "version": "0.3.0",
   "main": "./dist/index.js",
   "author": {
     "name": "jucian0",
@@ -9,8 +9,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-version",
-    "homepage": "https://github.com/jucian0/turbo-version"
+    "url": "https://github.com/jucian0/turbo-semver",
+    "homepage": "https://github.com/jucian0/turbo-semver"
   },
   "keywords": [
     "version",

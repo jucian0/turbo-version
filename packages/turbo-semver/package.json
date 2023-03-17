@@ -1,7 +1,7 @@
 {
-  "name": "turbo-version",
+  "name": "turbo-semver",
   "description": "Automatically versioning for monorepos",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-version",
-    "homepage": "https://github.com/jucian0/turbo-version"
+    "url": "https://github.com/jucian0/turbo-semver",
+    "homepage": "https://github.com/jucian0/turbo-semver"
   },
   "keywords": [
     "version",
@@ -26,7 +26,7 @@
     "dist/**"
   ],
   "bin": {
-    "turbov": "./dist/index.js"
+    "semver": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",

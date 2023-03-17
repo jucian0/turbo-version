@@ -1,11 +1,11 @@
 {
-    "$schema": "./packages/turbo-version/turbov.schema.json",
+    "$schema": "./packages/turbo-semver/turbov.schema.json",
     "tagPrefix": "v",
     "preset": "angular",
     "baseBranch": "main",
     "synced": true,
     "packages": [
-        "packages/turbo-version",
+        "packages/turbo-semver",
         "packages/github-action"
     ],
     "updateInternalDependencies": "patch",

@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up authentication tokens
-        uses: jucian0/turbo-version/github-setup@0.1.0
+        uses: jucian0/turbo-semver/github-setup@0.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

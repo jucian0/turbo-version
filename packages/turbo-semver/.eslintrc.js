@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ["turbo-version"],
+  extends: ["turbo-semver"],
 };

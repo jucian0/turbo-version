@@ -1,4 +1,4 @@
-name: TurboVersion
+name: TurboSemver
 description: A GitHub action to setup NPM, and GITHUB credentials.
 runs:
   using: "node16"
