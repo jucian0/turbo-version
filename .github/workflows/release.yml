@@ -27,6 +27,12 @@ jobs:
         with:
           node-version: 16.x
 
+      - name: Set up authentication tokens
+        uses: jucian0/turbo-version/github-setup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Install Dependencies
         shell: bash
         run: pnpm i
@@ -38,13 +44,6 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
-      - name: Setting up Git user 🤖
-        shell: bash
-        run: git config user.email "juciano@outlook.com.br" && git config user.name "jucian0"
-
       - name: TurboVersion
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         shell: bash
         run: pnpm turbov
