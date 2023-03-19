@@ -154,20 +154,6 @@ export async function gitProcess({ files, nextTag, name, branch }: GitProcess) {
       message: `New Tag version ${nextTag}`,
       pkgName: name ?? "Workspace",
     });
-
-    // await gitPush({ remote: "origin", branch });
-
-    // log({
-    //   step: "push_success",
-    //   message: `Successfully pushed to remote branch ${branch}`,
-    //   pkgName: pkgName ?? "Workspace",
-    // });
-
-    // log({
-    //   step: "post_target_success",
-    //   message: `Everything is done!!`,
-    //   pkgName: name ?? "Workspace",
-    // });
   } catch (err: any) {
     console.log(err);
     throw new Error(`Failed to create new version: ${err.message}`);

@@ -1,8 +1,10 @@
 {
-  "name": "turbo-semver-github-setup",
-  "description": "Github action for Turbo Semver",
+  "name": "turbo-release",
+  "description": "Release your packages by just one command.",
   "version": "0.3.0",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "author": {
     "name": "jucian0",
     "email": "juciano@outlook.com.br"
@@ -17,12 +19,18 @@
     "semver",
     "monorepo",
     "turborepo",
-    "semantic-release"
+    "semantic-release",
+    "npm",
+    "release",
+    "publish"
   ],
   "license": "MIT",
   "files": [
     "dist/**"
   ],
+  "bin": {
+    "release": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
@@ -37,13 +45,14 @@
     "tsup": "^5.10.1",
     "typescript": "^4.5.3",
     "ts-jest": "^29.0.5",
+    "@types/figlet": "^1.5.5",
     "jest": "^29.5.0",
     "@jest/globals": "29.5.0"
   },
   "dependencies": {
-    "@actions/core": "^1.10.0",
-    "@actions/exec": "^1.1.1",
-    "@actions/github": "^5.1.1"
+    "commander": "^10.0.0",
+    "chalk": "4.1.2",
+    "figlet": "^1.5.2"
   },
   "publishConfig": {
     "access": "public"
