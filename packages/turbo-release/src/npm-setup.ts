@@ -31,7 +31,7 @@ export async function npmSetup() {
 
   if (!NPM_TOKEN) {
     throw Error(
-      "Could not find the NPM_TOKEN var, provid it by addin an env var name `NPM_TOKEN`"
+      "Could not find the NPM_TOKEN var, provid it by adding an env var name `NPM_TOKEN`"
     );
   }
 

@@ -21,7 +21,7 @@ async function setupUser(userName: string, userEmail: string) {
 }
 
 export async function githubSetup() {
-  if (fileExist(`${cwd()}/.npmrc`)) {
+  if (fileExist(`${cwd()}/.netrc`)) {
     console.log(
       chalk.cyan(
         "We identify a .npmrc file, we are going to use it, if you want to use a custom configuration, jut remove it, and let us do it for you"
@@ -37,7 +37,7 @@ export async function githubSetup() {
 
   if (!GH_TOKEN) {
     throw Error(
-      "Could not find the GH_TOKEN var, provid it by addin an env var name `GH_TOKEN`"
+      "Could not find the GH_TOKEN var, provid it by adding an env var name `GH_TOKEN`"
     );
   }
 
