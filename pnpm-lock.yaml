@@ -7,11 +7,13 @@ importers:
       eslint: ^7.32.0
       prettier: ^2.5.1
       turbo: latest
+      turbo-release: workspace:*
       turbo-semver: workspace:*
     devDependencies:
       eslint: 7.32.0
       prettier: 2.8.0
       turbo: 1.8.3
+      turbo-release: link:packages/turbo-release
       turbo-semver: link:packages/turbo-semver
 
   packages/turbo-release:
