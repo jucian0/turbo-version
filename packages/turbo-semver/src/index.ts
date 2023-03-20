@@ -34,7 +34,7 @@ program
   .description(
     "Version the application by default, following the turbov.config.json specifications"
   )
-  .action(async (options) => {
+  .action(async (options): Promise<any> => {
     console.log(
       chalk.hex("#FF1F57")(figlet.textSync(name)),
       chalk.hex("#0096FF")(`v${packageJson.version}`)

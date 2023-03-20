@@ -56,7 +56,7 @@ async function gitCommit(options: GitCommit) {
   return promisifiedExec(`git ${command.join(" ")}`);
 }
 
-async function createGitTag(options: GitTagOptions) {
+export async function createGitTag(options: GitTagOptions) {
   const { tag, message = "", args = "" } = options;
   const command = `git tag -a -m "${message}" ${tag} ${args}`;
 

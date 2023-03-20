@@ -2,7 +2,7 @@ import { formatTag, formatTagPrefix } from "./utils/FormatTag";
 import { generateChangelog } from "./utils/GenerateChangelog";
 import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
-import { gitProcess } from "./utils/GitCommands";
+import { createGitTag, gitProcess } from "./utils/GitCommands";
 import { log } from "./utils/Log";
 import { summarizePackages } from "./utils/GetDependents";
 import { Config } from "./Types";
@@ -66,5 +66,11 @@ export async function asyncFlux(config: Config, type?: any) {
         await gitProcess({ files: [path], nextTag, name, branch });
       }
     }
-  } catch (err) {}
+    await createGitTag({
+      tag: "latest",
+      args: "--force",
+    });
+  } catch (err) {
+    return err;
+  }
 }
