@@ -63,7 +63,11 @@
     "compare-func": "^2.0.0",
     "conventional-changelog-angular": "^5.0.13",
     "conventional-commits-parser": "3.2.4",
-    "figlet": "^1.5.2"
+    "figlet": "^1.5.2",
+    "@turbo-version/log": "workspace:*",
+    "@turbo-version/git": "workspace:*",
+    "@turbo-version/fs": "workspace:*",
+    "@turbo-version/dependents": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

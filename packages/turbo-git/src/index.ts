@@ -154,12 +154,6 @@ export async function gitProcess({ files, nextTag, name, branch }: GitProcess) {
       tag: nextTag,
       message: tagMessage,
     });
-
-    log({
-      step: "tag_success",
-      message: `New Tag version ${nextTag}`,
-      pkgName: name ?? "All",
-    });
   } catch (err: any) {
     console.log(err);
     throw new Error(`Failed to create new version: ${err.message}`);

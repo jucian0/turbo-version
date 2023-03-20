@@ -1,7 +1,7 @@
 {
-  "name": "turbo-release",
+  "name": "@turbo-version/release",
   "description": "Release your packages by just one command.",
-  "version": "0.3.0",
+  "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -52,7 +52,11 @@
   "dependencies": {
     "commander": "^10.0.0",
     "chalk": "4.1.2",
-    "figlet": "^1.5.2"
+    "figlet": "^1.5.2",
+    "@turbo-version/log": "workspace:*",
+    "@turbo-version/git": "workspace:*",
+    "@turbo-version/fs": "workspace:*",
+    "@turbo-version/dependents": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
