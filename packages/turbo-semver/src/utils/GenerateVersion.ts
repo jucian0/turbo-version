@@ -49,7 +49,7 @@ export async function generateVersion({
     log({
       step: "calculate_version_success",
       message: `New version calculated: ${next}`,
-      pkgName: name ?? "Workspace",
+      pkgName: name ?? "All",
     });
     if (!next) {
       return null;
@@ -59,7 +59,7 @@ export async function generateVersion({
     log({
       step: "failure",
       message: `Failed to calculate version: ${error.message}`,
-      pkgName: name ?? "Workspace",
+      pkgName: name ?? "All",
     });
     return null;
   }

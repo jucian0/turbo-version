@@ -19,7 +19,7 @@ export async function asyncFlux(config: Config, type?: any) {
       log({
         step: "nothing_changed",
         message: `Nothing changed since last release.`,
-        pkgName: "Workspace",
+        pkgName: "All",
       });
       return;
     }

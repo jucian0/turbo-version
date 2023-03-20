@@ -147,7 +147,7 @@ export async function gitProcess({ files, nextTag, name, branch }: GitProcess) {
     log({
       step: "tag_success",
       message: `New Tag version ${nextTag}`,
-      pkgName: name ?? "Workspace",
+      pkgName: name ?? "All",
     });
   } catch (err: any) {
     console.log(err);

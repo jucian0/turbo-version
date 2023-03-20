@@ -9,6 +9,7 @@ import { asyncFlux } from "./AsyncFlux";
 import { setup } from "./Setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
+import { exit } from "process";
 
 const name = "Turbo Semver";
 
@@ -57,7 +58,7 @@ program
       return asyncFlux(config);
     } catch (err: any) {
       console.error(chalk.red(`ERROR: ${err}`));
-      throw Error(err);
+      exit(1);
     }
   });
 
