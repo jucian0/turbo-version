@@ -3,7 +3,6 @@ import { existsSync, statSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
 import { promisify } from "util";
-import { log } from "./Log";
 
 type GitTagOptions = {
   tag: string;

@@ -1,0 +1,49 @@
+{
+  "name": "@turbo-version/git",
+  "description": "Automatically versioning for monorepos",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "author": {
+    "name": "jucian0",
+    "email": "juciano@outlook.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jucian0/turbo-semver",
+    "homepage": "https://github.com/jucian0/turbo-semver"
+  },
+  "keywords": [
+    "version",
+    "semver",
+    "monorepo",
+    "turborepo",
+    "semantic-release"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "tsup": "^5.10.1",
+    "typescript": "^4.5.3",
+    "@types/node": "18.14.0",
+    "ts-jest": "^29.0.5",
+    "jest": "^29.5.0",
+    "@jest/globals": "29.5.0"
+  },
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
+}

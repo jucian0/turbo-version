@@ -14,7 +14,25 @@ importers:
       prettier: 2.8.0
       turbo: 1.8.3
       turbo-release: link:packages/turbo-release
-      turbo-semver: link:packages/turbo-semver
+      turbo-semver: link:packages/turbo-setup
+
+  packages/turbo-git:
+    specifiers:
+      '@jest/globals': 29.5.0
+      '@types/node': 18.14.0
+      eslint: ^7.32.0
+      jest: ^29.5.0
+      ts-jest: ^29.0.5
+      tsup: ^5.10.1
+      typescript: ^4.5.3
+    devDependencies:
+      '@jest/globals': 29.5.0
+      '@types/node': 18.14.0
+      eslint: 7.32.0
+      jest: 29.5.0_@types+node@18.14.0
+      ts-jest: 29.0.5_igyh6v6dfktrl57oxyjeyvbpt4
+      tsup: 5.12.9_typescript@4.9.3
+      typescript: 4.9.3
 
   packages/turbo-release:
     specifiers:
@@ -44,6 +62,61 @@ importers:
       typescript: 4.9.3
 
   packages/turbo-semver:
+    specifiers:
+      '@jest/globals': 29.5.0
+      '@manypkg/get-packages': ^2.1.0
+      '@types/conventional-changelog': ^3.1.1
+      '@types/conventional-commits-parser': ^3.0.3
+      '@types/conventional-recommended-bump': ^6.1.0
+      '@types/figlet': ^1.5.5
+      '@types/git-semver-tags': ^4.1.1
+      '@types/node': 18.14.0
+      '@types/semver': ^7.3.13
+      chalk: 4.1.2
+      commander: ^10.0.0
+      compare-func: ^2.0.0
+      conventional-changelog: ^3.1.25
+      conventional-changelog-angular: ^5.0.13
+      conventional-commits-parser: 3.2.4
+      conventional-recommended-bump: ^6.1.0
+      eslint: ^7.32.0
+      figlet: ^1.5.2
+      git-repository: ^0.1.4
+      git-semver-tags: ^4.1.1
+      jest: ^29.5.0
+      semver: ^7.3.8
+      ts-jest: ^29.0.5
+      tsup: ^5.10.1
+      typescript: ^4.5.3
+    dependencies:
+      chalk: 4.1.2
+      commander: 10.0.0
+      compare-func: 2.0.0
+      conventional-changelog: 3.1.25
+      conventional-changelog-angular: 5.0.13
+      conventional-commits-parser: 3.2.4
+      conventional-recommended-bump: 6.1.0
+      figlet: 1.5.2
+      git-repository: 0.1.4
+      git-semver-tags: 4.1.1
+      semver: 7.3.8
+    devDependencies:
+      '@jest/globals': 29.5.0
+      '@manypkg/get-packages': 2.1.0
+      '@types/conventional-changelog': 3.1.1
+      '@types/conventional-commits-parser': 3.0.3
+      '@types/conventional-recommended-bump': 6.1.0
+      '@types/figlet': 1.5.5
+      '@types/git-semver-tags': 4.1.1
+      '@types/node': 18.14.0
+      '@types/semver': 7.3.13
+      eslint: 7.32.0
+      jest: 29.5.0_@types+node@18.14.0
+      ts-jest: 29.0.5_igyh6v6dfktrl57oxyjeyvbpt4
+      tsup: 5.12.9_typescript@4.9.3
+      typescript: 4.9.3
+
+  packages/turbo-setup:
     specifiers:
       '@jest/globals': 29.5.0
       '@types/conventional-changelog': ^3.1.1
@@ -755,6 +828,34 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@manypkg/find-root/2.1.0:
+    resolution: {integrity: sha512-NEYRVlZCJYhRTqQURhv+WBpDcvmsp/M423Wcdvggv8lYJYD4GtqnTMLrQaTjA10fYt/PIc3tSdwV+wxJnWqPfQ==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      '@manypkg/tools': 1.0.0
+      '@types/node': 12.20.55
+      find-up: 4.1.0
+      fs-extra: 8.1.0
+    dev: true
+
+  /@manypkg/get-packages/2.1.0:
+    resolution: {integrity: sha512-IgWPEGgeKeR3ISlgHAMbY+m042yjNe3NPt8UmJT0xMwofe/UifUVtOq5aUBkNSygfOrcUh/j5JExLPuOx72quA==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      '@manypkg/find-root': 2.1.0
+      '@manypkg/tools': 1.0.0
+    dev: true
+
+  /@manypkg/tools/1.0.0:
+    resolution: {integrity: sha512-W8uDMhDGtwNyXYr6A+MWggxdL3spOQ8rfMNYpNph1GDJ0v084MnBFdpF1jvcPZ0okHAeYccV7le8AUs+fzwsAQ==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      fs-extra: 8.1.0
+      globby: 11.1.0
+      jju: 1.4.0
+      read-yaml-file: 1.1.0
+    dev: true
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -901,6 +1002,10 @@ packages:
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: false
+
+  /@types/node/12.20.55:
+    resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
+    dev: true
 
   /@types/node/18.14.0:
     resolution: {integrity: sha512-5EWrvLmglK+imbCJY0+INViFWUHg1AHel1sq4ZVSfdcNqGy9Edv3UB9IIzzg+xPaUcAgZYcfVs2fBcwDeZzU0A==}
@@ -2071,6 +2176,15 @@ packages:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
 
+  /fs-extra/8.1.0:
+    resolution: {integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==}
+    engines: {node: '>=6 <7 || >=8'}
+    dependencies:
+      graceful-fs: 4.2.10
+      jsonfile: 4.0.0
+      universalify: 0.1.2
+    dev: true
+
   /fs.realpath/1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
@@ -2931,6 +3045,10 @@ packages:
       - ts-node
     dev: true
 
+  /jju/1.4.0:
+    resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
+    dev: true
+
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
@@ -2980,6 +3098,12 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+    dev: true
+
+  /jsonfile/4.0.0:
+    resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
+    optionalDependencies:
+      graceful-fs: 4.2.10
     dev: true
 
   /jsonparse/1.3.1:
@@ -3386,6 +3510,11 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
+  /pify/4.0.1:
+    resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
+    engines: {node: '>=6'}
+    dev: true
+
   /pirates/4.0.5:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
     engines: {node: '>= 6'}
@@ -3513,6 +3642,16 @@ packages:
       parse-json: 5.2.0
       type-fest: 0.6.0
     dev: false
+
+  /read-yaml-file/1.1.0:
+    resolution: {integrity: sha512-VIMnQi/Z4HT2Fxuwg5KrY174U1VdUIASQVWXXyqtNRtxSr9IYkn1rsI6Tb6HsrHCmB7gVpNwX6JxPTHcH6IoTA==}
+    engines: {node: '>=6'}
+    dependencies:
+      graceful-fs: 4.2.10
+      js-yaml: 3.14.1
+      pify: 4.0.1
+      strip-bom: 3.0.0
+    dev: true
 
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
@@ -3778,7 +3917,6 @@ packages:
   /strip-bom/3.0.0:
     resolution: {integrity: sha512-vavAMRXOgBVNF6nyEEmL3DBK19iRpDcoIwW+swQ+CbGiu7lju6t+JklA1MHweoWtadgt4ISVUsXLyDq34ddcwA==}
     engines: {node: '>=4'}
-    dev: false
 
   /strip-bom/4.0.0:
     resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==}
@@ -3956,7 +4094,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.5.0_@types+node@18.15.3
+      jest: 29.5.0_@types+node@18.14.0
       jest-util: 29.5.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -4116,6 +4254,11 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /universalify/0.1.2:
+    resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
+    engines: {node: '>= 4.0.0'}
+    dev: true
 
   /update-browserslist-db/1.0.10_browserslist@4.21.5:
     resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}
