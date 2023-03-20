@@ -32,6 +32,18 @@ type GitPush = {
 
 const promisifiedExec = promisify(exec);
 
+export async function pullBranch(branch: string) {
+  await promisifiedExec(`git pull origin ${branch}`);
+}
+
+export async function push(branch: string, { force }: any = {}) {
+  await promisifiedExec(`git push origin HEAD:${branch} --force`);
+}
+
+export async function pushTags() {
+  await promisifiedExec("git push origin --tags");
+}
+
 async function gitAdd(files: string[]) {
   const command = `git add ${files.join(" ")}`;
 
