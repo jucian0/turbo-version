@@ -8,8 +8,5 @@
         "packages/turbo-semver",
         "packages/github-action"
     ],
-    "updateInternalDependencies": "patch",
-    "publishConfig": {
-        "packageManager": "pnpm"
-    }
+    "updateInternalDependencies": "patch"
 }

@@ -23,6 +23,7 @@ export async function npmSetup() {
         "We identify a .npmrc file, we are going to use it, if you want to use a custom configuration, jut remove it, and let us do it for you"
       )
     );
+
     return;
   }
 
@@ -31,7 +32,7 @@ export async function npmSetup() {
 
   if (!NPM_TOKEN) {
     throw Error(
-      "Could not find the NPM_TOKEN var, provid it by adding an env var name `NPM_TOKEN`"
+      "Could not find the NPM_TOKEN env var, provid it by adding an env var name `NPM_TOKEN`, or add a `.npmrc` file."
     );
   }
 

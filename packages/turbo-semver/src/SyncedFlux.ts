@@ -7,8 +7,6 @@ import { getLatestTag } from "./utils/GetLatestTag";
 import { gitProcess } from "./utils/GitCommands";
 import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
-import { publish } from "./utils/Publish";
-import chalk from "chalk";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
@@ -43,20 +41,6 @@ export async function syncedFlux(config: Config, type?: any) {
         });
       }
       await gitProcess({ files: [cwd()], nextTag, branch });
-
-      if (config.publishConfig) {
-        for (const pkg of config.packages) {
-          const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
-          const name = pkgJson.name;
-
-          await publish({
-            packageManager: config.publishConfig.packageManager ?? "npm",
-            path: pkg,
-            tag: pkgJson.version,
-            name,
-          });
-        }
-      }
     }
   } catch (err) {}
 }

@@ -10,9 +10,6 @@ export type Config = {
     | "patch"
     | "no-internal-update";
   strategy: "first-release" | "next-release" | "last-release";
-  publishConfig: {
-    packageManager: string;
-  };
 };
 
 export type PkgJson = {

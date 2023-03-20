@@ -7,7 +7,6 @@ import { log } from "./utils/Log";
 import { summarizePackages } from "./utils/GetDependents";
 import { Config } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
-import { publish } from "./utils/Publish";
 import chalk from "chalk";
 
 export async function asyncFlux(config: Config, type?: any) {
@@ -65,21 +64,6 @@ export async function asyncFlux(config: Config, type?: any) {
         });
 
         await gitProcess({ files: [path], nextTag, name, branch });
-      }
-    }
-    if (config.publishConfig) {
-      for (const pkg of packages) {
-        const {
-          path,
-          package: { name, version },
-        } = pkg;
-
-        await publish({
-          packageManager: config.publishConfig.packageManager ?? "npm",
-          path,
-          tag: version,
-          name: name,
-        });
       }
     }
   } catch (err) {}

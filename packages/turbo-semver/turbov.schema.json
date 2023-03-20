@@ -43,24 +43,6 @@
                 false
             ],
             "description": "How to update internal dependencies between packages"
-        },
-        "publishConfig": {
-            "type": "object",
-            "properties": {
-                "packageManager": {
-                    "type": "string",
-                    "enum": [
-                        "npm",
-                        "yarn",
-                        "pnpm"
-                    ],
-                    "description": "The package manager to use when publishing the package"
-                }
-            },
-            "required": [
-                "packageManager"
-            ],
-            "description": "Settings for publishing the package to a registry"
         }
     },
     "required": [

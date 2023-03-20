@@ -6,7 +6,6 @@ import { getLatestTag } from "./utils/GetLatestTag";
 import { gitProcess } from "./utils/GitCommands";
 import { Config, PkgJson } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
-import { publish } from "./utils/Publish";
 
 export async function singleFlux(config: Config, options: any) {
   const { preset, baseBranch: branch } = config;
@@ -55,15 +54,6 @@ export async function singleFlux(config: Config, options: any) {
       });
 
       await gitProcess({ files: [path], nextTag, name, branch });
-
-      if (config.publishConfig) {
-        await publish({
-          packageManager: config.publishConfig.packageManager ?? "npm",
-          path: path,
-          tag: version,
-          name,
-        });
-      }
     }
   }
 }

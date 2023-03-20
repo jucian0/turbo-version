@@ -63,11 +63,6 @@ async function createGitTag(options: GitTagOptions) {
   return promisifiedExec(command);
 }
 
-export async function gitPush({ remote, branch }: GitPush) {
-  const gitCommand = `git push ${remote} ${branch} --tags`;
-  return promisifiedExec(gitCommand);
-}
-
 export function getCommitsLength(pkgRoot: string) {
   try {
     const gitCommand = `git rev-list --count HEAD ^$(git describe --tags --abbrev=0) ${pkgRoot}`;

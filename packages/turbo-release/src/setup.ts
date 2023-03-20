@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { exit } from "process";
 import { githubSetup } from "./github-setup";
 import { npmSetup } from "./npm-setup";
 import { publish } from "./publish";
@@ -19,6 +20,6 @@ export async function release(target: string) {
     }
   } catch (err: any) {
     console.log(chalk.red(err));
-    throw Error(err);
+    exit(1);
   }
 }
