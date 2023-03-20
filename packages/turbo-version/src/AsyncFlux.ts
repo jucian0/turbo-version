@@ -2,12 +2,12 @@ import { formatTag, formatTagPrefix } from "./utils/FormatTag";
 import { generateChangelog } from "./utils/GenerateChangelog";
 import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
-import { createGitTag, gitProcess } from "./utils/GitCommands";
-import { log } from "./utils/Log";
-import { summarizePackages } from "./utils/GetDependents";
 import { Config } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 import chalk from "chalk";
+import { createGitTag, gitProcess } from "@turbo-version/git";
+import { log } from "@turbo-version/log";
+import { summarizePackages } from "@turbo-version/dependents";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;

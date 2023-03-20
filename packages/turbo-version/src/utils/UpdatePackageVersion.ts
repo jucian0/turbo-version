@@ -1,11 +1,11 @@
+import { fileExist, resolvePkgPath } from "@turbo-version/fs";
+import { log } from "@turbo-version/log";
 import * as fs from "fs";
-import { fileExist, resolvePkgPath } from "./FileSystem";
-import { log } from "./Log";
 
 type PackageVersion = {
   path: string;
   version: string;
-  name:string
+  name: string;
 };
 export function updatePackageVersion({ path, version, name }: PackageVersion) {
   const packageJsonPath = resolvePkgPath(`${path}/package.json`);
@@ -15,7 +15,7 @@ export function updatePackageVersion({ path, version, name }: PackageVersion) {
         step: "failure",
         message:
           "Could not find the package.json file, make sure your `turbov.config.json` is right configured!",
-        pkgName:name,
+        pkgName: name,
       });
       reject();
     }

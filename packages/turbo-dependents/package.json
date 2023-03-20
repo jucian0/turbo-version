@@ -41,29 +41,16 @@
     "tsup": "^5.10.1",
     "typescript": "^4.5.3",
     "@types/node": "18.14.0",
-    "@types/conventional-changelog": "^3.1.1",
-    "@types/conventional-recommended-bump": "^6.1.0",
-    "@types/semver": "^7.3.13",
-    "@types/git-semver-tags": "^4.1.1",
-    "@types/conventional-commits-parser": "^3.0.3",
     "@types/figlet": "^1.5.5",
     "ts-jest": "^29.0.5",
     "jest": "^29.5.0",
-    "@jest/globals": "29.5.0",
-    "@manypkg/get-packages": "^2.1.0"
+    "@jest/globals": "29.5.0"
   },
   "dependencies": {
-    "conventional-changelog": "^3.1.25",
-    "conventional-recommended-bump": "^6.1.0",
-    "git-repository": "^0.1.4",
-    "semver": "^7.3.8",
-    "commander": "^10.0.0",
-    "git-semver-tags": "^4.1.1",
-    "chalk": "4.1.2",
-    "compare-func": "^2.0.0",
-    "conventional-changelog-angular": "^5.0.13",
-    "conventional-commits-parser": "3.2.4",
-    "figlet": "^1.5.2"
+    "@manypkg/get-packages": "^2.1.0",
+    "@turbo-version/setup": "workspace:*",
+    "@turbo-version/fs": "workspace:*",
+    "@turbo-version/git": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

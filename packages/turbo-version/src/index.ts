@@ -6,7 +6,7 @@ import { Command, Option } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { asyncFlux } from "./AsyncFlux";
-import { setup } from "./Setup";
+import { setup } from "@turbo-version/setup";
 import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
 import { exit } from "process";

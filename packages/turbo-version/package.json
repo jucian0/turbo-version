@@ -67,7 +67,8 @@
     "@turbo-version/log": "workspace:*",
     "@turbo-version/git": "workspace:*",
     "@turbo-version/fs": "workspace:*",
-    "@turbo-version/dependents": "workspace:*"
+    "@turbo-version/dependents": "workspace:*",
+    "@turbo-version/setup": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

@@ -1,6 +1,14 @@
 import { cwd } from "process";
 import * as fs from "fs";
 
+export type PkgJson = {
+  name: string;
+  version: string;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  path?: string;
+};
+
 export type Config = {
   tagPrefix: string;
   preset: string;

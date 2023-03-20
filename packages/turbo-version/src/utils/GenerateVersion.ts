@@ -1,9 +1,9 @@
 import { promisify } from "util";
 import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
-import { getCommitsLength } from "./GitCommands";
-import { log } from "./Log";
 import { cwd } from "process";
+import { getCommitsLength } from "@turbo-version/git";
+import { log } from "@turbo-version/log";
 
 const recommendedBumpAsync = promisify(conventionalRecommendedBump);
 
