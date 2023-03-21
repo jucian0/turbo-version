@@ -42,20 +42,10 @@ export async function generateChangelog({
     )
       .pipe(outputStream)
       .on("close", () => {
-        log({
-          step: "changelog_success",
-          message: `Success changelog generated`,
-          pkgName: name,
-        });
-        resolve(true);
+        resolve(`Success changelog generated ${name}`);
       })
       .on("error", (err) => {
-        log({
-          step: "failure",
-          message: `Error generating changelog`,
-          pkgName: name,
-        });
-        reject();
+        reject(new Error(`Error generating changelog ${name}`));
       });
   });
 }

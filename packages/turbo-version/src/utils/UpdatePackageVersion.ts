@@ -1,5 +1,4 @@
 import { fileExist, resolvePkgPath } from "@turbo-version/fs";
-import { log } from "@turbo-version/log";
 import * as fs from "fs";
 
 type PackageVersion = {
@@ -9,20 +8,22 @@ type PackageVersion = {
 };
 export function updatePackageVersion({ path, version, name }: PackageVersion) {
   const packageJsonPath = resolvePkgPath(`${path}/package.json`);
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     if (!fileExist(packageJsonPath)) {
-      log({
-        step: "failure",
-        message:
-          "Could not find the package.json file, make sure your `turbov.config.json` is right configured!",
-        pkgName: name,
-      });
-      reject();
+      reject(
+        new Error(
+          "Could not find the package.json file, make sure your `turbov.config.json` is right configured!"
+        )
+      );
     }
 
     fs.readFile(packageJsonPath, "utf8", (err, data) => {
       if (err) {
-        reject(err);
+        reject(
+          new Error(
+            "Could not find the package.json file, make sure your `turbov.config.json` is right configured!"
+          )
+        );
       }
 
       const packageJson = JSON.parse(data);
@@ -37,12 +38,7 @@ export function updatePackageVersion({ path, version, name }: PackageVersion) {
             return reject(err);
           }
 
-          log({
-            step: "package_json_success",
-            message: `Packages info updated`,
-            pkgName: name,
-          });
-          resolve();
+          resolve(`Packages info updated ${name}`);
         }
       );
     });

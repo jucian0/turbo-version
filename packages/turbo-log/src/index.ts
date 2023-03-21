@@ -1,39 +1,34 @@
 import chalk from "chalk";
 
 export type LogStep =
-  | "affected_packages"
-  | "nothing_changed"
-  | "failure"
+  | "list"
+  | "error"
   | "warning"
-  | "calculate_version_success"
-  | "package_json_success"
-  | "changelog_success"
-  | "tag_success"
-  | "publish_success"
-  | "push_success"
-  | "commit_success";
+  | "warning"
+  | "success"
+  | "new"
+  | "box"
+  | "paper"
+  | "publish"
+  | "tag"
+  | "release";
 
-export type LogProps = {
-  step: LogStep;
-  message: string;
-  pkgName: string;
-};
+export type LogProps = [LogStep, string, string];
 
 const iconMap: Map<LogStep, string> = new Map([
-  ["affected_packages", "📜"],
-  ["failure", "❌"],
+  ["list", "📜"],
+  ["error", "❌"],
   ["warning", "🟠"],
-  ["nothing_changed", "🟢"],
-  ["calculate_version_success", "🆕"],
-  ["changelog_success", "📜"],
-  ["commit_success", "📦"],
-  ["package_json_success", "📝"],
-  ["publish_success", "🎉"],
-  ["tag_success", "🔖"],
-  ["push_success", "🚀"],
+  ["success", "🟢"],
+  ["new", "🆕"],
+  ["box", "📦"],
+  ["paper", "📝"],
+  ["publish", "🎉"],
+  ["tag", "🔖"],
+  ["release", "🚀"],
 ]);
 
-export function log({ step, message, pkgName }: LogProps) {
+export function log([step, message, pkgName]: LogProps) {
   const icon = iconMap.get(step)?.toString() ?? "";
   const boldPkgName = chalk.bold(`[${pkgName}]`);
   const msg = `${boldPkgName} ${icon} ${message}`;

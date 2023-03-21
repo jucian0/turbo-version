@@ -3,7 +3,6 @@ import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
 import { cwd } from "process";
 import { getCommitsLength } from "@turbo-version/git";
-import { log } from "@turbo-version/log";
 
 const recommendedBumpAsync = promisify(conventionalRecommendedBump);
 
@@ -41,26 +40,16 @@ export async function generateVersion({
     const amountCommits = getCommitsLength(path ?? cwd());
 
     if (latestTag && amountCommits === 0 && !type) {
-      throw new Error("There is no change since the last release.");
+      return null;
     }
 
     const next = semver.inc(currentVersion, type ?? recommended);
 
-    log({
-      step: "calculate_version_success",
-      message: `New version calculated: ${next}`,
-      pkgName: name ?? "All",
-    });
     if (!next) {
-      return null;
+      throw Error();
     }
     return next.toString();
   } catch (error: any) {
-    log({
-      step: "failure",
-      message: `Failed to calculate version: ${error.message}`,
-      pkgName: name ?? "All",
-    });
-    return null;
+    throw Error(`Failed to calculate version: ${error.message}`);
   }
 }
