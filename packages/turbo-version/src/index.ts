@@ -11,11 +11,11 @@ import { singleFlux } from "./SingleFlux";
 import { syncedFlux } from "./SyncedFlux";
 import { exit } from "process";
 
-const name = "Turbo Semver";
+const name = "Turbo Version";
 
 const program = new Command();
 
-program.name("Turbo Semver").description("").version(packageJson.version);
+program.name("Turbo Version").description("").version(packageJson.version);
 
 program.option("-t, --target <project>", "project you want to bump version");
 

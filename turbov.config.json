@@ -1,5 +1,5 @@
 {
-    "$schema": "./packages/turbo-semver/turbov.schema.json",
+    "$schema": "./packages/turbo-version/turbov.schema.json",
     "tagPrefix": "v",
     "preset": "angular",
     "baseBranch": "main",

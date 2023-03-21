@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: pnpm build
 
-      - name: Install turbo-semver
+      - name: Install turbo-version
         run: pnpm i
 
       - name: Setting up Git user

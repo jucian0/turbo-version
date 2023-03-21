@@ -28,8 +28,6 @@ export async function syncedFlux(config: Config, type?: any) {
 
     if (typeof version === "string") {
       log(["new", `New version calculated`, version]);
-
-      console.log(chalk.green(`Next version calculated ${version} \n`));
       const nextTag = formatTag({ tagPrefix, version });
 
       for (const pkg of config.packages) {
@@ -37,7 +35,7 @@ export async function syncedFlux(config: Config, type?: any) {
         const name = pkgJson.name;
 
         await updatePackageVersion({ path: pkg, version, name });
-        console.log(chalk.white(`Package version updated for ${name}\n`));
+        log(["paper", "Package version updated", name]);
 
         await generateChangelog({
           tagPrefix,
@@ -47,21 +45,18 @@ export async function syncedFlux(config: Config, type?: any) {
           name,
         });
         log(["paper", `Changelog generated`, name]);
-        //console.log(chalk.white(`Changelog generated for ${name}\n`));
       }
 
       await gitProcess({ files: [cwd()], nextTag, branch });
-      console.log(chalk.white(`Git Tag generated for ${nextTag}\n`));
+      log(["tag", `Git Tag generated for ${nextTag}\n`, "All"]);
 
       await createGitTag({
         tag: "latest",
         args: "--force",
       });
-      console.log(chalk.white("Git Tag generated for `latest`\n"));
+      log(["tag", "Git Tag generated for `latest`", "All"]);
     } else {
-      console.log(
-        chalk.white("[ 🟢 ] - There is no change since the last release.")
-      );
+      log(["success", "There is no change since the last release.", "All"]);
     }
   } catch (err: any) {
     console.log(chalk.red(err.message));

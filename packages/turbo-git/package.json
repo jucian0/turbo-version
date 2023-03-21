@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-semver",
-    "homepage": "https://github.com/jucian0/turbo-semver"
+    "url": "https://github.com/jucian0/turbo-version",
+    "homepage": "https://github.com/jucian0/turbo-version"
   },
   "keywords": [
     "version",

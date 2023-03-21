@@ -2,7 +2,7 @@ import chalk from "chalk";
 
 export type LogStep =
   | "list"
-  | "error"
+  | "failled"
   | "warning"
   | "warning"
   | "success"
@@ -11,13 +11,14 @@ export type LogStep =
   | "paper"
   | "publish"
   | "tag"
-  | "release";
+  | "release"
+  | "error";
 
 export type LogProps = [LogStep, string, string];
 
 const iconMap: Map<LogStep, string> = new Map([
   ["list", "📜"],
-  ["error", "❌"],
+  ["failled", "❌"],
   ["warning", "🟠"],
   ["success", "🟢"],
   ["new", "🆕"],
@@ -26,6 +27,7 @@ const iconMap: Map<LogStep, string> = new Map([
   ["publish", "🎉"],
   ["tag", "🔖"],
   ["release", "🚀"],
+  ["error", "❌"],
 ]);
 
 export function log([step, message, pkgName]: LogProps) {
@@ -33,5 +35,8 @@ export function log([step, message, pkgName]: LogProps) {
   const boldPkgName = chalk.bold(`[${pkgName}]`);
   const msg = `${boldPkgName} ${icon} ${message}`;
 
-  console.log(msg);
+  if (step === "error") {
+    return console.log(chalk.red(msg));
+  }
+  return console.log(msg);
 }

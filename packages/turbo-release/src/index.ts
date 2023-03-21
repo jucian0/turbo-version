@@ -11,7 +11,7 @@ const name = "Turbo Release";
 
 const program = new Command();
 
-program.name("Turbo Semver").description("").version(packageJson.version);
+program.name("Turbo Version").description("").version(packageJson.version);
 
 program
   .option("-t, --target <project>", "projects you want to release")
