@@ -44,22 +44,26 @@ export async function syncedFlux(config: Config, type?: any) {
           version,
           name,
         });
-        log(["paper", `Changelog generated`, name]);
+        log(["list", `Changelog generated`, name]);
       }
 
       await gitProcess({ files: [cwd()], nextTag, branch });
-      log(["tag", `Git Tag generated for ${nextTag}\n`, "All"]);
+      log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
 
       await createGitTag({
         tag: "latest",
         args: "--force",
       });
-      log(["tag", "Git Tag generated for `latest`", "All"]);
+      log([
+        "tag",
+        "Git Tag generated for `latest` This tag is used to calculate next version.",
+        "All",
+      ]);
     } else {
       log(["success", "There is no change since the last release.", "All"]);
     }
   } catch (err: any) {
-    console.log(chalk.red(err.message));
+    log(["error", chalk.red(err.message), "All"]);
     exit(1);
   }
 }
