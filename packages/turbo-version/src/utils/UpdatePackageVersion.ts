@@ -12,7 +12,7 @@ export function updatePackageVersion({ path, version, name }: PackageVersion) {
     if (!fileExist(packageJsonPath)) {
       reject(
         new Error(
-          "Could not find the package.json file, make sure your `turbov.config.json` is right configured!"
+          "Could not find the package.json file, make sure your `version.config.json` is right configured!"
         )
       );
     }
@@ -21,7 +21,7 @@ export function updatePackageVersion({ path, version, name }: PackageVersion) {
       if (err) {
         reject(
           new Error(
-            "Could not find the package.json file, make sure your `turbov.config.json` is right configured!"
+            "Could not find the package.json file, make sure your `version.config.json` is right configured!"
           )
         );
       }

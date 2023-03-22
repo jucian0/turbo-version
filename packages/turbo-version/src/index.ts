@@ -32,7 +32,7 @@ program
     ])
   )
   .description(
-    "Version the application by default, following the turbov.config.json specifications"
+    "Version the application by default, following the version.config.json specifications"
   )
   .action(async (options): Promise<any> => {
     console.log(

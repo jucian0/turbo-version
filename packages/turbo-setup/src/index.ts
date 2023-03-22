@@ -26,16 +26,16 @@ export type Config = {
 export function setup(): Promise<Config> {
   const localProcess = cwd();
   return new Promise((resolve, reject) => {
-    fs.readFile(`${localProcess}/turbov.config.json`, "utf-8", (err, data) => {
+    fs.readFile(`${localProcess}/version.config.json`, "utf-8", (err, data) => {
       if (err) {
-        reject(new Error("Could not locate the `turbov.config.json file"));
+        reject(new Error("Could not locate the `version.config.json file"));
       }
 
       try {
         const config: Config = JSON.parse(data);
         resolve(config);
       } catch (err) {
-        reject(new Error("Could not locate the `turbov.config.json file`"));
+        reject(new Error("Could not locate the `version.config.json file`"));
       }
     });
   });
