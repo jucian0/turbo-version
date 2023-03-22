@@ -38,7 +38,7 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
-      - name: Setting up Git user
+      - name: Setting up Git user action
         shell: bash
         run: git config --global user.email 'github-actions[bot]@users.noreply.github.com' && git config --global user.name 'github-actions[bot]'
 

@@ -7,17 +7,21 @@ import { readJsonFile } from "@turbo-version/fs";
 import { gitProcess } from "@turbo-version/git";
 import { Config, PkgJson } from "@turbo-version/setup";
 import { log } from "@turbo-version/log";
-import { exit } from "process";
+import { cwd, exit } from "process";
 import chalk from "chalk";
+import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function singleFlux(config: Config, options: any) {
   const { preset, baseBranch: branch } = config;
   const pkgNames: string[] = options.target.split(",");
   const type = options.bump;
   const pkgsJson = [];
+  const { packages } = getPackagesSync(cwd());
+
+  console.log(`>>>>>`, packages);
 
   try {
-    for (const pkg of config.packages) {
+    for (const pkg of []) {
       const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
 
       if (pkgNames.some((name) => name === pkgJson.name) && !config.synced) {
@@ -71,4 +75,7 @@ export async function singleFlux(config: Config, options: any) {
     log(["error", chalk.red(err.message), "Failure"]);
     exit(1);
   }
+}
+function cmd(): string {
+  throw new Error("Function not implemented.");
 }

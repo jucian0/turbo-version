@@ -4,11 +4,12 @@ import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 import chalk from "chalk";
-import { createGitTag, gitProcess } from "@turbo-version/git";
+import { gitProcess } from "@turbo-version/git";
 import { log } from "@turbo-version/log";
 import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
-import { exit } from "process";
+import { cwd, exit } from "process";
+import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -24,14 +25,14 @@ export async function asyncFlux(config: Config, type?: any) {
     console.log(
       chalk.cyan(
         `Working on ${packages
-          .map((n) => n.package.name)
+          .map((n) => n.packageJson.name)
           .toString()} package(s).\n`
       )
     );
 
     for (const pkg of packages) {
-      const name = pkg.package.name;
-      const path = pkg.path;
+      const name = pkg.packageJson.name;
+      const path = pkg.relativeDir;
 
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
@@ -74,4 +75,7 @@ export async function asyncFlux(config: Config, type?: any) {
     log(["error", chalk.red(err.message), "Failure"]);
     exit(1);
   }
+}
+function cmd(): string {
+  throw new Error("Function not implemented.");
 }

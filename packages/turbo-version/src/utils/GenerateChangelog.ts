@@ -1,5 +1,4 @@
 import { resolvePkgPath } from "@turbo-version/fs";
-import { log } from "@turbo-version/log";
 import conventionalChangelog from "conventional-changelog";
 import * as fs from "fs";
 
