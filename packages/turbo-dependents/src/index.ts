@@ -1,7 +1,6 @@
 import { getPackagesSync, Package as PKG } from "@manypkg/get-packages";
-import { readJsonFile } from "@turbo-version/fs";
 import { getFoldersWithCommits } from "@turbo-version/git";
-import { Config, PkgJson } from "@turbo-version/setup";
+import { Config } from "@turbo-version/setup";
 import { cwd } from "process";
 
 type Package = PKG & { type?: string };
@@ -12,7 +11,7 @@ function getDependents(
   type: any
 ): Package[] {
   try {
-    const dependents = packages.reduce((acc, ac) => {
+    return packages.reduce((acc, ac) => {
       const allDependencies = Object.keys({
         ...ac.packageJson.dependencies,
         ...ac.packageJson.devDependencies,
@@ -24,22 +23,6 @@ function getDependents(
       }
       return acc;
     }, [] as any[]);
-
-    // for (const pkg of packages) {
-    //   const json = readJsonFile<PkgJson>(`${pkg}/package.json`);
-
-    //   const allDependencies = Object.keys({
-    //     ...json.dependencies,
-    //     ...json.devDependencies,
-    //   });
-
-    //   const dependency = allDependencies.find((dep) => dep === pkgName);
-    //   if (dependency) {
-    //     dependents.push({ package: json, path: pkg, type });
-    //   }
-    // }
-
-    return dependents;
   } catch (err) {
     return [];
   }
@@ -57,21 +40,23 @@ export async function summarizePackages(config: Config): Promise<Package[]> {
     const monoRepo = getPackagesSync(cwd());
     const filteredPackages = filterPackages(monoRepo.packages, folders);
 
-    const reducedPackages = filteredPackages.reduce((packages, pkg) => {
-      const dependents = getDependents(
-        monoRepo.packages,
-        pkg.packageJson.name,
-        config.updateInternalDependencies
-      );
+    if (config.updateInternalDependencies) {
+      return filteredPackages.reduce((packages, pkg) => {
+        const dependents = getDependents(
+          monoRepo.packages,
+          pkg.packageJson.name,
+          config.updateInternalDependencies
+        );
 
-      const filtered = dependents.filter((d) =>
-        packages.every((p) => p.relativeDir !== d.relativeDir)
-      );
+        const filteredDependents = dependents.filter((d) =>
+          packages.every((p) => p.relativeDir !== d.relativeDir)
+        );
 
-      return [...packages, ...filtered];
-    }, filteredPackages);
+        return [...packages, ...filteredDependents];
+      }, filteredPackages);
+    }
 
-    return reducedPackages;
+    return filteredPackages;
   } catch (err) {
     return err as any;
   }

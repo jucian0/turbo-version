@@ -8,8 +8,7 @@ import { gitProcess } from "@turbo-version/git";
 import { log } from "@turbo-version/log";
 import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
-import { cwd, exit } from "process";
-import { getPackagesSync } from "@manypkg/get-packages";
+import { exit } from "process";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -39,7 +38,6 @@ export async function asyncFlux(config: Config, type?: any) {
         name,
         synced: config.synced,
       });
-
       const latestTag = await getLatestTag(tagPrefix);
       const version = await generateVersion({
         latestTag,
