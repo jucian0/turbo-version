@@ -2,7 +2,7 @@ import chalk from "chalk";
 
 export type LogStep =
   | "list"
-  | "failled"
+  | "failed"
   | "warning"
   | "warning"
   | "success"
@@ -18,7 +18,7 @@ export type LogProps = [LogStep, string, string];
 
 const iconMap: Map<LogStep, string> = new Map([
   ["list", "📜"],
-  ["failled", "❌"],
+  ["failed", "❌"],
   ["warning", "🟠"],
   ["success", "🟢"],
   ["new", "🆕"],

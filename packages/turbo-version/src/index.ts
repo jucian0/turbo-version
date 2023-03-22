@@ -42,6 +42,13 @@ program
     try {
       const config = await setup();
       if (config.synced) {
+        if (options.target) {
+          console.log(
+            chalk.yellow(
+              "Looks like you are using `synced` mode with `-target | --t`. Since `synced` mode precedes `-target | --t`, we are going to ignore it!"
+            )
+          );
+        }
         if (options.bump) {
           return syncedFlux(config, options.bump);
         }

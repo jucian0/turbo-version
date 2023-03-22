@@ -5,7 +5,7 @@ import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 import { readJsonFile } from "@turbo-version/fs";
-import { gitProcess, createGitTag } from "@turbo-version/git";
+import { gitProcess } from "@turbo-version/git";
 import { Config, PkgJson } from "@turbo-version/setup";
 import chalk from "chalk";
 import { log } from "@turbo-version/log";
@@ -27,7 +27,7 @@ export async function syncedFlux(config: Config, type?: any) {
     });
 
     if (typeof version === "string") {
-      log(["new", `New version calculated`, version]);
+      log(["new", `New version calculated ${version}`, "All"]);
       const nextTag = formatTag({ tagPrefix, version });
 
       for (const pkg of config.packages) {
@@ -49,21 +49,11 @@ export async function syncedFlux(config: Config, type?: any) {
 
       await gitProcess({ files: [cwd()], nextTag, branch });
       log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
-
-      await createGitTag({
-        tag: "latest",
-        args: "--force",
-      });
-      log([
-        "tag",
-        "Git Tag generated for `latest` This tag is used to calculate next version.",
-        "All",
-      ]);
     } else {
       log(["success", "There is no change since the last release.", "All"]);
     }
   } catch (err: any) {
-    log(["error", chalk.red(err.message), "All"]);
+    log(["error", chalk.red(err.message), "Failure"]);
     exit(1);
   }
 }

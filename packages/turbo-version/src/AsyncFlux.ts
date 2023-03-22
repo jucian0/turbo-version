@@ -2,12 +2,13 @@ import { formatTag, formatTagPrefix } from "./utils/FormatTag";
 import { generateChangelog } from "./utils/GenerateChangelog";
 import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
-import { Config } from "./Types";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 import chalk from "chalk";
 import { createGitTag, gitProcess } from "@turbo-version/git";
 import { log } from "@turbo-version/log";
 import { summarizePackages } from "@turbo-version/dependents";
+import { Config } from "@turbo-version/setup";
+import { exit } from "process";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -16,11 +17,7 @@ export async function asyncFlux(config: Config, type?: any) {
     const packages = await summarizePackages(config);
 
     if (packages.length === 0) {
-      log({
-        step: "nothing_changed",
-        message: `Nothing changed since last release.`,
-        pkgName: "All",
-      });
+      log(["success", `Nothing changed since last release.`, "All clean"]);
       return;
     }
 
@@ -53,8 +50,11 @@ export async function asyncFlux(config: Config, type?: any) {
       });
 
       if (version) {
+        log(["new", `New version calculated ${version}`, name]);
         const nextTag = formatTag({ tagPrefix, version });
         await updatePackageVersion({ path, version, name });
+        log(["paper", "Package version updated", name]);
+
         await generateChangelog({
           tagPrefix,
           preset,
@@ -62,15 +62,16 @@ export async function asyncFlux(config: Config, type?: any) {
           version,
           name,
         });
+        log(["list", `Changelog generated`, name]);
 
         await gitProcess({ files: [path], nextTag, name, branch });
+        log(["tag", `Git Tag generated for ${nextTag}.`, name]);
+      } else {
+        log(["success", "There is no change since the last release.", name]);
       }
     }
-    await createGitTag({
-      tag: "latest",
-      args: "--force",
-    });
-  } catch (err) {
-    return err;
+  } catch (err: any) {
+    log(["error", chalk.red(err.message), "Failure"]);
+    exit(1);
   }
 }

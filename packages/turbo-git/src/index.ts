@@ -145,6 +145,7 @@ export async function gitProcess({ files, nextTag, name, branch }: GitProcess) {
     }
 
     await gitAdd(files);
+
     await gitCommit({
       message: `New version generated ${nextTag}`,
     });
