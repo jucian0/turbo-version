@@ -1,5 +1,6 @@
-import { promisify } from "./utils";
+import { exec } from "child_process";
+import { promisify } from "util";
 
-export function publish(path?: string) {
-  return promisify(`npm publish ${path ?? ""}`);
+export async function publish(path?: string) {
+  return promisify(exec)(`npm publish ${path ?? ""}`);
 }

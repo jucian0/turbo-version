@@ -1,7 +1,7 @@
+import { fileExist } from "@turbo-version/fs";
 import chalk from "chalk";
 import { writeFile } from "fs/promises";
 import { cwd } from "process";
-import { fileExist } from "./utils";
 
 type NPMRC = {
   npmURL: string;

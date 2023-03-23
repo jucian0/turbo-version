@@ -111,6 +111,7 @@ importers:
       '@turbo-version/fs': workspace:*
       '@turbo-version/git': workspace:*
       '@turbo-version/log': workspace:*
+      '@turbo-version/setup': workspace:*
       '@types/figlet': ^1.5.5
       '@types/node': ^18.15.3
       chalk: 4.1.2
@@ -126,6 +127,7 @@ importers:
       '@turbo-version/fs': link:../turbo-fs
       '@turbo-version/git': link:../turbo-git
       '@turbo-version/log': link:../turbo-log
+      '@turbo-version/setup': link:../turbo-setup
       chalk: 4.1.2
       commander: 10.0.0
       figlet: 1.5.2

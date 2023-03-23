@@ -1,7 +1,9 @@
 import chalk from "chalk";
 import { cwd } from "process";
-import { fileExist, promisify } from "./utils";
 import { writeFile } from "fs/promises";
+import { promisify } from "util";
+import { exec } from "child_process";
+import { fileExist } from "@turbo-version/fs";
 
 type GHCredentials = {
   ghUser: string;
@@ -16,8 +18,8 @@ async function writeNETRC(options: GHCredentials) {
 }
 
 async function setupUser(userName: string, userEmail: string) {
-  await promisify(`git config --global user.name '${userName}'`);
-  await promisify(`git config --global user.email '${userEmail}'`);
+  await promisify(exec)(`git config --global user.name '${userName}'`);
+  await promisify(exec)(`git config --global user.email '${userEmail}'`);
 }
 
 export async function githubSetup() {

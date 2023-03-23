@@ -16,13 +16,13 @@ program.name("Turbo Version").description("").version(packageJson.version);
 program
   .option("-t, --target <project>", "projects you want to release")
 
-  .action((options) => {
+  .action(() => {
     console.log(
       chalk.hex("#FF1F57")(figlet.textSync(name)),
       chalk.hex("#0096FF")(`v${packageJson.version}`)
     );
 
-    release(options.target);
+    release();
   });
 
 program.parse();
