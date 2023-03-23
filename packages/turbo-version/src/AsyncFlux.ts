@@ -63,7 +63,7 @@ export async function asyncFlux(config: Config, type?: any) {
         });
         log(["list", `Changelog generated`, name]);
 
-        await gitProcess({ files: [path], nextTag, name, branch });
+        await gitProcess({ files: [path], nextTag });
         log(["tag", `Git Tag generated for ${nextTag}.`, name]);
       } else {
         log(["success", "There is no change since the last release.", name]);

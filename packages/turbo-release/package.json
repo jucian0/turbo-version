@@ -57,7 +57,7 @@
     "@turbo-version/log": "workspace:*",
     "@turbo-version/git": "workspace:*",
     "@turbo-version/fs": "workspace:*",
-    "@turbo-version/dependents": "workspace:*"
+    "@manypkg/get-packages": "^2.1.0"
   },
   "publishConfig": {
     "access": "public"

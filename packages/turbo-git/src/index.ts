@@ -21,13 +21,6 @@ type GitCommit = {
 type GitProcess = {
   files: string[];
   nextTag: string;
-  name?: string;
-  branch: string;
-};
-
-type GitPush = {
-  branch: string;
-  remote: string;
 };
 
 const promisifiedExec = promisify(exec);
@@ -129,6 +122,10 @@ async function getLastTag(): Promise<string | null> {
       "git describe --abbrev=0 --tags"
     );
 
+    if (stderr) {
+      return null;
+    }
+
     const lastTag = stdout.trim();
     return lastTag;
   } catch {
@@ -136,7 +133,7 @@ async function getLastTag(): Promise<string | null> {
   }
 }
 
-export async function gitProcess({ files, nextTag, name, branch }: GitProcess) {
+export async function gitProcess({ files, nextTag }: GitProcess) {
   try {
     if (!isGitRepository(cwd())) {
       throw new Error(

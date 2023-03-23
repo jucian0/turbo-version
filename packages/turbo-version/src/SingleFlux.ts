@@ -57,7 +57,7 @@ export async function singleFlux(config: Config, options: any) {
         });
         log(["list", `Changelog generated`, name]);
 
-        await gitProcess({ files: [path], nextTag, name, branch });
+        await gitProcess({ files: [path], nextTag });
         log(["tag", `Git Tag successfully generated.`, name]);
       } else {
         log(["success", "There is no change since the last release.", name]);
