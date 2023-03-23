@@ -24,7 +24,7 @@ export async function asyncFlux(config: Config, type?: any) {
     console.log(
       chalk.cyan(
         `Working on ${packages
-          .map((n) => n.packageJson.name)
+          .map((n) => chalk.hex("#FF1F57")(n.packageJson.name))
           .toString()} package(s).\n`
       )
     );

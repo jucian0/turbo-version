@@ -4,14 +4,16 @@ import { generateChangelog } from "./utils/GenerateChangelog";
 import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
-import { readJsonFile } from "@turbo-version/fs";
 import { gitProcess } from "@turbo-version/git";
 import { Config, PkgJson } from "@turbo-version/setup";
 import chalk from "chalk";
 import { log } from "@turbo-version/log";
+import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
+    const { packages } = getPackagesSync(cwd());
+
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
     });
@@ -30,17 +32,17 @@ export async function syncedFlux(config: Config, type?: any) {
       log(["new", `New version calculated ${version}`, "All"]);
       const nextTag = formatTag({ tagPrefix, version });
 
-      for (const pkg of config.packages) {
-        const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
-        const name = pkgJson.name;
+      for (const pkg of packages) {
+        const { name } = pkg.packageJson;
+        const path = pkg.relativeDir;
 
-        await updatePackageVersion({ path: pkg, version, name });
+        await updatePackageVersion({ path, version, name });
         log(["paper", "Package version updated", name]);
 
         await generateChangelog({
           tagPrefix,
           preset,
-          path: pkg,
+          path,
           version,
           name,
         });

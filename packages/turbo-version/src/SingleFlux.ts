@@ -3,9 +3,8 @@ import { generateChangelog } from "./utils/GenerateChangelog";
 import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
-import { readJsonFile } from "@turbo-version/fs";
 import { gitProcess } from "@turbo-version/git";
-import { Config, PkgJson } from "@turbo-version/setup";
+import { Config } from "@turbo-version/setup";
 import { log } from "@turbo-version/log";
 import { cwd, exit } from "process";
 import chalk from "chalk";
@@ -15,27 +14,20 @@ export async function singleFlux(config: Config, options: any) {
   const { preset, baseBranch: branch } = config;
   const pkgNames: string[] = options.target.split(",");
   const type = options.bump;
-  const pkgsJson = [];
-  const { packages } = getPackagesSync(cwd());
-
-  console.log(`>>>>>`, packages);
+  const { packages: pkgs } = getPackagesSync(cwd());
 
   try {
-    for (const pkg of []) {
-      const pkgJson = readJsonFile<PkgJson>(`${pkg}/package.json`);
+    const packages = pkgs.filter(
+      (pkg) =>
+        pkgNames.some((name) => name === pkg.packageJson.name) && !config.synced
+    );
 
-      if (pkgNames.some((name) => name === pkgJson.name) && !config.synced) {
-        pkgJson.path = pkg;
-        pkgsJson.push(pkgJson);
-      }
-    }
-
-    for (const json of pkgsJson) {
-      const { name, path } = json;
-
+    for (const pkg of packages) {
+      const { name } = pkg.packageJson;
+      const path = pkg.relativeDir;
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
-        name: json.name,
+        name,
         synced: config.synced,
       });
 
