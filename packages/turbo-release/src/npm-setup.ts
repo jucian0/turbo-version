@@ -32,14 +32,14 @@ export async function npmSetup() {
 
   if (!NPM_TOKEN) {
     throw Error(
-      "Could not find the NPM_TOKEN env var, provid it by adding an env var name `NPM_TOKEN`, or add a `.npmrc` file."
+      "Could not find the NPM_TOKEN env var, provide it by adding an env var name `NPM_TOKEN`, or add a `.npmrc` file."
     );
   }
 
   if (!NPM_URL) {
     console.log(
       chalk.cyan(
-        "We could not find the NPM_URL env var, we are asuming you want to release it in public NPM. If it is not the case, provide us a env var name `NPM_URL`"
+        "We could not find the NPM_URL env var, we are assuming you want to release it in public NPM. If it is not the case, provide us a env var name `NPM_URL`"
       )
     );
   }

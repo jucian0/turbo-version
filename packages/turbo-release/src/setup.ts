@@ -20,7 +20,7 @@ export async function release() {
       log(["publish", "Successfully published", pkg.packageJson.name]);
     }
   } catch (err: any) {
-    log(["error", "err.message", "Release"]);
+    log(["error", err.message, "Release"]);
     exit(1);
   }
 }

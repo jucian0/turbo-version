@@ -26,7 +26,7 @@ export async function githubSetup() {
   if (fileExist(`${cwd()}/.netrc`)) {
     console.log(
       chalk.cyan(
-        "We identify a .npmrc file, we are going to use it, if you want to use a custom configuration, jut remove it, and let us do it for you"
+        "We identify a .netrc file, we are going to use it, if you want to use a custom configuration, jut remove it, and let us do it for you"
       )
     );
     return;
