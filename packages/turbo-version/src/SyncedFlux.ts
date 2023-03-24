@@ -5,14 +5,15 @@ import { generateVersion } from "./utils/GenerateVersion";
 import { getLatestTag } from "./utils/GetLatestTag";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
 import { gitProcess } from "@turbo-version/git";
-import { Config, PkgJson } from "@turbo-version/setup";
+import { Config } from "@turbo-version/setup";
 import chalk from "chalk";
 import { log } from "@turbo-version/log";
 import { getPackagesSync } from "@manypkg/get-packages";
+import { appendScripts } from "./utils/AppendScripts";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
-    const { packages } = getPackagesSync(cwd());
+    const { packages, tool, rootDir } = getPackagesSync(cwd());
 
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
@@ -49,8 +50,19 @@ export async function syncedFlux(config: Config, type?: any) {
         log(["list", `Changelog generated`, name]);
       }
 
+      console.log(
+        `${tool.type ?? "npm"} release ${packages.reduce(
+          (acc, ac) => (acc += ` ${ac.relativeDir}`),
+          ""
+        )}`
+      );
+
       await gitProcess({ files: [cwd()], nextTag });
       log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
+
+      if (config.appendScripts) {
+        appendScripts(packages as any, rootDir, config.appendScripts, type);
+      }
     } else {
       log(["success", "There is no change since the last release.", "All"]);
     }
