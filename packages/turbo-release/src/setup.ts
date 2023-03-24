@@ -4,6 +4,7 @@ import { githubSetup } from "./github-setup";
 import { npmSetup } from "./npm-setup";
 import { publish } from "./publish";
 import { getPackagesSync } from "@manypkg/get-packages";
+import chalk from "chalk";
 
 export async function release(target?: string) {
   try {
@@ -21,6 +22,14 @@ export async function release(target?: string) {
       }
       return pkg;
     });
+
+    console.log(
+      chalk.cyan(
+        `Working on ${pkgs
+          .map((n) => chalk.hex("#FF1F57")(n.packageJson.name))
+          .toString()} package(s).\n`
+      )
+    );
 
     for (const pkg of pkgs) {
       await publish(tool.type, pkg.relativeDir);
