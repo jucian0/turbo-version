@@ -7,15 +7,23 @@ import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function release(target?: string) {
   try {
-    const targets = target?.split(",").map((t) => t.trim());
     await npmSetup();
     if (process.env.GITHUB_ACTIONS === "true") {
       await githubSetup();
     }
-    const { packages } = getPackagesSync(cwd());
+    const { packages, tool } = getPackagesSync(cwd());
 
-    for (const pkg of packages) {
-      await publish(pkg.relativeDir);
+    const targets = target?.split(",").map((t) => t.trim());
+
+    const pkgs = packages.filter((pkg) => {
+      if (target) {
+        return targets?.some((t) => t === pkg.packageJson.name);
+      }
+      return pkg;
+    });
+
+    for (const pkg of pkgs) {
+      await publish(tool.type, pkg.relativeDir);
       log(["publish", "Successfully published", pkg.packageJson.name]);
     }
   } catch (err: any) {
