@@ -21,6 +21,7 @@ export type Config = {
     | "patch"
     | "no-internal-update";
   strategy: "first-release" | "next-release" | "last-release";
+  appendScripts?: string[];
 };
 
 export function setup(): Promise<Config> {

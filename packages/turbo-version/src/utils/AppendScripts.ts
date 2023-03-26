@@ -18,17 +18,23 @@ export async function appendScripts(
   scripts: string[],
   tool: Tool
 ) {
-  if (!Array.isArray(scripts)) {
-    throw new Error("`appendScripts` should be an array.");
-  }
-  for (const pkg of packages) {
-    const pkgScripts = extractScripts(scripts, pkg);
-
-    await promisify(process.chdir)(pkg.dir);
-    for (const script of pkgScripts) {
-      const command = `${tool.type} ${script}`;
-      await promisify(exec)(command);
+  try {
+    if (!Array.isArray(scripts)) {
+      throw new Error("`appendScripts` should be an array.");
     }
-    await promisify(process.chdir)(rootDir);
+    for (const pkg of packages) {
+      const pkgScripts = extractScripts(scripts, pkg);
+
+      await promisify(process.chdir)(pkg.relativeDir);
+      for (const script of pkgScripts) {
+        console.log(`>>>>>>>`, pkgScripts);
+        const command = `${tool.type} ${script}`;
+        await promisify(exec)(command);
+      }
+      await promisify(process.chdir)(rootDir);
+    }
+  } catch (err: any) {
+    throw new Error(err.message);
+    //  console.log(err);
   }
 }

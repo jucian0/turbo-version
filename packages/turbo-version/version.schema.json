@@ -36,10 +36,6 @@
                 false
             ],
             "description": "How to update internal dependencies between packages"
-        },
-        "appendScripts": {
-            "type": "array",
-            "description": "We look for those scripts in `package.json` inside every workspace"
         }
     },
     "required": [

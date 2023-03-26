@@ -9,7 +9,6 @@ import { Config } from "@turbo-version/setup";
 import chalk from "chalk";
 import { log } from "@turbo-version/log";
 import { getPackagesSync } from "@manypkg/get-packages";
-import { appendScripts } from "./utils/AppendScripts";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
@@ -59,10 +58,6 @@ export async function syncedFlux(config: Config, type?: any) {
 
       await gitProcess({ files: [cwd()], nextTag });
       log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
-
-      if (config.appendScripts) {
-        appendScripts(packages as any, rootDir, config.appendScripts, type);
-      }
     } else {
       log(["success", "There is no change since the last release.", "All"]);
     }

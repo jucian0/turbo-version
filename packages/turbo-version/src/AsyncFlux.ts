@@ -8,7 +8,7 @@ import { gitProcess } from "@turbo-version/git";
 import { log } from "@turbo-version/log";
 import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
-import { exit } from "process";
+import { cwd, exit } from "process";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -73,7 +73,4 @@ export async function asyncFlux(config: Config, type?: any) {
     log(["error", chalk.red(err.message), "Failure"]);
     exit(1);
   }
-}
-function cmd(): string {
-  throw new Error("Function not implemented.");
 }

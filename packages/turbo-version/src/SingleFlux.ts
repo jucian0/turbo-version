@@ -68,6 +68,3 @@ export async function singleFlux(config: Config, options: any) {
     exit(1);
   }
 }
-function cmd(): string {
-  throw new Error("Function not implemented.");
-}
