@@ -6,6 +6,7 @@ import { Command } from "commander";
 //@ts-ignore
 import packageJson from "../package.json";
 import { release } from "./setup";
+import { exit } from "process";
 
 const name = "Turbo Release";
 
@@ -16,13 +17,17 @@ program.name("Turbo Version").description("").version(packageJson.version);
 program
   .option("-t, --target <project>", "projects you want to release")
 
-  .action((options) => {
+  .action(async (options) => {
     console.log(
       chalk.hex("#FF1F57")(figlet.textSync(name)),
       chalk.hex("#0096FF")(`v${packageJson.version}`)
     );
-
-    release(options.target);
+    try {
+      await release(options.target);
+    } catch (err: any) {
+      console.error(chalk.red(`ERROR: ${err}`));
+      exit(1);
+    }
   });
 
 program.parse();
