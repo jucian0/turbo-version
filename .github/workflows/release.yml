@@ -38,6 +38,11 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
+      ##  We are going to replace it by a specif command to configure git environments
+      - name: Temporally git user
+        shell: bash
+        run: git config --global user.name 'github-actions[bot]' && git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
       - name: Turbo Version
         shell: bash
         run: pnpm turbo-version
