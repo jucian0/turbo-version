@@ -1,6 +1,6 @@
 # Turbo Version
 
-This is a command-line tool that allows you to bump the versions of your packages in a monorepo project according to Semantic Versioning.By automating the versioning process, **Turbo Version** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
+This is a command-line tool that allows you to bump the versions of your packages in a monorepo project according to Semantic Versioning. By automating the versioning process, **Turbo Version** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
 
 ## Usage
 
@@ -90,7 +90,6 @@ The following properties are defined in the schema:
 - `synced`: A boolean property that indicates whether or not the local Git repository is synced with the remote repository.
 - `packages`: An array property that lists the directories in the repository that contain packages.
 - `updateInternalDependencies`: A property that specifies how to update internal dependencies between packages. The property is a string with a default value of "patch" and can only take one of the three possible string values - "major", "minor", or "patch". Alternatively, the property can be set to the boolean value `false` to disable automatic updates.
-- `publishConfig`: An object property that contains settings for publishing the package to a registry. The property has a required sub-property `packageManager` that specifies the package manager to use when publishing the package. The `packageManager` sub-property is a string with one of the three possible string values - "npm", "yarn", or "pnpm".
 
 ### Required Properties
 

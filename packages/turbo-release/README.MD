@@ -1,53 +1,53 @@
-# Action Setup for Writing Authentication Tokens
+# Turbo Version Release
 
-This action allows users to setup their authentication tokens for both GitHub and NPM in a repository's environment variables. The action uses the `GH_TOKEN` and `NPM_TOKEN` environment variables to authenticate users. The `writeNPMRC()` and `writeNETRC()` functions write the authentication tokens to their respective configuration files. The `setupUser()` function sets up the user's Git identity.
+Turbo Version Release is a command-line interface tool for publishing packages inside turbo repos to the npm registry with version validation. This tool validates whether a package version has already been published on the registry before attempting to publish it. If the version has not been published, it will be published to the registry, otherwise, a message will be displayed indicating that the package version has already been published.
+
+## Installation
+
+You can install Turbo Version Release using npm:
+
+```bash
+npm install -g @turbo-version/release
+```
 
 ## Usage
 
-To use the action in your workflow, add the following step to your `jobs` section:
+@turbo-version/release provides a simple interface for publishing packages inside turbo repos to the npm registry:
 
-```yaml
-- name: Set up authentication tokens
-  uses: ./action
-  with:
-    npmRepository: <optional NPM repository URL>
+```bash
+turbo-release
 ```
 
-The npmRepository input is optional and can be used to specify an NPM repository URL.
+This command will publish all packages inside the turbo repo to the npm registry with version validation. The tool will validate if the package version has already been published on the registry before attempting to publish it. If the version has not been published, it will be published to the registry, otherwise, a message will be displayed indicating that the package version has already been published.
 
-## Inputs
+## Integration with turbo-version
 
-npmRepository
-Optional The NPM repository URL to configure in the .npmrc file.
+@turbo-version/release can be used in conjunction with @turbo-version/turbo to manage monorepo versions. @turbo-version/turbo provides tools for managing monorepo versions, including bumping and releasing packages. You can use @turbo-version/release to publish the packages released by @turbo-version/turbo.
 
-## Environment Variables
+## Configuration
 
-GITHUB_TOKEN
-The GitHub authentication token. This is a required environment variable.
+@turbo-version/release can be configured via environment variables or via a configuration file.
 
-NPM_TOKEN
-The NPM authentication token. This is a required environment variable.
+### Environment Variables
 
-## Github example
+The following environment variables can be used to configure @turbo-version/release:
 
-```yaml
-name: Setup Auth Tokens
+`GH_TOKEN` - The GitHub token for accessing private repositories (if applicable).
+`NPM_TOKEN` - The npm authentication token for publishing packages.
+`NPM_URL` - The URL of the npm registry to publish to (default: https://registry.npmjs.org/).
 
-on:
-  push:
-    branches: [main]
+### Configuration File
 
-jobs:
-  setup-auth-tokens:
-    runs-on: ubuntu-latest
+@turbo-version/release supports a configuration file in JSON or YAML format. The file should be named .turbo-version-releaserc and located in the root of the project.
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+Here is an example configuration file:
 
-      - name: Set up authentication tokens
-        uses: jucian0/turbo-version/github-setup@0.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```raw
+//.npmrc
+
+registry: https://registry.npmjs.org/
 ```
+
+## License
+
+@turbo-version/release is released under the MIT License.

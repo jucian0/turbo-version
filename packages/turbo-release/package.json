@@ -29,7 +29,7 @@
     "dist/**"
   ],
   "bin": {
-    "release": "./dist/index.js"
+    "turbo-release": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
