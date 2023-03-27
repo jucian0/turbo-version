@@ -38,9 +38,9 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
-      - name: Turbo Version
-        shell: bash
-        run: pnpm semver
+      # - name: Turbo Version
+      #   shell: bash
+      #   run: pnpm semver
 
       - name: Turbo Release
         shell: bash
