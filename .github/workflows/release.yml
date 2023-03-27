@@ -38,13 +38,13 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
-      # - name: Turbo Version
-      #   shell: bash
-      #   run: pnpm semver
+      - name: Turbo Version
+        shell: bash
+        run: pnpm turbo-version
 
       - name: Turbo Release
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm release
+        run: pnpm turbo-release
