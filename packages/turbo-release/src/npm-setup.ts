@@ -20,7 +20,7 @@ export async function npmSetup() {
   if (fileExist(`${cwd()}/.npmrc`)) {
     console.log(
       chalk.cyan(
-        "We identify a .npmrc file, we are going to use it, if you want to use a custom configuration, jut remove it, and let us do it for you"
+        "We identify a `.npmrc` file, we are assuming you have a custom configuration."
       )
     );
 

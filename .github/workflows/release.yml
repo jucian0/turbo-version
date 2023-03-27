@@ -38,12 +38,13 @@ jobs:
       - name: Install turbo-version
         run: pnpm i
 
-      - name: Set up authentication tokens
-        uses: ./packages/github-action
+      - name: Turbo Version
+        shell: bash
+        run: pnpm semver
+
+      - name: Turbo Release
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: TurboSemver
-        shell: bash
-        run: pnpm semver
+        run: pnpm release
