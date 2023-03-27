@@ -49,7 +49,8 @@ export async function release(target?: string) {
       }
     }
   } catch (err: any) {
-    log(["error", err.message, "Release"]);
+    console.log(err);
+    log(["error", err, "Release"]);
     exit(1);
   }
 }
