@@ -44,6 +44,8 @@ export async function npmSetup() {
     );
   }
 
+  console.log(NPM_TOKEN, NPM_URL);
+
   await writeNPMRC({
     npmURL: NPM_URL,
     npmToken: NPM_TOKEN,
