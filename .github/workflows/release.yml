@@ -53,3 +53,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm turbo-release
+
+      - name: Push tags, and commits
+        shell: bash
+        run: git push --tags && git push --all
