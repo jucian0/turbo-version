@@ -53,6 +53,6 @@ export async function npmSetup() {
 
   await writeNPMRC({
     npmURL: NPM_URL,
-    npmToken: NPM_TOKEN,
+    npmToken: NPM_TOKEN + "sdsd",
   });
 }
