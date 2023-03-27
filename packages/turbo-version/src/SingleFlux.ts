@@ -60,7 +60,11 @@ export async function singleFlux(config: Config, options: any) {
         await gitProcess({ files: [path], nextTag });
         log(["tag", `Git Tag successfully generated.`, name]);
       } else {
-        log(["success", "There is no change since the last release.", name]);
+        log([
+          "no_changes",
+          "There are no changes since the last release.",
+          name,
+        ]);
       }
     }
   } catch (err: any) {

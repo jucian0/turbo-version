@@ -17,7 +17,11 @@ export async function asyncFlux(config: Config, type?: any) {
     const packages = await summarizePackages(config);
 
     if (packages.length === 0) {
-      log(["success", `Nothing changed since last release.`, "All clean"]);
+      log([
+        "no_changes",
+        `There are no changes since last release.`,
+        "All clean",
+      ]);
       return;
     }
 
@@ -66,7 +70,11 @@ export async function asyncFlux(config: Config, type?: any) {
         await gitProcess({ files: [path], nextTag });
         log(["tag", `Git Tag generated for ${nextTag}.`, name]);
       } else {
-        log(["success", "There is no change since the last release.", name]);
+        log([
+          "no_changes",
+          "There are no changes since the last release.",
+          name,
+        ]);
       }
     }
   } catch (err: any) {

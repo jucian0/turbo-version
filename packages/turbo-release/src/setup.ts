@@ -5,6 +5,7 @@ import { npmSetup } from "./npm-setup";
 import { publish } from "./publish";
 import { getPackagesSync } from "@manypkg/get-packages";
 import chalk from "chalk";
+import { isVersionPublished } from "./isVersionPublished";
 
 export async function release(target?: string) {
   try {
@@ -32,8 +33,20 @@ export async function release(target?: string) {
     );
 
     for (const pkg of pkgs) {
-      await publish(tool.type, pkg.relativeDir);
-      log(["publish", "Successfully published", pkg.packageJson.name]);
+      const isPublished = await isVersionPublished(
+        pkg.packageJson.name,
+        pkg.packageJson.version
+      );
+      if (!isPublished) {
+        await publish(tool.type, pkg.relativeDir);
+        log(["publish", "Successfully published", pkg.packageJson.name]);
+      } else {
+        log([
+          "no_changes",
+          `Version already published ${pkg.packageJson.version}`,
+          pkg.packageJson.name,
+        ]);
+      }
     }
   } catch (err: any) {
     log(["error", err.message, "Release"]);

@@ -59,7 +59,11 @@ export async function syncedFlux(config: Config, type?: any) {
       await gitProcess({ files: [cwd()], nextTag });
       log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
     } else {
-      log(["success", "There is no change since the last release.", "All"]);
+      log([
+        "no_changes",
+        "There are no changes since the last release.",
+        "All",
+      ]);
     }
   } catch (err: any) {
     log(["error", chalk.red(err.message), "Failure"]);

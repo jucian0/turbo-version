@@ -5,7 +5,7 @@ export type LogStep =
   | "failed"
   | "warning"
   | "warning"
-  | "success"
+  | "no_changes"
   | "new"
   | "box"
   | "paper"
@@ -20,7 +20,7 @@ const iconMap: Map<LogStep, string> = new Map([
   ["list", "📜"],
   ["failed", "❌"],
   ["warning", "🟠"],
-  ["success", "🟢"],
+  ["no_changes", "🟢"],
   ["new", "🆕"],
   ["box", "📦"],
   ["paper", "📝"],
