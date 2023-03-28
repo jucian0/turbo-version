@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-version",
-    "homepage": "https://github.com/jucian0/turbo-version"
+    "url": "https://github.com/jucian0/turbo-version/packages/turbo-release",
+    "homepage": "https://github.com/jucian0/turbo-version/packages/turbo-release"
   },
   "keywords": [
     "version",
