@@ -56,4 +56,4 @@ jobs:
 
       - name: Push tags, and commits
         shell: bash
-        run: git push --tags && git push --all
+        run: git push --tags && git push
