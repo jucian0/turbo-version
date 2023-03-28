@@ -27,7 +27,7 @@ export async function npmSetup() {
     return;
   }
 
-  const NPM_TOKEN = process.env.NPM_TOKEN ?? "[[[[[[[-fake-token-]]]]]]]";
+  const NPM_TOKEN = process.env.NPM_TOKEN;
   const NPM_URL = process.env.NPM_URL ?? "registry.npmjs.org";
 
   if (!NPM_TOKEN) {
