@@ -23,7 +23,7 @@ npm install @turbo-version/version && npm install @turbo-version/release
 
 ### `@turbo-version/version`
 
-`@turbo-version/turbo` provides a set of CLI commands to manage package versions in monorepos.
+`@turbo-version/version` provides a set of CLI commands to manage package versions in monorepos.
 
 Here's an example of how to use the `turbo-version -bump` command:
 
