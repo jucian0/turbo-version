@@ -1,6 +1,6 @@
 {
   "name": "@turbo-version/setup",
-  "description": "Automatically versioning for monorepos",
+  "description": "Automatically versioning for monorepos.",
   "version": "0.1.3",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
