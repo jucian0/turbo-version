@@ -30,26 +30,19 @@ export async function npmSetup() {
   const NPM_TOKEN = process.env.NPM_TOKEN ?? "[[[[[[[-fake-token-]]]]]]]";
   const NPM_URL = process.env.NPM_URL ?? "registry.npmjs.org";
 
-  // if (!NPM_TOKEN) {
-  //   throw Error(
-  //     "Could not find the NPM_TOKEN env var, provide it by adding an env var name `NPM_TOKEN`, or add a `.npmrc` file."
-  //   );
-  // }
+  if (!NPM_TOKEN) {
+    throw Error(
+      "Could not find the NPM_TOKEN env var, provide it by adding an env var name `NPM_TOKEN`, or add a `.npmrc` file."
+    );
+  }
 
-  // if (!NPM_URL) {
-  //   console.log(
-  //     chalk.cyan(
-  //       "We could not find the NPM_URL env var, we are assuming you want to release it in public NPM. If it is not the case, provide us a env var name `NPM_URL`"
-  //     )
-  //   );
-  // }
-
-  console.log(
-    "||||||||||||||||||||||||||||>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",
-    NPM_TOKEN,
-    NPM_URL,
-    "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<||||||||||||||"
-  );
+  if (!NPM_URL) {
+    console.log(
+      chalk.cyan(
+        "We could not find the NPM_URL env var, we are assuming you want to release it in public NPM. If it is not the case, provide us a env var name `NPM_URL`"
+      )
+    );
+  }
 
   await writeNPMRC({
     npmURL: NPM_URL,
