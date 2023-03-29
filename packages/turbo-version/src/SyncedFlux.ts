@@ -12,7 +12,7 @@ import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
-    const { packages, tool, rootDir } = getPackagesSync(cwd());
+    const { packages, tool } = getPackagesSync(cwd());
 
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
@@ -35,26 +35,23 @@ export async function syncedFlux(config: Config, type?: any) {
       for (const pkg of packages) {
         const { name } = pkg.packageJson;
         const path = pkg.relativeDir;
-
-        await updatePackageVersion({ path, version, name });
-        log(["paper", "Package version updated", name]);
-
-        await generateChangelog({
-          tagPrefix,
-          preset,
-          path,
-          version,
-          name,
-        });
-        log(["list", `Changelog generated`, name]);
+        
+        if(config.skip && config.skip.some(p=> p === pkg.packageJson.name)){
+          log(["skip", "Skipped", name]);
+        }else{
+          await updatePackageVersion({ path, version, name });
+          log(["paper", "Package version updated", name]);
+  
+          await generateChangelog({
+            tagPrefix,
+            preset,
+            path,
+            version,
+            name,
+          });
+          log(["list", `Changelog generated`, name]);
+        }
       }
-
-      console.log(
-        `${tool.type ?? "npm"} release ${packages.reduce(
-          (acc, ac) => (acc += ` ${ac.relativeDir}`),
-          ""
-        )}`
-      );
 
       await gitProcess({ files: [cwd()], nextTag });
       log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);

@@ -3,31 +3,33 @@ import chalk from "chalk";
 export type LogStep =
   | "list"
   | "failed"
-  | "warning"
+  //| "warning"
   | "warning"
   | "no_changes"
   | "new"
-  | "box"
+  //| "box"
   | "paper"
   | "publish"
   | "tag"
   | "release"
-  | "error";
+  | "error"
+  | "skip"
 
 export type LogProps = [LogStep, string, string];
 
 const iconMap: Map<LogStep, string> = new Map([
   ["list", "📜"],
   ["failed", "❌"],
-  ["warning", "🟠"],
+  //["warning", "🟠"],
   ["no_changes", "🟢"],
   ["new", "🆕"],
-  ["box", "📦"],
+  //["box", "📦"],
   ["paper", "📝"],
   ["publish", "🎉"],
   ["tag", "🔖"],
   ["release", "🚀"],
   ["error", "❌"],
+  ["skip","⏩"]
 ]);
 
 export function log([step, message, pkgName]: LogProps) {

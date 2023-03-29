@@ -37,44 +37,48 @@ export async function asyncFlux(config: Config, type?: any) {
       const name = pkg.packageJson.name;
       const path = pkg.relativeDir;
 
-      const tagPrefix = formatTagPrefix({
-        tagPrefix: config.tagPrefix,
-        name,
-        synced: config.synced,
-      });
-      const latestTag = await getLatestTag(tagPrefix);
-      const version = await generateVersion({
-        latestTag,
-        preset,
-        tagPrefix,
-        type: type ?? pkg.type,
-        path,
-        name,
-      });
-
-      if (version) {
-        log(["new", `New version calculated ${version}`, name]);
-        const nextTag = formatTag({ tagPrefix, version });
-        await updatePackageVersion({ path, version, name });
-        log(["paper", "Package version updated", name]);
-
-        await generateChangelog({
-          tagPrefix,
+      if(config.skip && config.skip.some(p=> p === pkg.packageJson.name)){
+        log(["skip", "Skipped", name]);
+      }else{
+        const tagPrefix = formatTagPrefix({
+          tagPrefix: config.tagPrefix,
+          name,
+          synced: config.synced,
+        });
+        const latestTag = await getLatestTag(tagPrefix);
+        const version = await generateVersion({
+          latestTag,
           preset,
+          tagPrefix,
+          type: type ?? pkg.type,
           path,
-          version,
           name,
         });
-        log(["list", `Changelog generated`, name]);
-
-        await gitProcess({ files: [path], nextTag });
-        log(["tag", `Git Tag generated for ${nextTag}.`, name]);
-      } else {
-        log([
-          "no_changes",
-          "There are no changes since the last release.",
-          name,
-        ]);
+  
+        if (version) {
+          log(["new", `New version calculated ${version}`, name]);
+          const nextTag = formatTag({ tagPrefix, version });
+          await updatePackageVersion({ path, version, name });
+          log(["paper", "Package version updated", name]);
+  
+          await generateChangelog({
+            tagPrefix,
+            preset,
+            path,
+            version,
+            name,
+          });
+          log(["list", `Changelog generated`, name]);
+  
+          await gitProcess({ files: [path], nextTag });
+          log(["tag", `Git Tag generated for ${nextTag}.`, name]);
+        } else {
+          log([
+            "no_changes",
+            "There are no changes since the last release.",
+            name,
+          ]);
+        }
       }
     }
   } catch (err: any) {

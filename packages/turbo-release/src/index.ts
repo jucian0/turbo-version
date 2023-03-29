@@ -16,6 +16,8 @@ program.name("Turbo Version").description("").version(packageJson.version);
 
 program
   .option("-t, --target <project>", "projects you want to release")
+  .option("-s, --skip <project>", "projects you want to skip")
+
 
   .action(async (options) => {
     console.log(
@@ -23,7 +25,7 @@ program
       chalk.hex("#0096FF")(`v${packageJson.version}`)
     );
     try {
-      await release(options.target);
+      await release(options);
     } catch (err: any) {
       console.error(chalk.red(`ERROR: ${err}`));
       exit(1);

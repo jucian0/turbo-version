@@ -20,6 +20,12 @@ turbo-release
 
 This command will publish all packages inside the turbo repo to the npm registry with version validation. The tool will validate if the package version has already been published on the registry before attempting to publish it. If the version has not been published, it will be published to the registry, otherwise, a message will be displayed indicating that the package version has already been published.
 
+## Advanced
+
+- `-skip` or `--s`: Use this argument to skip publishing certain packages. You can provide a comma-separated list of package names to skip. For example, `-s=ui,docs` will skip publishing the ui and docs packages.
+
+- `-target` or `--t`: Use this argument to specify the packages you want to publish. You can provide a comma-separated list of package names to publish. For example, `-t=ui,docs` will only publish the ui and docs packages.
+
 ## Integration with turbo-version
 
 @turbo-version/release can be used in conjunction with @turbo-version/turbo to manage monorepo versions. @turbo-version/turbo provides tools for managing monorepo versions, including bumping and releasing packages. You can use @turbo-version/release to publish the packages released by @turbo-version/turbo.

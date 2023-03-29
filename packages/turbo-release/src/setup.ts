@@ -7,7 +7,12 @@ import { getPackagesSync } from "@manypkg/get-packages";
 import chalk from "chalk";
 import { isVersionPublished } from "./isVersionPublished";
 
-export async function release(target?: string) {
+type Options = {
+  skip?:string,
+  target?:string
+}
+
+export async function release({target, skip}:Options) {
   try {
     await npmSetup();
     if (process.env.GITHUB_ACTIONS === "true") {
@@ -16,10 +21,15 @@ export async function release(target?: string) {
     const { packages, tool } = getPackagesSync(cwd());
 
     const targets = target?.split(",").map((t) => t.trim());
+    const skips = skip?.split(",").map((t) => t.trim());
 
     const pkgs = packages.filter((pkg) => {
       if (target) {
         return targets?.some((t) => t === pkg.packageJson.name);
+      }
+
+      if(skip){
+        return skips?.some((t) => t !== pkg.packageJson.name);
       }
       return pkg;
     });
@@ -33,6 +43,7 @@ export async function release(target?: string) {
     );
 
     for (const pkg of pkgs) {
+
       const isPublished = await isVersionPublished(
         pkg.packageJson.name,
         pkg.packageJson.version

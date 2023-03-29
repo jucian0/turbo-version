@@ -74,11 +74,9 @@ References:
 - https://seesparkbox.com/foundry/semantic_commit_messages
 - http://karma-runner.github.io/1.0/dev/git-commit-msg.html
 
-## JSON Schema Description
+## `version.config.json`
 
-This JSON schema describes a configuration file for a software development project. The configuration file is represented as a JSON object with several properties that are used to configure various aspects of the project.
-
-The schema follows the Draft 7 of the JSON Schema specification.
+This is a JSON schema used to configure the versioning process for a project. The schema provides several properties that can be customized to control how versions are created and managed.
 
 ### Properties
 
@@ -88,8 +86,8 @@ The following properties are defined in the schema:
 - `preset`: A property that specifies the commit message convention preset used by the commitizen tool in the project. The property is a string with a default value of "angular" and can only take one of the two possible string values - "angular" or "conventional".
 - `baseBranch`: A string property that represents the Git branch that should be used as the base for versioning in the project.
 - `synced`: A boolean property that indicates whether or not the local Git repository is synced with the remote repository.
-- `packages`: An array property that lists the directories in the repository that contain packages.
 - `updateInternalDependencies`: A property that specifies how to update internal dependencies between packages. The property is a string with a default value of "patch" and can only take one of the three possible string values - "major", "minor", or "patch". Alternatively, the property can be set to the boolean value `false` to disable automatic updates.
+- `skip`: A list of package names that should be excluded from the versioning process. When you specify one or more package names in this list, those packages will be skipped in the versioning process. This is useful when you have packages that don't need to be versioned, or that require additional steps before they can be published.
 
 ### Required Properties
 
@@ -99,4 +97,3 @@ The following properties are required in the schema:
 - `preset`: The `preset` property is required and must be set to one of the two possible string values - "angular" or "conventional".
 - `baseBranch`: The `baseBranch` property is required and must be a non-empty string.
 - `updateInternalDependencies`: The `updateInternalDependencies` property is required and must be set to one of the three possible string values - "major", "minor", or "patch", or the boolean value `false`.
-- `packages`: The `packages` property is not required but recommended to be defined with a non-empty array of strings that represent the directories in the repository that contain packages.
