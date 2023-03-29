@@ -6,7 +6,7 @@ Turbo Version is a monorepo solution for managing package versions and releasing
 
 Turbo Version includes the following packages:
 
-- `@turbo-version/turbo`: A package version management tool for monorepos. It allows you to manage versions of packages across multiple projects and release new versions of packages.
+- `@turbo-version/version`: A package version management tool for monorepos. It allows you to manage versions of packages across multiple projects and release new versions of packages.
 
 - `@turbo-version/release`: A command-line interface tool for publishing packages inside Turbo repos to the npm registry with version validation. This tool validates whether a package version has already been published on the registry before attempting to publish it.
 
@@ -21,9 +21,9 @@ npm install @turbo-version/version && npm install @turbo-version/release
 
 ## Usage
 
-### `@turbo-version/turbo`
+### `@turbo-version/version`
 
-`@turbo-version/turbo` provides a set of CLI commands to manage package versions in monorepos.
+`@turbo-version/version` provides a set of CLI commands to manage package versions in monorepos.
 
 Here's an example of how to use the `turbo-version -bump` command:
 
