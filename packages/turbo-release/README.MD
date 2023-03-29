@@ -22,9 +22,9 @@ This command will publish all packages inside the turbo repo to the npm registry
 
 ## Advanced
 
-- `-skip` or `--s`: Use this argument to skip publishing certain packages. You can provide a comma-separated list of package names to skip. For example, `-s=ui,docs` will skip publishing the ui and docs packages.
+- `-skip` or `--s`: Use this argument to skip publishing certain packages. You can provide a comma-separated list of package names to skip. For example, `-s ui,docs` will skip publishing the ui and docs packages.
 
-- `-target` or `--t`: Use this argument to specify the packages you want to publish. You can provide a comma-separated list of package names to publish. For example, `-t=ui,docs` will only publish the ui and docs packages.
+- `-target` or `--t`: Use this argument to specify the packages you want to publish. You can provide a comma-separated list of package names to publish. For example, `-t ui,docs` will only publish the ui and docs packages.
 
 ## Integration with turbo-version
 
