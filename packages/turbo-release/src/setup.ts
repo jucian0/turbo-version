@@ -29,7 +29,7 @@ export async function release({target, skip}:Options) {
       }
 
       if(skip){
-        return skips?.some((t) => t !== pkg.packageJson.name);
+        return skips?.every((t) => t !== pkg.packageJson.name);
       }
       return pkg;
     });
