@@ -7,13 +7,25 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test",
-    "test:watch": "turbo run test:watch"
+    "test:watch": "turbo run test:watch",
+    "prepare": "husky install",
+    "commit": "git-cz"
   },
   "devDependencies": {
+    "@turbo-version/release": "workspace:*",
+    "@turbo-version/version": "workspace:*",
     "eslint": "^7.32.0",
     "prettier": "^2.5.1",
     "turbo": "latest",
-    "@turbo-version/version": "workspace:*",
-    "@turbo-version/release": "workspace:*"
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.4.4",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

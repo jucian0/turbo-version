@@ -8,11 +8,11 @@ import chalk from "chalk";
 import { isVersionPublished } from "./isVersionPublished";
 
 type Options = {
-  skip?:string,
-  target?:string
-}
+  skip?: string;
+  target?: string;
+};
 
-export async function release({target, skip}:Options) {
+export async function release({ target, skip }: Options) {
   try {
     await npmSetup();
     if (process.env.GITHUB_ACTIONS === "true") {
@@ -28,7 +28,7 @@ export async function release({target, skip}:Options) {
         return targets?.some((t) => t === pkg.packageJson.name);
       }
 
-      if(skip){
+      if (skip) {
         return skips?.every((t) => t !== pkg.packageJson.name);
       }
       return pkg;
@@ -43,7 +43,6 @@ export async function release({target, skip}:Options) {
     );
 
     for (const pkg of pkgs) {
-
       const isPublished = await isVersionPublished(
         pkg.packageJson.name,
         pkg.packageJson.version
@@ -60,7 +59,6 @@ export async function release({target, skip}:Options) {
       }
     }
   } catch (err: any) {
-    console.log(err);
     log(["error", err, "Release"]);
     exit(1);
   }
