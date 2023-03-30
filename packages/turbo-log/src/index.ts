@@ -13,7 +13,7 @@ export type LogStep =
   | "tag"
   | "release"
   | "error"
-  | "skip"
+  | "skip";
 
 export type LogProps = [LogStep, string, string];
 
@@ -29,7 +29,7 @@ const iconMap: Map<LogStep, string> = new Map([
   ["tag", "🔖"],
   ["release", "🚀"],
   ["error", "❌"],
-  ["skip","⏩"]
+  ["skip", "⏩"],
 ]);
 
 export function log([step, message, pkgName]: LogProps) {

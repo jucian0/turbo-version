@@ -27,5 +27,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{ts,tsx,md}": "prettier --write"
   }
 }

@@ -18,7 +18,6 @@ program
   .option("-t, --target <project>", "projects you want to release")
   .option("-s, --skip <project>", "projects you want to skip")
 
-
   .action(async (options) => {
     console.log(
       chalk.hex("#FF1F57")(figlet.textSync(name)),

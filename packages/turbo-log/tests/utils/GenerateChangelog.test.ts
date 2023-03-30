@@ -1,5 +1,5 @@
 import { generateChangelog } from "../../src/utils/GenerateChangelog";
-import {describe, expect, test} from '@jest/globals';
+import { describe, expect, test } from "@jest/globals";
 import { fileExist } from "../../src/utils/FileSystem";
 
 describe("generateChangelog", () => {
@@ -24,8 +24,14 @@ describe("generateChangelog", () => {
     const name = "test-package";
 
     const invalidPath = "./invalid-path";
-      await generateChangelog({ tagPrefix, preset, path: invalidPath, version, name }).catch(()=>{
-        expect(true).toBeTruthy()
-      })
+    await generateChangelog({
+      tagPrefix,
+      preset,
+      path: invalidPath,
+      version,
+      name,
+    }).catch(() => {
+      expect(true).toBeTruthy();
+    });
   });
 });

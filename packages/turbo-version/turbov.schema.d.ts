@@ -7,5 +7,5 @@ export type WriteChangelogConfig = {
   dryRun?: boolean;
   changelogPath: string;
   tagPrefix: string;
-  skip?:string[]
+  skip?: string[];
 };

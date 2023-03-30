@@ -1,5 +1,5 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import { generateVersion } from '../../src/utils/GenerateVersion';
+import { describe, expect, jest, test } from "@jest/globals";
+import { generateVersion } from "../../src/utils/GenerateVersion";
 
 describe("generateVersion", () => {
   const latestTag = "v1.0.0";
@@ -38,7 +38,9 @@ describe("generateVersion", () => {
     // Set amountCommits to 0 to simulate no changes since last release
     const amountCommits = 0;
     jest.spyOn(global.process, "cwd").mockReturnValue(path);
-    jest.spyOn(require("../../src/utils/GitCommands"), "getCommitsLength").mockReturnValue(amountCommits);
+    jest
+      .spyOn(require("../../src/utils/GitCommands"), "getCommitsLength")
+      .mockReturnValue(amountCommits);
 
     const result = await generateVersion({
       latestTag,
@@ -53,7 +55,9 @@ describe("generateVersion", () => {
   test("should handle bump type and return a new version", async () => {
     const amountCommits = 1;
     jest.spyOn(global.process, "cwd").mockReturnValue(path);
-    jest.spyOn(require("../../src/utils/GitCommands"), "getCommitsLength").mockReturnValue(amountCommits);
+    jest
+      .spyOn(require("../../src/utils/GitCommands"), "getCommitsLength")
+      .mockReturnValue(amountCommits);
 
     const result = await generateVersion({
       latestTag,
@@ -62,6 +66,6 @@ describe("generateVersion", () => {
       path,
       name,
     });
-    expect(result).toEqual('1.1.0')
+    expect(result).toEqual("1.1.0");
   });
 });

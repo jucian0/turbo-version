@@ -1,5 +1,5 @@
-import {describe, expect, test} from '@jest/globals';
-import { summarizePackages } from '../../src/utils/GetDependents';
+import { describe, expect, test } from "@jest/globals";
+import { summarizePackages } from "../../src/utils/GetDependents";
 
 describe("summarizePackages", () => {
   test("returns an array of packages with correct properties", async () => {
@@ -24,7 +24,6 @@ describe("summarizePackages", () => {
     };
 
     const packages = await summarizePackages(config as any);
-
 
     packages.forEach((pkg) => {
       expect(pkg).toHaveProperty("path");
