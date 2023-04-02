@@ -1,3 +1,12 @@
+## [0.1.10](https://github.com/jucian0/turbo-version/compare/v0.1.9...v0.1.10) (2023-04-02)
+
+
+### Bug Fixes
+
+* **version:** add packageName property in version.config ([05e5872](https://github.com/jucian0/turbo-version/commit/05e58727e50773474e647724aaa6001b5eef2477))
+
+
+
 ## [0.1.9](https://github.com/jucian0/turbo-version/compare/v0.1.8...v0.1.9) (2023-03-30)
 
 
