@@ -23,7 +23,8 @@
   ],
   "license": "MIT",
   "files": [
-    "dist/**"
+    "dist/**",
+    "version.schema.json"
   ],
   "bin": {
     "turbo-version": "./dist/index.js"

@@ -7,7 +7,7 @@ type Package = PKG & { type?: string };
 
 function getDependents(
   packages: Package[],
-  pkgName: string,
+  packageName: string,
   type: any
 ): Package[] {
   try {
@@ -17,7 +17,7 @@ function getDependents(
         ...ac.packageJson.devDependencies,
       });
 
-      const dependency = allDependencies.find((dep) => dep === pkgName);
+      const dependency = allDependencies.find((dep) => dep === packageName);
       if (dependency) {
         acc.push({ ...ac, type });
       }

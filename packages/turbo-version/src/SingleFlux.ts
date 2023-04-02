@@ -11,7 +11,7 @@ import chalk from "chalk";
 import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function singleFlux(config: Config, options: any) {
-  const { preset, baseBranch: branch } = config;
+  const { preset } = config;
   const pkgNames: string[] = options.target.split(",");
   const type = options.bump;
   const { packages: pkgs } = getPackagesSync(cwd());

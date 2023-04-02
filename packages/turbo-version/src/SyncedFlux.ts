@@ -12,12 +12,12 @@ import { getPackagesSync } from "@manypkg/get-packages";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
-    const { packages, tool } = getPackagesSync(cwd());
+    const { packages } = getPackagesSync(cwd());
 
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
     });
-    const { preset, baseBranch: branch } = config;
+    const { preset } = config;
 
     const latestTag = await getLatestTag(tagPrefix);
 

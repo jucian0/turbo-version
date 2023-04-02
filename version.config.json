@@ -2,7 +2,6 @@
     "$schema": "./packages/turbo-version/version.schema.json",
     "tagPrefix": "v",
     "preset": "angular",
-    "baseBranch": "main",
     "synced": true,
     "updateInternalDependencies": "patch",
     "appendScripts": [

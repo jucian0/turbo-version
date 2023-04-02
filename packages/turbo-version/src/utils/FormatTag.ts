@@ -14,7 +14,7 @@ export function formatTagPrefix({
   if (tagPrefix != null) {
     return createTemplateString(tagPrefix, {
       target: name,
-      pkgName: name,
+      packageName: name,
     });
   }
 

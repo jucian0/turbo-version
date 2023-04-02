@@ -30,7 +30,7 @@ export async function pullBranch(branch: string) {
 }
 
 export async function push(branch: string, { force }: any = {}) {
-  await promisifiedExec(`git push origin HEAD:${branch} --force`);
+  await promisifiedExec(`git push origin HEAD:${branch}`);
 }
 
 export async function pushTags() {

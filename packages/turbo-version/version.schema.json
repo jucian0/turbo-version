@@ -19,10 +19,6 @@
             ],
             "description": "The commit message convention preset used by commitizen"
         },
-        "baseBranch": {
-            "type": "string",
-            "description": "The Git branch that should be used as the base for versioning"
-        },
         "synced": {
             "type": "boolean",
             "description": "Whether or not the local Git repository is synced with the remote repository"
@@ -40,13 +36,16 @@
         "skip": {
             "type": "array",
             "items": {
-              "type": "string",
-              "description": "Name of the package to skip"
+                "type": "string",
+                "description": "Name of the package to skip"
             },
             "uniqueItems": true,
-            "example": ["ui", "docs"],
+            "example": [
+                "ui",
+                "docs"
+            ],
             "description": "A list of package names to skip publishing. When specified, these packages will be excluded from the publish process."
-          }
+        }
     },
     "required": [
         "tagPrefix",

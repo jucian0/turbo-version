@@ -82,7 +82,7 @@ This is a JSON schema used to configure the versioning process for a project. Th
 
 The following properties are defined in the schema:
 
-- `tagPrefix`: A string property that represents the prefix used for Git tags in the project. This property is usually set to the name of the project.
+- `tagPrefix`: A string property that represents the prefix used for Git tags in the project. This property is usually set to the name of the project. `${projectName}@` or just `v` for synced workspaces.
 - `preset`: A property that specifies the commit message convention preset used by the commitizen tool in the project. The property is a string with a default value of "angular" and can only take one of the two possible string values - "angular" or "conventional".
 - `baseBranch`: A string property that represents the Git branch that should be used as the base for versioning in the project.
 - `synced`: A boolean property that indicates whether or not the local Git repository is synced with the remote repository.

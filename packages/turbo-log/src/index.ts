@@ -32,9 +32,9 @@ const iconMap: Map<LogStep, string> = new Map([
   ["skip", "⏩"],
 ]);
 
-export function log([step, message, pkgName]: LogProps) {
+export function log([step, message, packageName]: LogProps) {
   const icon = iconMap.get(step)?.toString() ?? "";
-  const boldPkgName = chalk.bold(`[${pkgName}]`);
+  const boldPkgName = chalk.bold(`[${packageName}]`);
   const msg = `${boldPkgName} ${icon} ${message}`;
 
   if (step === "error") {
