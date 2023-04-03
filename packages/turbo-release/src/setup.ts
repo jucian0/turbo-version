@@ -15,9 +15,26 @@ type Options = {
 export async function release({ target, skip }: Options) {
   try {
     await npmSetup();
-    if (process.env.GITHUB_ACTIONS === "true") {
-      await githubSetup();
-    }
+    // if (process.env.GITHUB_ACTIONS === "true") {
+    //   console.log(chalk.cyan("Running in GitHub Actions"));
+    //   await githubSetup();
+    // }
+    // if (process.env.BITBUCKET_BUILD_NUMBER) {
+    //   console.log(chalk.cyan("Running in Bitbucket Pipelines"));
+    //   console.log(
+    //     chalk.yellow(`
+    //   For now, we do not have a specific configuration for Bitbucket. \n
+    //   You should add a git user to perform those actions.
+
+    //   - step:
+    //     script:
+    //       # Set up Git user
+    //       - git config user.name "Your Name"
+    //       - git config user.email "youremail@example.com"
+    //   `)
+    //   );
+    // }
+
     const { packages, tool } = getPackagesSync(cwd());
 
     const targets = target?.split(",").map((t) => t.trim());
@@ -49,7 +66,11 @@ export async function release({ target, skip }: Options) {
       );
       if (!isPublished) {
         await publish(tool.type, pkg.relativeDir);
-        log(["publish", "Successfully published", pkg.packageJson.name]);
+        log([
+          "publish",
+          `Successfully published ${pkg.packageJson.version}`,
+          pkg.packageJson.name,
+        ]);
       } else {
         log([
           "no_changes",
