@@ -1,0 +1,15 @@
+pipelines:
+  default:
+    - step:
+        name: Release
+        image: node:16
+        script:
+          - git config --global user.name 'bitbucket-pipelines'
+          - git config --global user.email 'bitbucket-pipelines@bitbucket.org'
+          - apt-get update && apt-get install -y curl
+          - curl -fL https://get.pnpm.io/v7.19.js | node - add --global pnpm
+          - pnpm i
+          - pnpm build
+          - pnpm turbo-version
+          - pnpm turbo-release
+          - git push --tags && git push

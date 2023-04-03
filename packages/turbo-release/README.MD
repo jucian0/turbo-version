@@ -38,13 +38,14 @@ This command will publish all packages inside the turbo repo to the npm registry
 
 The following environment variables can be used to configure @turbo-version/release:
 
-`GH_TOKEN` - The GitHub token for accessing private repositories (if applicable).
 `NPM_TOKEN` - The npm authentication token for publishing packages.
 `NPM_URL` - The URL of the npm registry to publish to (default: https://registry.npmjs.org/).
 
-### Configuration File
+### Configuration File (.npmrc)
 
-@turbo-version/release supports a configuration file in JSON or YAML format. The file should be named .turbo-version-releaserc and located in the root of the project.
+In order to publish a version on NPM, or a private registry, you need to configure a `.npmrc` file, providing all necessary information, like `token`, and `repository_url`.
+
+We do that for you by using the env vars explained in the previous step.
 
 Here is an example configuration file:
 
