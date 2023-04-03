@@ -1,3 +1,12 @@
+## [0.1.12](https://github.com/jucian0/turbo-version/compare/v0.1.11...v0.1.12) (2023-04-03)
+
+
+### Bug Fixes
+
+* **release:** improve readme, and remove github config ([6982c7c](https://github.com/jucian0/turbo-version/commit/6982c7c977237cfab3335707971f9d4256239afd))
+
+
+
 ## [0.1.11](https://github.com/jucian0/turbo-version/compare/v0.1.10...v0.1.11) (2023-04-03)
 
 
