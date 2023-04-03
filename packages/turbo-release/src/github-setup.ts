@@ -1,7 +1,21 @@
 import chalk from "chalk";
 import { cwd } from "process";
+import { writeFile } from "fs/promises";
 import { promisify } from "util";
 import { exec } from "child_process";
+import { fileExist } from "@turbo-version/fs";
+
+type GHCredentials = {
+  ghUser: string;
+  ghToken: string;
+};
+
+async function writeNETRC(options: GHCredentials) {
+  return writeFile(
+    `${cwd()}/.netrc`,
+    `machine github.com\nlogin github-actions[bot]\npassword ${options.ghToken}`
+  ).catch(() => new Error("Error writing `.netrc` file."));
+}
 
 async function setupUser(userName: string, userEmail: string) {
   await promisify(exec)(`git config --global user.name '${userName}'`);
@@ -9,22 +23,40 @@ async function setupUser(userName: string, userEmail: string) {
 }
 
 export async function githubSetup() {
-  const USERNAME = process.env.USERNAME;
-  const EMAIL =
-    process.env.EMAIL ??
+  if (fileExist(`${cwd()}/.netrc`)) {
+    console.log(
+      chalk.cyan(
+        "We identify a .netrc file, we are going to use it, if you want to use a custom configuration, jut remove it, and let us do it for you"
+      )
+    );
+    return;
+  }
+
+  const GH_TOKEN = process.env.GH_TOKEN;
+  const GH_USER =
+    process.env.GH_USER ??
     "github-actions[bot], github-actions[bot]@users.noreply.github.com, ";
 
-  if (!USERNAME) {
+  if (!GH_TOKEN) {
     throw Error(
-      "Could not find the GIT EMAIL var, provide it by adding an env var name `EMAIL`"
+      "Could not find the GH_TOKEN var, provid it by adding an env var name `GH_TOKEN`"
     );
   }
 
-  if (!EMAIL) {
-    throw Error(
-      "Could not find the GIT USERNAME var, provide it by adding an env var name `EMAIL`"
+  if (!GH_USER) {
+    console.log(
+      chalk.cyan(
+        "We could not find the GH_USER env var, we are asuming you want to the default action bot. If it is not the case, provide us a env var name `GH_USER`"
+      )
     );
   }
 
-  await setupUser(USERNAME, EMAIL);
+  await writeNETRC({
+    ghUser: GH_USER,
+    ghToken: GH_TOKEN,
+  });
+
+  const [userName, userEmail] = GH_USER.split(",");
+
+  await setupUser(userName, userEmail);
 }
