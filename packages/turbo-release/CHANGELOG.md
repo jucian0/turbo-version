@@ -1,3 +1,13 @@
+## [0.1.11](https://github.com/jucian0/turbo-version/compare/v0.1.10...v0.1.11) (2023-04-03)
+
+
+### Bug Fixes
+
+* **publish:** remove github config ([b4c3c27](https://github.com/jucian0/turbo-version/commit/b4c3c27eda8031aa191d51e78b44ec443635b5ad))
+* **release:** testing git config approach ([01493f5](https://github.com/jucian0/turbo-version/commit/01493f54c423d785e19699b20ff4e4e3c626cc23))
+
+
+
 ## [0.1.10](https://github.com/jucian0/turbo-version/compare/v0.1.9...v0.1.10) (2023-04-02)
 
 
