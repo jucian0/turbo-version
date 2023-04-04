@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/jucian0/turbo-version/compare/v0.1.12...v0.2.0) (2023-04-04)
+
+
+### Features
+
+* add new argument --client -c to choose the package manager ([67ed607](https://github.com/jucian0/turbo-version/commit/67ed60783fe36c44500273a3458b7bffeab620f7))
+
+
+
 ## [0.1.12](https://github.com/jucian0/turbo-version/compare/v0.1.11...v0.1.12) (2023-04-03)
 
 
