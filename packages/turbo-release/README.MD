@@ -26,6 +26,8 @@ This command will publish all packages inside the turbo repo to the npm registry
 
 - `--target` or `-t`: Use this argument to specify the packages you want to publish. You can provide a comma-separated list of package names to publish. For example, `-t ui,docs` will only publish the ui and docs packages.
 
+- `--client`, `-c` Specify the package manager you want to use. Valid options are 'npm', 'pnpm', or 'yarn'. For example, to use yarn as your package manager, use the flag `-c yarn`. The default package manager is 'npm'.
+
 ## Integration with turbo-version
 
 @turbo-version/release can be used in conjunction with @turbo-version/turbo to manage monorepo versions. @turbo-version/turbo provides tools for managing monorepo versions, including bumping and releasing packages. You can use @turbo-version/release to publish the packages released by @turbo-version/turbo.

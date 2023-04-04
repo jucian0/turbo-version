@@ -9,9 +9,10 @@ import { isVersionPublished } from "./isVersionPublished";
 type Options = {
   skip?: string;
   target?: string;
+  client?: "npm" | "yarn" | "pnpm";
 };
 
-export async function release({ target, skip }: Options) {
+export async function release({ target, skip, client }: Options) {
   try {
     await npmSetup();
 
@@ -45,7 +46,7 @@ export async function release({ target, skip }: Options) {
         pkg.packageJson.version
       );
       if (!isPublished) {
-        await publish(tool.type, pkg.relativeDir);
+        await publish(client ?? tool.type ?? "npm", pkg.relativeDir);
         log([
           "publish",
           `Successfully published ${pkg.packageJson.version}`,
