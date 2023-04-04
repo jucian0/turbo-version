@@ -1,5 +1,7 @@
 # Turbo Version
 
+> Automatically versioning for monorepos.
+
 Turbo Version is a monorepo solution for managing package versions and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
 
 ## Packages
