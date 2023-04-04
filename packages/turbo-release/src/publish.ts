@@ -1,8 +1,9 @@
 import { exec } from "child_process";
+import { cwd } from "process";
 import { promisify } from "util";
 
-export async function publish(tool: string, path?: string) {
-  const command = `${tool} publish ${path ?? ""}`;
+export async function publish(tool: string, path = "") {
+  const command = `${tool} publish ${cwd()}/${path}`;
   await promisify(exec)("git status");
   return promisify(exec)(command);
 }
