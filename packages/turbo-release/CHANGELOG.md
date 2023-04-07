@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/jucian0/turbo-version/compare/v0.2.0...v0.2.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* fix path to publish a package ([3951178](https://github.com/jucian0/turbo-version/commit/3951178d83caad65a07591a1344992d4aa174b87))
+
+
+
 # [0.2.0](https://github.com/jucian0/turbo-version/compare/v0.1.12...v0.2.0) (2023-04-04)
 
 
