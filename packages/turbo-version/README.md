@@ -97,3 +97,16 @@ The following properties are required in the schema:
 - `preset`: The `preset` property is required and must be set to one of the two possible string values - "angular" or "conventional".
 - `baseBranch`: The `baseBranch` property is required and must be a non-empty string.
 - `updateInternalDependencies`: The `updateInternalDependencies` property is required and must be set to one of the three possible string values - "major", "minor", or "patch", or the boolean value `false`.
+
+## Turbo Version + PNPM
+
+We believe that PNPM is the perfect match for Turbo Version. With Turbo Version, you can easily manage your monorepo version packages, and deliver them with PNPM using just two commands:
+
+```bash
+pnpm turbo-version
+
+pnpm publish -r
+```
+
+- `pnpm turbo-version` - generates new changelogs, tags, and updates package versions.
+- `pnpm publish -r` - recursively publishes all packages in your monorepo that have not yet been published.
