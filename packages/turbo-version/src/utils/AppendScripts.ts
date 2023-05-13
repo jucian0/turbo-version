@@ -4,7 +4,7 @@ import { promisify } from "util";
 
 const promisifiedExec = promisify(exec);
 const execAsync = function (command: string) {
-  return promisifiedExec(command, { maxBuffer: 1024 * 500 });
+  return promisifiedExec(command, { maxBuffer: 1024 * 1024 * 10 });
 };
 
 type Package = P & {

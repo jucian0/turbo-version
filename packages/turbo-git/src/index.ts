@@ -7,11 +7,11 @@ import { promisify } from "util";
 const promisifiedExec = promisify(exec);
 
 const execAsync = function (command: string) {
-  return promisifiedExec(command, { maxBuffer: 1024 * 500 });
+  return promisifiedExec(command, { maxBuffer: 1024 * 1024 * 10 });
 };
 
 const execSync = function (command: string, args?: any) {
-  return exec(command, { maxBuffer: 1024 * 500, ...args });
+  return exec(command, { maxBuffer: 1024 * 1024 * 10, ...args });
 };
 
 type GitTagOptions = {
