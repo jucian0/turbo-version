@@ -1,8 +1,18 @@
-import { exec, execSync } from "child_process";
+import { exec } from "child_process";
 import { existsSync, statSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
 import { promisify } from "util";
+
+const promisifiedExec = promisify(exec);
+
+const execAsync = function (command: string) {
+  return promisifiedExec(command, { maxBuffer: 1024 * 500 });
+};
+
+const execSync = function (command: string, args?: any) {
+  return exec(command, { maxBuffer: 1024 * 500, ...args });
+};
 
 type GitTagOptions = {
   tag: string;
@@ -23,24 +33,22 @@ type GitProcess = {
   nextTag: string;
 };
 
-const promisifiedExec = promisify(exec);
-
 export async function pullBranch(branch: string) {
-  await promisifiedExec(`git pull origin ${branch}`);
+  await execAsync(`git pull origin ${branch}`);
 }
 
 export async function push(branch: string, { force }: any = {}) {
-  await promisifiedExec(`git push origin HEAD:${branch}`);
+  await execAsync(`git push origin HEAD:${branch}`);
 }
 
 export async function pushTags() {
-  await promisifiedExec("git push origin --tags");
+  await execAsync("git push origin --tags");
 }
 
 async function gitAdd(files: string[]) {
   const command = `git add ${files.join(" ")}`;
 
-  return promisifiedExec(command);
+  return execAsync(command);
 }
 
 async function gitCommit(options: GitCommit) {
@@ -57,14 +65,14 @@ async function gitCommit(options: GitCommit) {
   command.push(`-m "chore: ${options.message}"`);
   command.push("--no-verify");
 
-  return promisifiedExec(`git ${command.join(" ")}`);
+  return execAsync(`git ${command.join(" ")}`);
 }
 
 export async function createGitTag(options: GitTagOptions) {
   const { tag, message = "", args = "" } = options;
   const command = `git tag -a -m "${message}" ${tag} ${args}`;
 
-  return promisifiedExec(command);
+  return execAsync(command);
 }
 
 export function getCommitsLength(pkgRoot: string) {
@@ -118,7 +126,7 @@ export function isGitRepository(directory: string) {
 
 async function getLastTag(): Promise<string | null> {
   try {
-    const { stdout, stderr } = await promisifiedExec(
+    const { stdout, stderr } = await execAsync(
       "git describe --abbrev=0 --tags"
     );
 

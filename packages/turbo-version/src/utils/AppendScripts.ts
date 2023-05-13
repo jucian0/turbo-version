@@ -2,6 +2,11 @@ import { Package as P, Tool } from "@manypkg/get-packages";
 import { exec } from "child_process";
 import { promisify } from "util";
 
+const promisifiedExec = promisify(exec);
+const execAsync = function (command: string) {
+  return promisifiedExec(command, { maxBuffer: 1024 * 500 });
+};
+
 type Package = P & {
   packageJson: P["packageJson"] & { scripts: Record<string, string> };
 };
@@ -29,7 +34,7 @@ export async function appendScripts(
       for (const script of pkgScripts) {
         console.log(`>>>>>>>`, pkgScripts);
         const command = `${tool.type} ${script}`;
-        await promisify(exec)(command);
+        await execAsync(command);
       }
       await promisify(process.chdir)(rootDir);
     }
