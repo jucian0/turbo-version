@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/jucian0/turbo-version/compare/v0.2.4...v0.3.0) (2023-05-22)
+
+
+### Features
+
+* **turbo-version:** add commitMessage template feature ([76ed2f0](https://github.com/jucian0/turbo-version/commit/76ed2f09a31dc56756e4a0ee6eff0cef494e8602))
+
+
+
 ## [0.2.4](https://github.com/jucian0/turbo-version/compare/v0.2.3...v0.2.4) (2023-05-13)
 
 
