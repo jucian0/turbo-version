@@ -21,7 +21,7 @@ export function formatCommitMessage({
   name?: string;
 }): string {
   return createTemplateString(commitMessage ?? "", {
-    name: name ?? "",
+    projectName: name ?? "",
     version,
   });
 }

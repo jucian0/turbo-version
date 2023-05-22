@@ -22,6 +22,7 @@ export type Config = {
     | "no-internal-update";
   strategy: "first-release" | "next-release" | "last-release";
   skip?: string[];
+  commitMessage?: string;
 };
 
 export function setup(): Promise<Config> {
