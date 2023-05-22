@@ -9,6 +9,7 @@ import { Config } from "@turbo-version/setup";
 import chalk from "chalk";
 import { log } from "@turbo-version/log";
 import { getPackagesSync } from "@manypkg/get-packages";
+import { formatCommitMessage } from "./utils/TemplateString";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
@@ -56,7 +57,16 @@ export async function syncedFlux(config: Config, type?: any) {
         }
       }
 
-      await gitProcess({ files: [cwd()], nextTag });
+      const commitMessage = formatCommitMessage({
+        commitMessage: config.commitMessage,
+        version,
+      });
+
+      await gitProcess({
+        files: [cwd()],
+        nextTag,
+        commitMessage,
+      });
       log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
     } else {
       log([

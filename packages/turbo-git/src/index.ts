@@ -31,6 +31,7 @@ type GitCommit = {
 type GitProcess = {
   files: string[];
   nextTag: string;
+  commitMessage: string;
 };
 
 export async function pullBranch(branch: string) {
@@ -141,7 +142,11 @@ async function getLastTag(): Promise<string | null> {
   }
 }
 
-export async function gitProcess({ files, nextTag }: GitProcess) {
+export async function gitProcess({
+  files,
+  nextTag,
+  commitMessage,
+}: GitProcess) {
   try {
     if (!isGitRepository(cwd())) {
       throw new Error(
@@ -152,7 +157,7 @@ export async function gitProcess({ files, nextTag }: GitProcess) {
     await gitAdd(files);
 
     await gitCommit({
-      message: `New version generated ${nextTag}`,
+      message: `New version generated ${nextTag} - ${commitMessage}`,
     });
 
     const tagMessage = `New Version ${nextTag} generated at ${new Date().toISOString()}`;

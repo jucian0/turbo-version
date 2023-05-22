@@ -9,6 +9,7 @@ import { log } from "@turbo-version/log";
 import { cwd, exit } from "process";
 import chalk from "chalk";
 import { getPackagesSync } from "@manypkg/get-packages";
+import { formatCommitMessage } from "./utils/TemplateString";
 
 export async function singleFlux(config: Config, options: any) {
   const { preset } = config;
@@ -57,7 +58,17 @@ export async function singleFlux(config: Config, options: any) {
         });
         log(["list", `Changelog generated`, name]);
 
-        await gitProcess({ files: [path], nextTag });
+        const commitMessage = formatCommitMessage({
+          commitMessage: config.commitMessage,
+          version,
+          name,
+        });
+
+        await gitProcess({
+          files: [path],
+          nextTag,
+          commitMessage,
+        });
         log(["tag", `Git Tag successfully generated.`, name]);
       } else {
         log([

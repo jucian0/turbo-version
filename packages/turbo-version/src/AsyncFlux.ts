@@ -9,6 +9,7 @@ import { log } from "@turbo-version/log";
 import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
 import { cwd, exit } from "process";
+import { formatCommitMessage } from "./utils/TemplateString";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -70,7 +71,18 @@ export async function asyncFlux(config: Config, type?: any) {
           });
           log(["list", `Changelog generated`, name]);
 
-          await gitProcess({ files: [path], nextTag });
+          const commitMessage = formatCommitMessage({
+            commitMessage: config.commitMessage,
+            version,
+            name,
+          });
+
+          await gitProcess({
+            files: [path],
+            nextTag,
+            commitMessage,
+          });
+
           log(["tag", `Git Tag generated for ${nextTag}.`, name]);
         } else {
           log([

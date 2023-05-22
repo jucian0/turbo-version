@@ -45,6 +45,14 @@
                 "docs"
             ],
             "description": "A list of package names to skip publishing. When specified, these packages will be excluded from the publish process."
+        },
+        "commitMessage": {
+            "type": "string",
+            "description": "The commit message",
+            "examples": [
+                "[skip-ci]",
+                "chore(${projectName}): release version ${version} [skip-ci]"
+            ]
         }
     },
     "required": [

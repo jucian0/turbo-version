@@ -7,5 +7,6 @@
     "appendScripts": [
         "release",
         "git-push"
-    ]
+    ],
+    "commitMessage": "chore(${projectName}): release version ${version} [skip-ci]"
 }

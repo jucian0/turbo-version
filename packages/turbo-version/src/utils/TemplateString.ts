@@ -10,3 +10,18 @@ export function createTemplateString(
     );
   }, template);
 }
+
+export function formatCommitMessage({
+  commitMessage,
+  version,
+  name,
+}: {
+  version: string;
+  commitMessage?: string;
+  name?: string;
+}): string {
+  return createTemplateString(commitMessage ?? "", {
+    name: name ?? "",
+    version,
+  });
+}
