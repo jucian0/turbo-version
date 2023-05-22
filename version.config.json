@@ -8,5 +8,5 @@
         "release",
         "git-push"
     ],
-    "commitMessage": "chore(${projectName}): release version ${version} [skip-ci]"
+    "commitMessage": "chore(new version): release version ${version} [skip-ci]"
 }
