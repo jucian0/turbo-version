@@ -88,6 +88,7 @@ The following properties are defined in the schema:
 - `synced`: A boolean property that indicates whether or not the local Git repository is synced with the remote repository.
 - `updateInternalDependencies`: A property that specifies how to update internal dependencies between packages. The property is a string with a default value of "patch" and can only take one of the three possible string values - "major", "minor", or "patch". Alternatively, the property can be set to the boolean value `false` to disable automatic updates.
 - `skip`: A list of package names that should be excluded from the versioning process. When you specify one or more package names in this list, those packages will be skipped in the versioning process. This is useful when you have packages that don't need to be versioned, or that require additional steps before they can be published.
+- `commitMessage`: A string property that represents the commit message pattern used by the commitizen tool in the project. This property is a regular expression. Example: `chore(new version): release version ${version} [skip-ci]` or `chore(${packageName}): release version ${version} [skip-ci]`.
 
 ### Required Properties
 
