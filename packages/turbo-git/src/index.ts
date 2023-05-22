@@ -157,7 +157,7 @@ export async function gitProcess({
     await gitAdd(files);
 
     await gitCommit({
-      message: `New version generated ${nextTag} - ${commitMessage}`,
+      message: commitMessage,
     });
 
     const tagMessage = `New Version ${nextTag} generated at ${new Date().toISOString()}`;
