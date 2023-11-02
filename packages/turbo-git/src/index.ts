@@ -176,7 +176,7 @@ export function lastMergeBranchName() {
     const lastBranchName = execSync("git symbolic-ref --short HEAD", {
       encoding: "utf-8",
     });
-    return lastBranchName;
+    return lastBranchName.toString().trim();
   } catch (error: any) {
     console.error("Error while getting the last branch name:", error.message);
     return null;
