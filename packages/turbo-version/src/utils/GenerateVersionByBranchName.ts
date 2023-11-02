@@ -9,7 +9,7 @@ type Version = {
   path?: string;
 };
 
-export async function generateVersion({
+export async function generateVersionByBranchName({
   latestTag,
   tagPrefix,
   type,

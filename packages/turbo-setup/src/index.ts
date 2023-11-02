@@ -23,6 +23,8 @@ export type Config = {
   strategy: "first-release" | "next-release" | "last-release";
   skip?: string[];
   commitMessage?: string;
+  versionStrategy?: "branchName" | "commitMessage";
+  branchNamePattern?: string[];
 };
 
 export function setup(): Promise<Config> {

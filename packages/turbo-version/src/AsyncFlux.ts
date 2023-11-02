@@ -10,6 +10,7 @@ import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
 import { cwd, exit } from "process";
 import { formatCommitMessage } from "./utils/TemplateString";
+import { generateVersionByBranchName } from "./utils/GenerateVersionByBranchName";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch: branch } = config;
@@ -47,14 +48,26 @@ export async function asyncFlux(config: Config, type?: any) {
           synced: config.synced,
         });
         const latestTag = await getLatestTag(tagPrefix);
-        const version = await generateVersion({
-          latestTag,
-          preset,
-          tagPrefix,
-          type: type ?? pkg.type,
-          path,
-          name,
-        });
+
+        let version: string | null = null;
+
+        if (config.versionStrategy === "branchName") {
+          version = await generateVersionByBranchName({
+            latestTag,
+            tagPrefix,
+            type: type ?? pkg.type,
+            path,
+          });
+        } else {
+          version = await generateVersion({
+            latestTag,
+            preset,
+            tagPrefix,
+            type: type ?? pkg.type,
+            path,
+            name,
+          });
+        }
 
         if (version) {
           log(["new", `New version calculated ${version}`, name]);

@@ -10,6 +10,7 @@ import { cwd, exit } from "process";
 import chalk from "chalk";
 import { getPackagesSync } from "@manypkg/get-packages";
 import { formatCommitMessage } from "./utils/TemplateString";
+import { generateVersionByBranchName } from "./utils/GenerateVersionByBranchName";
 
 export async function singleFlux(config: Config, options: any) {
   const { preset } = config;
@@ -33,14 +34,26 @@ export async function singleFlux(config: Config, options: any) {
       });
 
       const latestTag = await getLatestTag(tagPrefix);
-      const version = await generateVersion({
-        latestTag,
-        preset,
-        tagPrefix,
-        type,
-        path,
-        name,
-      });
+
+      let version: string | null = null;
+
+      if (config.versionStrategy === "branchName") {
+        version = await generateVersionByBranchName({
+          latestTag,
+          tagPrefix,
+          type,
+          path,
+        });
+      } else {
+        version = await generateVersion({
+          latestTag,
+          preset,
+          tagPrefix,
+          type,
+          path,
+          name,
+        });
+      }
 
       if (version && name && version && path) {
         log(["new", `New version calculated ${version}`, name]);
