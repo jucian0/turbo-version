@@ -7,6 +7,7 @@ type Version = {
   tagPrefix: string;
   type?: semver.ReleaseType;
   path?: string;
+  branchPattern: string[];
 };
 
 export async function generateVersionByBranchName({
@@ -14,9 +15,10 @@ export async function generateVersionByBranchName({
   tagPrefix,
   type,
   path,
+  branchPattern,
 }: Version) {
   try {
-    const recommended = genNextTagByBranchName(["master", "next"]);
+    const recommended = await genNextTagByBranchName(branchPattern);
 
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
@@ -38,8 +40,10 @@ export async function generateVersionByBranchName({
   }
 }
 
-function genNextTagByBranchName(schema: string[]) {
-  const branch = lastMergeBranchName();
+async function genNextTagByBranchName(schema: string[]) {
+  const branch = await lastMergeBranchName();
+
+  console.log("generateVersionByBranchName", branch);
 
   if (schema[0] === branch) {
     return "major";

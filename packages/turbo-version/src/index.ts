@@ -41,6 +41,11 @@ program
     );
     try {
       const config = await setup();
+      if (config.versionStrategy === "branchName") {
+        if (!config.branchNamePattern) {
+          config.branchNamePattern = ["major", "minor", "branch"];
+        }
+      }
       if (config.synced) {
         if (options.target) {
           console.log(

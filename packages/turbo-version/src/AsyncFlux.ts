@@ -57,6 +57,7 @@ export async function asyncFlux(config: Config, type?: any) {
             tagPrefix,
             type: type ?? pkg.type,
             path,
+            branchPattern: config.branchNamePattern as ""[],
           });
         } else {
           version = await generateVersion({

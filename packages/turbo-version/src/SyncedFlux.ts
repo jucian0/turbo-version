@@ -24,12 +24,12 @@ export async function syncedFlux(config: Config, type?: any) {
     const latestTag = await getLatestTag(tagPrefix);
 
     let version: string | null = null;
-
     if (config.versionStrategy === "branchName") {
       version = await generateVersionByBranchName({
         latestTag,
         tagPrefix,
         type,
+        branchPattern: config.branchNamePattern as ""[],
       });
     } else {
       version = await generateVersion({

@@ -43,6 +43,7 @@ export async function singleFlux(config: Config, options: any) {
           tagPrefix,
           type,
           path,
+          branchPattern: config.branchNamePattern as ""[],
         });
       } else {
         version = await generateVersion({
