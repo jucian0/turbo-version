@@ -20,6 +20,8 @@ export async function generateVersionByBranchName({
   try {
     const recommended = await genNextTagByBranchName(branchPattern);
 
+    console.log({ recommended });
+
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
@@ -40,20 +42,21 @@ export async function generateVersionByBranchName({
   }
 }
 
-async function genNextTagByBranchName(schema: string[]) {
-  const branch = await lastMergeBranchName();
+async function genNextTagByBranchName(
+  schema: string[],
+  mainBranchName = "main"
+) {
+  const branch = await lastMergeBranchName(mainBranchName);
 
-  console.log("generateVersionByBranchName", branch);
-
-  if (schema[0] === branch) {
+  if (branch?.includes(schema[0])) {
     return "major";
   }
 
-  if (schema[1] === branch) {
+  if (branch?.includes(schema[1])) {
     return "minor";
   }
 
-  if (schema[2] === branch) {
+  if (branch?.includes(schema[2])) {
     return "patch";
   }
 

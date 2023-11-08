@@ -171,10 +171,12 @@ export async function gitProcess({
   }
 }
 
-export async function lastMergeBranchName() {
+export async function lastMergeBranchName(baseBranch: string) {
   try {
-    const lastBranchName = await execAsync("git log --merges --format=%H -n 1");
-    console.log(lastBranchName.stdout, `<<<<<<<<<,s`);
+    const lastBranchName = await execAsync(
+      `git branch --merged ${baseBranch} | grep -v "${baseBranch}" | tail -n 1`
+    );
+
     return lastBranchName.stdout.trim();
   } catch (error: any) {
     console.error("Error while getting the last branch name:", error.message);
