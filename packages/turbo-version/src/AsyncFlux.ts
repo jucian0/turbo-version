@@ -8,12 +8,12 @@ import { gitProcess } from "@turbo-version/git";
 import { log } from "@turbo-version/log";
 import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
-import { cwd, exit } from "process";
+import { exit } from "process";
 import { formatCommitMessage } from "./utils/TemplateString";
 import { generateVersionByBranchName } from "./utils/GenerateVersionByBranchName";
 
 export async function asyncFlux(config: Config, type?: any) {
-  const { preset, baseBranch: branch } = config;
+  const { preset, baseBranch, branchPattern } = config;
 
   try {
     const packages = await summarizePackages(config);
@@ -57,7 +57,8 @@ export async function asyncFlux(config: Config, type?: any) {
             tagPrefix,
             type: type ?? pkg.type,
             path,
-            branchPattern: config.branchNamePattern as ""[],
+            branchPattern,
+            baseBranch,
           });
         } else {
           version = await generateVersion({

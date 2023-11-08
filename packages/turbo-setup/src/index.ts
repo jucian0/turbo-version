@@ -24,7 +24,7 @@ export type Config = {
   skip?: string[];
   commitMessage?: string;
   versionStrategy?: "branchName" | "commitMessage";
-  branchNamePattern?: string[];
+  branchPattern: string[];
 };
 
 export function setup(): Promise<Config> {

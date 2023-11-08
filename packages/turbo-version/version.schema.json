@@ -9,13 +9,13 @@
         "versionStrategy": {
             "type": "string",
             "enum": [
-                "branchName",
+                "branchPattern",
                 "commitMessage"
             ],
             "default": "commitMessage",
-            "description": "The versioning strategy to use, either 'branchName' or 'commitMessage'. Select 'branchName' if you want to calculate the version based on the branch name, and 'commitMessage' if you want to calculate the version based on the commit message.",
+            "description": "The versioning strategy to use, either 'branchPattern' or 'commitMessage'. Select 'branchPattern' if you want to calculate the version based on the branch name, and 'commitMessage' if you want to calculate the version based on the commit message.",
             "examples": [
-                "branchName => v1.0.0 branchName 'patch*' => v1.0.1, branchName 'minor*' => v1.1.0, branchName 'major*' => v2.0.0",
+                "branchPattern => v1.0.0 branchPattern 'patch*' => v1.0.1, branchPattern 'minor*' => v1.1.0, branchPattern 'major*' => v2.0.0",
                 "commitMessage => commit message follows the pattern feat/fix/refactor(context changed): release version"
             ]
         },
@@ -32,13 +32,13 @@
             ],
             "description": "The commit message convention preset used by commitizen. That applies only when `versionStrategy` is 'commitMessage'"
         },
-        "branchNamePattern": {
+        "branchPattern": {
             "type": "array",
             "items": {
                 "type": "string",
                 "description": "Pattern to match the branch name"
             },
-            "description": "The pattern to match the branch name. Only applies when `versionStrategy` is 'branchName'",
+            "description": "The pattern to match the branch name. Only applies when `versionStrategy` is 'branchPattern'",
             "examples": [
                 "[major, minor, patch] => [1.0.0, 1.1.0, 1.0.1]",
                 "[break, feat, fix] => [1.0.0, 1.1.0, 1.0.1]"

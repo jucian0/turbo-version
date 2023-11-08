@@ -8,6 +8,7 @@ type Version = {
   type?: semver.ReleaseType;
   path?: string;
   branchPattern: string[];
+  baseBranch?: string;
 };
 
 export async function generateVersionByBranchName({
@@ -16,9 +17,10 @@ export async function generateVersionByBranchName({
   type,
   path,
   branchPattern,
+  baseBranch,
 }: Version) {
   try {
-    const recommended = await genNextTagByBranchName(branchPattern);
+    const recommended = await genNextTagByBranchName(branchPattern, baseBranch);
 
     console.log({ recommended });
 

@@ -19,7 +19,7 @@ export async function syncedFlux(config: Config, type?: any) {
     const tagPrefix = formatTagPrefix({
       synced: config.synced,
     });
-    const { preset } = config;
+    const { preset, baseBranch, branchPattern } = config;
 
     const latestTag = await getLatestTag(tagPrefix);
 
@@ -29,7 +29,8 @@ export async function syncedFlux(config: Config, type?: any) {
         latestTag,
         tagPrefix,
         type,
-        branchPattern: config.branchNamePattern as ""[],
+        branchPattern,
+        baseBranch,
       });
     } else {
       version = await generateVersion({

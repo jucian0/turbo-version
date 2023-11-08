@@ -13,7 +13,7 @@ import { formatCommitMessage } from "./utils/TemplateString";
 import { generateVersionByBranchName } from "./utils/GenerateVersionByBranchName";
 
 export async function singleFlux(config: Config, options: any) {
-  const { preset } = config;
+  const { preset, baseBranch, branchPattern } = config;
   const pkgNames: string[] = options.target.split(",");
   const type = options.bump;
   const { packages: pkgs } = getPackagesSync(cwd());
@@ -43,7 +43,8 @@ export async function singleFlux(config: Config, options: any) {
           tagPrefix,
           type,
           path,
-          branchPattern: config.branchNamePattern as ""[],
+          branchPattern,
+          baseBranch,
         });
       } else {
         version = await generateVersion({
