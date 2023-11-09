@@ -170,3 +170,15 @@ export async function gitProcess({
     throw new Error(`Failed to create new version: ${err.message}`);
   }
 }
+
+export async function lastMergeBranchName(baseBranch: string) {
+  try {
+    const lastBranchName = await execAsync(
+      `git branch --contains $(git rev-parse $(git rev-list --merges --first-parent ${baseBranch} | tail -n 2 | head -n 1)) | grep -v "${baseBranch}" | awk '{print $NF}'`
+    );
+    return lastBranchName.stdout.trim();
+  } catch (error: any) {
+    console.error("Error while getting the last branch name:", error.message);
+    return null;
+  }
+}
