@@ -39,7 +39,9 @@ If there are no commit messages to determine the bump kind, the tool will defaul
 
 - `-b, --bump <version>`: Specifies the type of update. The available options are `patch`, `minor`, `major`, `premajor`, `preminor`, `prepatch`, `prerelease`. If not specified, all packages will be updated based on the commit messages since the last release.
 
-## Semantic Commit Messages
+## Two approaches to versioning
+
+### Semantic Commit Messages based versioning
 
 **Turbo Version** analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, **Turbo Version** might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, **Turbo Version** might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
 
@@ -47,7 +49,7 @@ Format: `<type>(<scope>): <subject>`
 
 `<scope>` is optional, but in a monorepo context, it's really helpful to determine the package that you worked.
 
-### Example
+#### Example
 
 ```
 feat: add hat wobble
@@ -74,6 +76,18 @@ References:
 - https://seesparkbox.com/foundry/semantic_commit_messages
 - http://karma-runner.github.io/1.0/dev/git-commit-msg.html
 
+### Branch name based versioning
+
+**TurboVersion** uses the Git branch name to determine the next version, by default TurboVersion will use [`major`, `minor`, `patch`] as the branch name pattern, for example, if your current version is 1.2.3, and you have a branch named `patch`, the next version will be 1.2.4 when the `patch` branch is merged into the `main` branch.
+
+#### Configuration
+
+To use branch name-based versioning, you need to configure the `version.config.json` file with the following properties:
+
+- `baseBranch` - the main branch name, it's used to calculate the next version.
+- `versionStrategy` - the versioning strategy should be `branchName`.
+- `branchPattern` - the branch name pattern used to calculate the next version (optional, by default, it's [`major`, `minor`, `patch`]).
+
 ## `version.config.json`
 
 This is a JSON schema used to configure the versioning process for a project. The schema provides several properties that can be customized to control how versions are created and managed.
@@ -83,12 +97,14 @@ This is a JSON schema used to configure the versioning process for a project. Th
 The following properties are defined in the schema:
 
 - `tagPrefix`: A string property that represents the prefix used for Git tags in the project. This property is usually set to the name of the project. `${projectName}@` or just `v` for synced workspaces.
-- `preset`: A property that specifies the commit message convention preset used by the commitizen tool in the project. The property is a string with a default value of "angular" and can only take one of the two possible string values - "angular" or "conventional".
+- `preset`: A property that specifies the commit message convention preset used by the commitizen tool in the project. The property is a string with a default value of "angular" and can only take one of the two possible string values - "angular" or "conventional".(Only used if `versionStrategy` is set to "commitMessage").
 - `baseBranch`: A string property that represents the Git branch that should be used as the base for versioning in the project.
 - `synced`: A boolean property that indicates whether or not the local Git repository is synced with the remote repository.
 - `updateInternalDependencies`: A property that specifies how to update internal dependencies between packages. The property is a string with a default value of "patch" and can only take one of the three possible string values - "major", "minor", or "patch". Alternatively, the property can be set to the boolean value `false` to disable automatic updates.
 - `skip`: A list of package names that should be excluded from the versioning process. When you specify one or more package names in this list, those packages will be skipped in the versioning process. This is useful when you have packages that don't need to be versioned, or that require additional steps before they can be published.
 - `commitMessage`: A string property that represents the commit message pattern used by the commitizen tool in the project. This property is a regular expression. Example: `chore(new version): release version ${version} [skip-ci]` or `chore(${packageName}): release version ${version} [skip-ci]`.
+- `versionStrategy`: A string property that specifies the versioning strategy. The property can be set to either "branchName" or "commitMessage". By default, it's set to "commitMessage".
+- `branchPattern`: An array property that represents the branch name pattern used to calculate the next version. By default, it's set to [`major`, `minor`, `patch`](Applyed just when `versionStrategy` is set to "branchName").
 
 ### Required Properties
 
