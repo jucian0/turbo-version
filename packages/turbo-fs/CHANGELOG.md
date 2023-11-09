@@ -1,3 +1,7 @@
+# [0.5.0](https://github.com/jucian0/turbo-version/compare/v0.4.2...v0.5.0) (2023-11-09)
+
+
+
 ## [0.4.2](https://github.com/jucian0/turbo-version/compare/v0.4.1...v0.4.2) (2023-05-22)
 
 

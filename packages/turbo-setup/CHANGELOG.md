@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/jucian0/turbo-version/compare/v0.4.2...v0.5.0) (2023-11-09)
+
+
+### Features
+
+* **version:** add branch name strategy into async and single flux ([7601f9e](https://github.com/jucian0/turbo-version/commit/7601f9eba29ef1e63e5cb3fa38e8def4db4a73c7))
+
+
+
 ## [0.4.2](https://github.com/jucian0/turbo-version/compare/v0.4.1...v0.4.2) (2023-05-22)
 
 

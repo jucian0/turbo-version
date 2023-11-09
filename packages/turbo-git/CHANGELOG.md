@@ -1,3 +1,20 @@
+# [0.5.0](https://github.com/jucian0/turbo-version/compare/v0.4.2...v0.5.0) (2023-11-09)
+
+
+### Bug Fixes
+
+* **turbo-git:** adding function to get the branch name from last merge ([2841567](https://github.com/jucian0/turbo-version/commit/2841567a0ee7e65003a125042a585f70b4f83b81))
+* **turbo-git:** fix function to get mast merge branch  from ([5951583](https://github.com/jucian0/turbo-version/commit/59515833075acf7b5358547aada350b5dce1f636))
+* **turbo-git:** update lastMergebranchame function to return the exactly branch name ([61b27e9](https://github.com/jucian0/turbo-version/commit/61b27e944b7e99690c50f563aa75e59b7ec4eac6))
+
+
+### Features
+
+* **adding branch name strategy:** '' ([a4d8022](https://github.com/jucian0/turbo-version/commit/a4d8022981d5b4cc8f4e0ebf28891758ae066ad5))
+* **version:** adding branch name strategy ([4513cb5](https://github.com/jucian0/turbo-version/commit/4513cb5587be7444b12ceb33702b9fae3cbfd579))
+
+
+
 ## [0.4.2](https://github.com/jucian0/turbo-version/compare/v0.4.1...v0.4.2) (2023-05-22)
 
 
