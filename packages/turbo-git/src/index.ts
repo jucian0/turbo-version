@@ -173,6 +173,7 @@ export async function gitProcess({
 
 export async function lastMergeBranchName(baseBranch: string) {
   try {
+    //    //git log --merges --oneline --format='%s' -n 1 | grep -o -i -E "feature/(.*)|bugfix/(.*)|hotfix/(.*)|break-changes/(.*)" | awk -F'[ ]' '{print $1}'
     const lastBranchName = await execAsync(
       `git branch --contains $(git rev-parse $(git rev-list --merges --first-parent ${baseBranch} | tail -n 2 | head -n 1)) | grep -v "${baseBranch}" | awk '{print $NF}'`
     );
