@@ -22,8 +22,6 @@ export async function generateVersionByBranchName({
   try {
     const recommended = await genNextTagByBranchName(branchPattern, baseBranch);
 
-    console.log({ recommended });
-
     const currentVersion =
       semver.parse(latestTag.replace(tagPrefix, "")) ?? "0.0.0";
 
@@ -48,7 +46,7 @@ async function genNextTagByBranchName(
   schema: string[],
   mainBranchName = "main"
 ) {
-  const branch = await lastMergeBranchName(mainBranchName);
+  const branch = await lastMergeBranchName(schema,mainBranchName);
 
   if (branch?.includes(schema[0])) {
     return "major";

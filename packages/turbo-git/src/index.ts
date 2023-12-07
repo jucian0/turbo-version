@@ -171,15 +171,13 @@ export async function gitProcess({
   }
 }
 
-export async function lastMergeBranchName(baseBranch: string) {
+export async function lastMergeBranchName(branches: string[], baseBranch: string) {
   try {
-    //    //git log --merges --oneline --format='%s' -n 1 | grep -o -i -E "feature/(.*)|bugfix/(.*)|hotfix/(.*)|break-changes/(.*)" | awk -F'[ ]' '{print $1}'
-    const lastBranchName = await execAsync(
-      `git branch --contains $(git rev-parse $(git rev-list --merges --first-parent ${baseBranch} | tail -n 2 | head -n 1)) | grep -v "${baseBranch}" | awk '{print $NF}'`
-    );
+    const branchesRegex = branches.join("/(.*)|")+"/(.*)";
+    const lastBranchName = await execAsync(`git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads --merged ${baseBranch} | grep -o -i -E "${branchesRegex}" | awk -F'[ ]' '{print $1}' | head -n 1`);
     return lastBranchName.stdout.trim();
   } catch (error: any) {
     console.error("Error while getting the last branch name:", error.message);
     return null;
   }
-}
+}Z
