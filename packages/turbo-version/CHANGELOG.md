@@ -1,3 +1,12 @@
+## [0.5.2](https://github.com/jucian0/turbo-version/compare/v0.5.1...v0.5.2) (2023-12-07)
+
+
+### Bug Fixes
+
+* **turbo-version:** update branch name strategy ([749c3cc](https://github.com/jucian0/turbo-version/commit/749c3ccbd513b8fd85f0c734a442ab37e9b34d0f))
+
+
+
 ## [0.5.1](https://github.com/jucian0/turbo-version/compare/v0.5.0...v0.5.1) (2023-12-06)
 
 
