@@ -180,4 +180,4 @@ export async function lastMergeBranchName(branches: string[], baseBranch: string
     console.error("Error while getting the last branch name:", error.message);
     return null;
   }
-}Z
+}
