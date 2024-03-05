@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { exec, execSync as syncExec } from "child_process";
 import { existsSync, statSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
@@ -11,7 +11,7 @@ const execAsync = function (command: string) {
 };
 
 const execSync = function (command: string, args?: any) {
-  return exec(command, { maxBuffer: 1024 * 1024 * 10, ...args });
+  return syncExec(command, { maxBuffer: 1024 * 1024 * 10, ...args });
 };
 
 type GitTagOptions = {
