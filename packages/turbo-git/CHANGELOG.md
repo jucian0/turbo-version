@@ -1,3 +1,12 @@
+## [0.5.3](https://github.com/jucian0/turbo-version/compare/v0.5.2...v0.5.3) (2024-03-07)
+
+
+### Bug Fixes
+
+* **turbo-git:** the execSync function was calling exec.  exec is an async function ([79b0955](https://github.com/jucian0/turbo-version/commit/79b09555d9657fd0fe60953f5feb6e90b4666398))
+
+
+
 ## [0.5.2](https://github.com/jucian0/turbo-version/compare/v0.5.1...v0.5.2) (2023-12-07)
 
 
