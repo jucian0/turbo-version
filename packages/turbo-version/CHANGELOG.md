@@ -1,3 +1,12 @@
+## [0.5.6](https://github.com/jucian0/turbo-version/compare/v0.5.5...v0.5.6) (2024-03-10)
+
+
+### Bug Fixes
+
+* **turbo-version:** fix package.json files to include turbov-schema.json ([f7d76d7](https://github.com/jucian0/turbo-version/commit/f7d76d75d9a9d01cc2b39943262214a36b4a4e32))
+
+
+
 ## [0.5.5](https://github.com/jucian0/turbo-version/compare/v0.5.4...v0.5.5) (2024-03-10)
 
 
