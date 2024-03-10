@@ -1,3 +1,12 @@
+## [0.5.4](https://github.com/jucian0/turbo-version/compare/v0.5.3...v0.5.4) (2024-03-10)
+
+
+### Bug Fixes
+
+* **turbo-version:** update turbo version schema ([f814440](https://github.com/jucian0/turbo-version/commit/f814440b1e1aeb745c81b7c7d82f245b40c780db))
+
+
+
 ## [0.5.3](https://github.com/jucian0/turbo-version/compare/v0.5.2...v0.5.3) (2024-03-07)
 
 

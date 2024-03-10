@@ -1,3 +1,15 @@
+## [0.5.4](https://github.com/jucian0/turbo-version/compare/v0.5.3...v0.5.4) (2024-03-10)
+
+
+### Bug Fixes
+
+* **git:** fix security issue ([85ad0eb](https://github.com/jucian0/turbo-version/commit/85ad0eb485228f8d46db157120b6547aa2e98678))
+* **turbo-git:** update small issue in git package ([b11b9f3](https://github.com/jucian0/turbo-version/commit/b11b9f397796b954f4101d62fa0f110c5ba69ad0))
+* **turbo-git:** update turbov-schema - fix some configs and improve schema description ([1e71b97](https://github.com/jucian0/turbo-version/commit/1e71b9749e6dbcfd615e703b1673b8b413011153))
+* **turbo-version:** update turbo version schema ([f814440](https://github.com/jucian0/turbo-version/commit/f814440b1e1aeb745c81b7c7d82f245b40c780db))
+
+
+
 ## [0.5.3](https://github.com/jucian0/turbo-version/compare/v0.5.2...v0.5.3) (2024-03-07)
 
 
