@@ -1,10 +1,10 @@
-import {  execSync as syncExec, execFile } from "child_process";
+import { exec, execSync as syncExec } from "child_process";
 import { existsSync, statSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
 import { promisify } from "util";
 
-const promisifiedExec = promisify(execFile);
+const promisifiedExec = promisify(exec);
 
 const execAsync = function (command: string) {
   return promisifiedExec(command, { maxBuffer: 1024 * 1024 * 10 });
