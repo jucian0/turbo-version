@@ -1,12 +1,8 @@
 {
-    "$schema": "./packages/turbo-version/version.schema.json",
+    "$schema": "./packages/turbo-version/turbov.schema.json",
     "tagPrefix": "v",
     "preset": "angular",
     "synced": true,
     "updateInternalDependencies": "patch",
-    "appendScripts": [
-        "release",
-        "git-push"
-    ],
     "commitMessage": "(new version): release version ${version} [skip-ci]"
 }
