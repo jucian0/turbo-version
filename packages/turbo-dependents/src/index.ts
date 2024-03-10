@@ -39,22 +39,22 @@ export async function summarizePackages(config: Config): Promise<Package[]> {
     const folders = await getFoldersWithCommits();
     const monoRepo = getPackagesSync(cwd());
     const filteredPackages = filterPackages(monoRepo.packages, folders);
-
+    
     if (config.updateInternalDependencies) {
       return filteredPackages.reduce((packages, pkg) => {
         const dependents = getDependents(
           monoRepo.packages,
           pkg.packageJson.name,
           config.updateInternalDependencies
-        );
-
-        const filteredDependents = dependents.filter((d) =>
+          );
+          
+          const filteredDependents = dependents.filter((d) =>
           packages.every((p) => p.relativeDir !== d.relativeDir)
-        );
-
-        return [...packages, ...filteredDependents];
-      }, filteredPackages);
-    }
+          );
+          
+          return [...packages, ...filteredDependents];
+        }, filteredPackages);
+      }
 
     return filteredPackages;
   } catch (err) {

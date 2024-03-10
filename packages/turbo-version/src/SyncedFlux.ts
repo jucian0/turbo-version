@@ -10,7 +10,7 @@ import chalk from "chalk";
 import { log } from "@turbo-version/log";
 import { getPackagesSync } from "@manypkg/get-packages";
 import { formatCommitMessage } from "./utils/TemplateString";
-import { generateVersionByBranchName } from "./utils/GenerateVersionByBranchName";
+import { generateVersionByBranchPattern } from "./utils/GenerateVersionByBranchPattern";
 
 export async function syncedFlux(config: Config, type?: any) {
   try {
@@ -24,8 +24,8 @@ export async function syncedFlux(config: Config, type?: any) {
     const latestTag = await getLatestTag(tagPrefix);
 
     let version: string | null = null;
-    if (config.versionStrategy === "branchName") {
-      version = await generateVersionByBranchName({
+    if (config.versionStrategy === "branchPattern") {
+      version = await generateVersionByBranchPattern({
         latestTag,
         tagPrefix,
         type,

@@ -11,7 +11,7 @@ type Version = {
   baseBranch?: string;
 };
 
-export async function generateVersionByBranchName({
+export async function generateVersionByBranchPattern({
   latestTag,
   tagPrefix,
   type,

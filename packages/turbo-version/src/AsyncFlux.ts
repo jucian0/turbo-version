@@ -10,14 +10,14 @@ import { summarizePackages } from "@turbo-version/dependents";
 import { Config } from "@turbo-version/setup";
 import { exit } from "process";
 import { formatCommitMessage } from "./utils/TemplateString";
-import { generateVersionByBranchName } from "./utils/GenerateVersionByBranchName";
+import { generateVersionByBranchPattern } from "./utils/GenerateVersionByBranchPattern";
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch, branchPattern } = config;
-
+  
   try {
     const packages = await summarizePackages(config);
-
+    
     if (packages.length === 0) {
       log([
         "no_changes",
@@ -34,7 +34,6 @@ export async function asyncFlux(config: Config, type?: any) {
           .toString()} package(s).\n`
       )
     );
-
     for (const pkg of packages) {
       const name = pkg.packageJson.name;
       const path = pkg.relativeDir;
@@ -51,8 +50,8 @@ export async function asyncFlux(config: Config, type?: any) {
 
         let version: string | null = null;
 
-        if (config.versionStrategy === "branchName") {
-          version = await generateVersionByBranchName({
+        if (config.versionStrategy === "branchPattern") {
+          version = await generateVersionByBranchPattern({
             latestTag,
             tagPrefix,
             type: type ?? pkg.type,

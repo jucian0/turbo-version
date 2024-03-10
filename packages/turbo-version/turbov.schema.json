@@ -31,7 +31,7 @@
             "uniqueItems": true,
             "minItems": 1,
             "description": "The pattern to match the branch name. Only applies when `versionStrategy` is 'branchPattern'",
-            "examples": ["[major, minor, patch] => [1.0.0, 1.1.0, 1.0.1]", "[break, feat, fix] => [1.0.0, 1.1.0, 1.0.1]"]
+            "examples": [["major, minor, patch"], ["break, feat, fix"]]
         },
         "commitMessage": {
             "type": "string",

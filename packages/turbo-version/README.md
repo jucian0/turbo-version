@@ -41,7 +41,7 @@ If there are no commit messages to determine the bump kind, the tool will defaul
 
 ## Two approaches to versioning
 
-### Semantic Commit Messages based versioning
+Semantic Commit Messages-based versioning
 
 **Turbo Version** analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, **Turbo Version** might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, **Turbo Version** might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
 
@@ -65,7 +65,7 @@ More Examples:
 - `feat`: (new feature for the user, not a new feature for build script)
 - `fix`: (bug fix for the user, not a fix to a build script)
 - `docs`: (changes to the documentation)
-- `style`: (formatting, missing semi colons, etc; no production code change)
+- `style`: (formatting, missing semi-colons, etc; no production code change)
 - `refactor`: (refactoring production code, eg. renaming a variable)
 - `test`: (adding missing tests, refactoring tests; no production code change)
 - `chore`: (updating grunt tasks etc; no production code change)
@@ -85,7 +85,7 @@ References:
 To use branch name-based versioning, you need to configure the `version.config.json` file with the following properties:
 
 - `baseBranch` - the main branch name, it's used to calculate the next version.
-- `versionStrategy` - the versioning strategy should be `branchName`.
+- `versionStrategy` - the versioning strategy should be `branchPattern`.
 - `branchPattern` - the branch name pattern used to calculate the next version (optional, by default, it's [`major`, `minor`, `patch`]).
 
 ## `version.config.json`
@@ -103,8 +103,8 @@ The following properties are defined in the schema:
 - `updateInternalDependencies`: A property that specifies how to update internal dependencies between packages. The property is a string with a default value of "patch" and can only take one of the three possible string values - "major", "minor", or "patch". Alternatively, the property can be set to the boolean value `false` to disable automatic updates.
 - `skip`: A list of package names that should be excluded from the versioning process. When you specify one or more package names in this list, those packages will be skipped in the versioning process. This is useful when you have packages that don't need to be versioned, or that require additional steps before they can be published.
 - `commitMessage`: A string property that represents the commit message pattern used by the commitizen tool in the project. This property is a regular expression. Example: `chore(new version): release version ${version} [skip-ci]` or `chore(${packageName}): release version ${version} [skip-ci]`.
-- `versionStrategy`: A string property that specifies the versioning strategy. The property can be set to either "branchName" or "commitMessage". By default, it's set to "commitMessage".
-- `branchPattern`: An array property that represents the branch name pattern used to calculate the next version. By default, it's set to [`major`, `minor`, `patch`](Applyed just when `versionStrategy` is set to "branchName").
+- `versionStrategy`: A string property that specifies the versioning strategy. The property can be set to either "branchPattern" or "commitMessage". By default, it's set to "commitMessage".
+- `branchPattern`: An array property that represents the branch name pattern used to calculate the next version. By default, it's set to [`major`, `minor`, `patch`(Applied just when `versionStrategy` is set to "branchPattern").
 
 ### Required Properties
 
