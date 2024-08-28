@@ -11,8 +11,7 @@ fn main() {
             Arg::new("target")
                 .short('t')
                 .long("target")
-                .value_name("PROJECT")
-                .help("project you want to bump version"), // .takes_value(true),
+                .value_name("PROJECT"),
         )
         .arg(
             Arg::new("bump")
@@ -53,10 +52,9 @@ fn main() {
                     println!("Looks like you are using `synced` mode with `-target | --t`. Since `synced` mode precedes `-target | --t`, we are going to ignore it!");
                 }
                 if let Some(bump) = matches.get_one::<String>("bump") {
-                    // synced_flux(&config, bump);
+                    synced_flux(&config, bump);
                 } else {
-                    println!(">>>>>>>>> : {}", config.synced);
-                    //synced_flux(&config, "");
+                    synced_flux(&config, "");
                 }
             } else {
                 if let Some(bump) = matches.get_one::<String>("bump") {
@@ -88,14 +86,17 @@ fn setup() -> Result<Config, String> {
 
 fn synced_flux(config: &Config, bump: &str) {
     // Implement synced_flux logic
+    println!("synced_flux");
 }
 
 fn single_flux(config: &Config, matches: &clap::ArgMatches) {
     // Implement single_flux logic
+    println!("single_flux");
 }
 
 fn async_flux(config: &Config, bump: &str) {
     // Implement async_flux logic
+    println!("async_flux");
 }
 
 struct Config {
