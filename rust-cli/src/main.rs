@@ -52,19 +52,19 @@ fn main() {
                 if matches.args_present() {
                     println!("Looks like you are using `synced` mode with `-target | --t`. Since `synced` mode precedes `-target | --t`, we are going to ignore it!");
                 }
-                if let Some(bump) = matches.value_source("bump") {
+                if let Some(bump) = matches.get_one::<String>("bump") {
                     // synced_flux(&config, bump);
                 } else {
                     println!(">>>>>>>>> : {}", config.synced);
                     //synced_flux(&config, "");
                 }
             } else {
-                if let Some(bump) = matches.value_source("bump") {
-                    // if matches.is_present("target") {
-                    // single_flux(&config, &matches);
-                    // } else {
-                    //async_flux(&config, bump);
-                    // }
+                if let Some(bump) = matches.get_one::<String>("bump") {
+                    if matches.contains_id("target") {
+                        single_flux(&config, &matches);
+                    } else {
+                        async_flux(&config, bump);
+                    }
                 } else {
                     async_flux(&config, "");
                 }
