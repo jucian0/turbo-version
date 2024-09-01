@@ -14,10 +14,10 @@ import { generateVersionByBranchPattern } from "./utils/GenerateVersionByBranchP
 
 export async function asyncFlux(config: Config, type?: any) {
   const { preset, baseBranch, branchPattern } = config;
-  
+
   try {
     const packages = await summarizePackages(config);
-    
+
     if (packages.length === 0) {
       log([
         "no_changes",

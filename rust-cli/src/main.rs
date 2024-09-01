@@ -1,6 +1,9 @@
 use clap::{Arg, Command};
 use std::process::exit;
 
+mod single;
+
+
 fn main() {
     let matches = Command::new("Turbo Version")
         .version("0.1.0") // Replace with actual version
@@ -90,8 +93,7 @@ fn synced_flux(config: &Config, bump: &str) {
 }
 
 fn single_flux(config: &Config, matches: &clap::ArgMatches) {
-    // Implement single_flux logic
-    println!("single_flux");
+    single::single_flux(config, matches)
 }
 
 fn async_flux(config: &Config, bump: &str) {
