@@ -38,10 +38,8 @@ pub enum VersionStrategy {
 }
 
 pub async fn setup() -> Result<Config> {
-    // Get the current working directory (should be the monorepo root)
     let current_dir = env::current_dir()?;
 
-    // Construct the path to the config file
     let config_path = current_dir.join("version.config.json");
 
     if !config_path.exists() {
@@ -52,12 +50,10 @@ pub async fn setup() -> Result<Config> {
     let reader = BufReader::new(file);
     let mut config: Config = serde_json::from_reader(reader)?;
 
-    // Use `if let` instead of `if()` for enum comparison
     if let None = config.version_strategy {
         config.version_strategy = Some(VersionStrategy::CommitMessage);
     }
 
-    // Validate required fields
     if config.tag_prefix.is_empty() {
         return Err(anyhow::anyhow!("tag_prefix is required in config.json"));
     }
