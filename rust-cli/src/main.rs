@@ -3,7 +3,6 @@ use std::process::exit;
 
 mod single;
 
-
 fn main() {
     let matches = Command::new("Turbo Version")
         .version("0.1.0") // Replace with actual version
@@ -38,71 +37,52 @@ fn main() {
     let name = "Turbo Version";
     println!("{}", name); // Replace with actual figlet and chalk equivalent in Rust
 
-    match setup() {
-        Ok(mut config) => {
-            if config.version_strategy == "branchPattern" {
-                if config.branch_pattern.is_none() {
-                    config.branch_pattern = Some(vec![
-                        "major".to_string(),
-                        "minor".to_string(),
-                        "patch".to_string(),
-                    ]);
-                }
-            }
+    let config = setup();
 
-            if config.synced {
-                if matches.args_present() {
-                    println!("Looks like you are using `synced` mode with `-target | --t`. Since `synced` mode precedes `-target | --t`, we are going to ignore it!");
-                }
-                if let Some(bump) = matches.get_one::<String>("bump") {
-                    synced_flux(&config, bump);
-                } else {
-                    synced_flux(&config, "");
-                }
-            } else {
-                if let Some(bump) = matches.get_one::<String>("bump") {
-                    if matches.contains_id("target") {
-                        single_flux(&config, &matches);
-                    } else {
-                        async_flux(&config, bump);
-                    }
-                } else {
-                    async_flux(&config, "");
-                }
-            }
-        }
-        Err(err) => {
-            eprintln!("ERROR: {}", err);
-            exit(1);
-        }
-    }
-}
+    // match setup() {
+    //     Ok(mut config) => {
+    //         if config.version_strategy == "branchPattern" {
+    //             if config.branch_pattern.is_none() {
+    //                 config.branch_pattern = Some(vec![
+    //                     "major".to_string(),
+    //                     "minor".to_string(),
+    //                     "patch".to_string(),
+    //                 ]);
+    //             }
+    //         }
 
-fn setup() -> Result<Config, String> {
-    // Implement setup logic
-    Ok(Config {
-        version_strategy: "branchPattern".to_string(),
-        branch_pattern: None,
-        synced: false,
-    })
+    //         if config.synced {
+    //             if matches.args_present() {
+    //                 println!("Looks like you are using `synced` mode with `-target | --t`. Since `synced` mode precedes `-target | --t`, we are going to ignore it!");
+    //             }
+    //             if let Some(bump) = matches.get_one::<String>("bump") {
+    //                 synced_flux(&config, bump);
+    //             } else {
+    //                 synced_flux(&config, "");
+    //             }
+    //         } else {
+    //             if let Some(bump) = matches.get_one::<String>("bump") {
+    //                 if matches.contains_id("target") {
+    //                     single::single_flux(&config, &matches);
+    //                 } else {
+    //                     async_flux(&config, bump);
+    //                 }
+    //             } else {
+    //                 async_flux(&config, "");
+    //             }
+    //         }
+    //     }
+    //     Err(err) => {
+    //         eprintln!("ERROR: {}", err);
+    //         exit(1);
+    //     }
+    // }
 }
 
 fn synced_flux(config: &Config, bump: &str) {
-    // Implement synced_flux logic
     println!("synced_flux");
 }
 
-fn single_flux(config: &Config, matches: &clap::ArgMatches) {
-    single::single_flux(config, matches)
-}
-
 fn async_flux(config: &Config, bump: &str) {
-    // Implement async_flux logic
     println!("async_flux");
-}
-
-struct Config {
-    version_strategy: String,
-    branch_pattern: Option<Vec<String>>,
-    synced: bool,
 }
