@@ -6,3 +6,9 @@ edition = "2021"
 [dependencies]
 clap = "4.5.16"
 inquire = "0.7.5"
+anyhow = "1.0"
+serde_json = "1.0"
+semver = "1.0"  # Add this line
+log = "0.4"  # Add this line
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.0", features = ["full"] }
