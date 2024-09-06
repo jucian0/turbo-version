@@ -28,12 +28,6 @@ pub enum UpdateInternalDependencies {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
-pub enum Synced {
-    true,
-    false,
-}
-
-#[derive(Deserialize, Serialize, Debug, Clone)]
 pub enum Strategy {
     all_packages,
     affected_packages,
