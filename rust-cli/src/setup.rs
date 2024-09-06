@@ -10,12 +10,13 @@ pub struct Config {
     pub tag_prefix: String,
     pub preset: String,
     pub base_branch: Option<String>,
-    pub synced: bool,
-    pub packages: Option<Vec<String>>,
     pub update_internal_dependencies: UpdateInternalDependencies,
-    pub strategy: Option<Strategy>,
+    pub skip: Option<Vec<String>>,
+    pub commit_message: Option<String>,
     pub version_strategy: Option<VersionStrategy>,
     pub branch_pattern: Option<Vec<String>>,
+    pub strategy: Option<Strategy>,
+    pub target: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -27,10 +28,15 @@ pub enum UpdateInternalDependencies {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+pub enum Synced {
+    true,
+    false,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
 pub enum Strategy {
-    first_release,
-    next_release,
-    last_release,
+    all_packages,
+    affected_packages,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -59,17 +65,16 @@ pub fn setup() -> Result<Config, anyhow::Error> {
         return Err(anyhow::anyhow!("tag_prefix is required in config.json"));
     }
 
-    // Handle the optional packages field
-    if let Some(packages) = &config.packages {
-        if packages.is_empty() {
-            return Err(anyhow::anyhow!(
-                "At least one package must be specified in config.json"
-            ));
+    if let Some(branch_pattern) = &config.branch_pattern {
+        if branch_pattern.is_empty() {
+            return Err(anyhow::anyhow!("branch_pattern is required in config.json"));
         }
-    } else {
-        return Err(anyhow::anyhow!(
-            "packages field must be specified in config.json"
-        ));
+    }
+
+    if let Some(strategy) = &config.strategy {
+        if let Some(target) = &config.target {
+            eprintln!("Warning: 'target' and 'strategy' are both set. 'target' will be ignored.");
+        }
     }
 
     Ok(config)
