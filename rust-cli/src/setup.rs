@@ -1,7 +1,4 @@
 use anyhow::{anyhow, Result};
-use std::env;
-use std::fs::File;
-use std::io::BufReader;
 
 use serde::{Deserialize, Serialize};
 
@@ -20,23 +17,26 @@ pub struct Config {
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "snake_case")]
 pub enum UpdateInternalDependencies {
-    major,
-    minor,
-    patch,
-    no_internal_update,
+    Major,
+    Minor,
+    Patch,
+    NoInternalUpdate,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "snake_case")]
 pub enum Strategy {
-    all_packages,
-    affected_packages,
+    AllPackages,
+    AffectedPackages,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
+#[serde(rename_all = "snake_case")]
 pub enum VersionStrategy {
-    branch_pattern,
-    commit_message,
+    BranchPattern,
+    CommitMessage,
 }
 
 pub fn setup() -> Result<Config, anyhow::Error> {
@@ -51,8 +51,8 @@ pub fn setup() -> Result<Config, anyhow::Error> {
     let reader = std::io::BufReader::new(file);
     let mut config: Config = serde_json::from_reader(reader)?;
 
-    if let None = config.version_strategy {
-        config.version_strategy = Some(VersionStrategy::commit_message);
+    if config.version_strategy.is_none() {
+        config.version_strategy = Some(VersionStrategy::CommitMessage);
     }
 
     if config.tag_prefix.is_empty() {
@@ -65,10 +65,9 @@ pub fn setup() -> Result<Config, anyhow::Error> {
         }
     }
 
-    if let Some(strategy) = &config.strategy {
-        if let Some(target) = &config.target {
-            eprintln!("Warning: 'target' and 'strategy' are both set. 'target' will be ignored.");
-        }
+    if config.strategy.is_some() && config.target.is_some() {
+        eprintln!("Warning: 'target' and 'strategy' are both set. 'target' will be ignored.");
+        config.target = None;
     }
 
     Ok(config)
