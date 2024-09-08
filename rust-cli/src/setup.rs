@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 
 use serde::{Deserialize, Serialize};
 
@@ -13,7 +13,6 @@ pub struct Config {
     pub version_strategy: Option<VersionStrategy>,
     pub branch_pattern: Option<Vec<String>>,
     pub strategy: Option<Strategy>,
-    pub target: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Debug, Clone)]
@@ -39,7 +38,7 @@ pub enum VersionStrategy {
     CommitMessage,
 }
 
-pub fn setup() -> Result<Config, anyhow::Error> {
+pub fn setup() -> Result<Config> {
     let current_dir = std::env::current_dir()?;
     let config_path = current_dir.join("version.config.json");
 
@@ -63,11 +62,6 @@ pub fn setup() -> Result<Config, anyhow::Error> {
         if branch_pattern.is_empty() {
             return Err(anyhow::anyhow!("branch_pattern is required in config.json"));
         }
-    }
-
-    if config.strategy.is_some() && config.target.is_some() {
-        eprintln!("Warning: 'target' and 'strategy' are both set. 'target' will be ignored.");
-        config.target = None;
     }
 
     Ok(config)

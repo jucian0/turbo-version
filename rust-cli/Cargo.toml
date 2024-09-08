@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-clap = "4.5.16"
+clap = { version = "4.5.16", features = ["derive"] }
 inquire = "0.7.5"
 anyhow = "1.0"
 serde_json = "1.0"
