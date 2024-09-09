@@ -1,5 +1,4 @@
 use clap::{builder::PossibleValuesParser, Arg, Command, Parser};
-use serde_json::Value;
 
 mod internals;
 mod setup;
@@ -56,32 +55,18 @@ fn main() {
         )
         .get_matches();
 
-    let values: Value = serde_json::json!({
-        "target": matches.get_one::<String>("target").cloned(),
-        "bump": matches.get_one::<String>("bump").cloned(),
-    });
-
     match strategy {
         setup::Strategy::AffectedPackages => {
-            println!(">>>>>>>>>>>> Affected packages strategy flux");
+            if matches.contains_id("bump") && matches.contains_id("target") {
+                return println!("All packages strategy flux with bump");
+            }
+            return println!("Affected packages strategy flux");
         }
         setup::Strategy::AllPackages => {
             if let Some(..) = args.target {
-                println!("Ignoring `-target | --t` in `All packages strategy` mode.");
+                return println!("Ignoring `-target | --t` in `All packages strategy` mode.");
             }
-            println!(">>>>>>>>>>>> All packages strategy flux here");
+            return println!("All packages strategy flux here");
         }
     }
-
-    println!(">>>>>>>>>>>>,{:?}", values);
-
-    // if args.target.is_some() {
-    //     println!(">>>>>>>>>>>>,{:?}", args.target.unwrap());
-    // }
-
-    // if args.bump.is_some() {
-    //     println!(">>>>>>>>>>>>,{:?}", args.bump.unwrap());
-    // }
-
-    // println!(">>>>>>>>>>>>,{:?}", strategy);
 }
