@@ -58,9 +58,24 @@ pub fn setup() -> Result<Config> {
         return Err(anyhow::anyhow!("tag_prefix is required in config.json"));
     }
 
-    if let Some(branch_pattern) = &config.branch_pattern {
-        if branch_pattern.is_empty() {
-            return Err(anyhow::anyhow!("branch_pattern is required in config.json"));
+    // Only validate branch_pattern if VersionStrategy is BranchPattern
+    if let Some(VersionStrategy::BranchPattern) = config.version_strategy {
+        if let Some(branch_pattern) = &config.branch_pattern {
+            if branch_pattern.is_empty() {
+                config.branch_pattern = Some(vec![
+                    "major".to_string(),
+                    "minor".to_string(),
+                    "patch".to_string(),
+                ]);
+                println!(
+                    "Using default branch pattern: {:?}, if this is not what you want, please specify a branch pattern in config.json",
+                    config.branch_pattern
+                );
+            }
+        } else {
+            return Err(anyhow::anyhow!(
+                "branch_pattern is required in config.json when using BranchPattern strategy"
+            ));
         }
     }
 

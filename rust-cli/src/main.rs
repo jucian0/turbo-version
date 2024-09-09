@@ -1,4 +1,5 @@
 use clap::{builder::PossibleValuesParser, Arg, Command, Parser};
+use serde_json::Value;
 
 mod internals;
 mod setup;
@@ -25,7 +26,7 @@ fn main() {
         .version_strategy
         .unwrap_or(setup::VersionStrategy::CommitMessage);
 
-    let command = Command::new("Turbot Version")
+    let matches = Command::new("Turbot Version")
         .version("0.0.1")
         .about(
             "Version the application by default, following the version.config.json specifications",
@@ -52,11 +53,35 @@ fn main() {
                     "prepatch",
                     "prerelease",
                 ])),
-        );
+        )
+        .get_matches();
 
-    if args.target.is_some() {
-        println!(">>>>>>>>>>>>,{:?}", args.target.unwrap());
+    let values: Value = serde_json::json!({
+        "target": matches.get_one::<String>("target").cloned(),
+        "bump": matches.get_one::<String>("bump").cloned(),
+    });
+
+    match strategy {
+        setup::Strategy::AffectedPackages => {
+            println!(">>>>>>>>>>>> Affected packages strategy flux");
+        }
+        setup::Strategy::AllPackages => {
+            if let Some(..) = args.target {
+                println!("Ignoring `-target | --t` in `All packages strategy` mode.");
+            }
+            println!(">>>>>>>>>>>> All packages strategy flux here");
+        }
     }
 
-    println!(">>>>>>>>>>>>,{:?}", strategy);
+    println!(">>>>>>>>>>>>,{:?}", values);
+
+    // if args.target.is_some() {
+    //     println!(">>>>>>>>>>>>,{:?}", args.target.unwrap());
+    // }
+
+    // if args.bump.is_some() {
+    //     println!(">>>>>>>>>>>>,{:?}", args.bump.unwrap());
+    // }
+
+    // println!(">>>>>>>>>>>>,{:?}", strategy);
 }

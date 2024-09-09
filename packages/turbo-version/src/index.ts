@@ -42,32 +42,22 @@ program
     try {
       const config = await setup();
       if (config.versionStrategy === "branchPattern") {
-        if (!config.branchPattern) {
-          config.branchPattern = ["major", "minor", "patch"];
-        }
+        config.branchPattern ??= ["major", "minor", "patch"];
       }
+
       if (config.synced) {
         if (options.target) {
-          console.log(
-            chalk.yellow(
-              "Looks like you are using `synced` mode with `-target | --t`. Since `synced` mode precedes `-target | --t`, we are going to ignore it!"
-            )
-          );
+          console.warn(chalk.yellow("Ignoring `-target | --t` in `synced` mode."));
         }
-        if (options.bump) {
-          return syncedFlux(config, options.bump);
-        }
-        return syncedFlux(config);
+        return syncedFlux(config, options.bump);
       }
 
-      if (options.bump) {
-        if (options.target) {
-          return singleFlux(config, options);
-        }
-        return asyncFlux(config, options.bump);
-      }
+      return options.bump
+        ? options.target
+          ? singleFlux(config, options)
+          : asyncFlux(config, options.bump)
+        : asyncFlux(config);
 
-      return asyncFlux(config);
     } catch (err: any) {
       console.error(chalk.red(`ERROR: ${err}`));
       exit(1);
