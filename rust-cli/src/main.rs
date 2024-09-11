@@ -1,6 +1,5 @@
 use clap::{builder::PossibleValuesParser, Arg, Command, Parser};
 
-mod internals;
 mod setup;
 
 /// Simple program to greet a person
@@ -58,7 +57,7 @@ fn main() {
     match strategy {
         setup::Strategy::AffectedPackages => {
             if matches.contains_id("bump") && matches.contains_id("target") {
-                return println!("All packages strategy flux with bump");
+                return println!("Single packages strategy flux with bump");
             }
             return println!("Affected packages strategy flux");
         }
