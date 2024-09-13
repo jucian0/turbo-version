@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 struct PackageJson {
     version: String,
 }
-pub fn get_version() -> Result<String> {
+pub fn get_internal_version() -> Result<String> {
     let current_dir = std::env::current_dir()?;
     let config_path = current_dir.join("./../package.json");
 
