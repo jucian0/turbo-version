@@ -13,3 +13,5 @@ public/dist
 .turbo
 .npmrc
 .netrc
+
+rust-cli/target

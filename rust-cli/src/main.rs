@@ -1,6 +1,8 @@
 use clap::{builder::PossibleValuesParser, Arg, Command, Parser};
 
 mod setup;
+mod strategies;
+mod utils;
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
@@ -18,6 +20,7 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
     let config = setup::setup().unwrap();
+    let config_clone = config.clone();
     let strategy = config.strategy.unwrap_or(setup::Strategy::AllPackages);
 
     let version_strategy = config
@@ -59,7 +62,9 @@ fn main() {
             if matches.contains_id("bump") && matches.contains_id("target") {
                 return println!("Single packages strategy flux with bump");
             }
-            return println!("Affected packages strategy flux");
+            return strategies::affected_packages_strategy::affected_packages_strategy(
+                config_clone,
+            );
         }
         setup::Strategy::AllPackages => {
             if let Some(..) = args.target {
