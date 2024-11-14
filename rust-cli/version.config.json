@@ -1,8 +1,0 @@
-{
-    "$schema": "./packages/turbo-version/turbov.schema.json",
-    "tag_prefix": "v",
-    "preset": "angular",
-    "strategy": "affected_packages",
-    "update_internal_dependencies": "patch",
-    "commit_Message": "(new version): release version ${version} [skip-ci]"
-}
