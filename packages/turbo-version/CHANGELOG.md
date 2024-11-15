@@ -1,3 +1,13 @@
+# [0.6.0](https://github.com/jucian0/turbo-version/compare/v0.5.7...v0.6.0) (2024-11-14)
+
+
+### Bug Fixes
+
+* **rust/main:** adding basic validations for strategy versioning ([29c4754](https://github.com/jucian0/turbo-version/commit/29c475468492b00a3f5824e2a5c8755c296e40e6))
+* **rust/main:** fix if else control flow strategy ([d9c38a2](https://github.com/jucian0/turbo-version/commit/d9c38a289f03987b932ae4ffb8f5a69e62372076))
+
+
+
 ## [0.5.7](https://github.com/jucian0/turbo-version/compare/v0.5.6...v0.5.7) (2024-03-10)
 
 
