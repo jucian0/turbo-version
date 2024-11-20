@@ -1,27 +1,27 @@
 export function createTemplateString(
-  template: string,
-  context: Record<string, any>
+   template: string,
+   context: Record<string, any>,
 ): string {
-  return Object.keys(context).reduce((accumulator, contextParamKey) => {
-    const interpolationRegex = new RegExp(`\\$\\{${contextParamKey}}`, "g");
-    return accumulator.replace(
-      interpolationRegex,
-      context[contextParamKey].toString()
-    );
-  }, template);
+   return Object.keys(context).reduce((accumulator, contextParamKey) => {
+      const interpolationRegex = new RegExp(`\\$\\{${contextParamKey}}`, "g");
+      return accumulator.replace(
+         interpolationRegex,
+         context[contextParamKey].toString(),
+      );
+   }, template);
 }
 
 export function formatCommitMessage({
-  commitMessage,
-  version,
-  name,
+   commitMessage,
+   version,
+   name,
 }: {
-  version: string;
-  commitMessage?: string;
-  name?: string;
+   version: string;
+   commitMessage?: string;
+   name?: string;
 }): string {
-  return createTemplateString(commitMessage ?? "", {
-    packageName: name ?? "",
-    version,
-  });
+   return createTemplateString(commitMessage ?? "", {
+      packageName: name ?? "",
+      version,
+   });
 }

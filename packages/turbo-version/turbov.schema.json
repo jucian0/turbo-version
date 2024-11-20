@@ -1,64 +1,69 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-        "tagPrefix": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+      "tagPrefix": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The prefix used for Git tags, usually the project name"
+      },
+      "versionStrategy": {
+         "type": "string",
+         "enum": ["branchPattern", "commitMessage"],
+         "default": "commitMessage",
+         "description": "The versioning strategy to use, either 'branchPattern' or 'commitMessage'. Select 'branchPattern' if you want to calculate the version based on the branch name, and 'commitMessage' if you want to calculate the version based on the commit message.",
+         "examples": [
+            "branchPattern => v1.0.0 branchPattern 'patch*' => v1.0.1, branchPattern 'minor*' => v1.1.0, branchPattern 'major*' => v2.0.0"
+         ]
+      },
+      "preset": {
+         "type": "string",
+         "enum": ["angular", "conventional"],
+         "default": "angular",
+         "description": "The commit message convention preset used by commitizen. That applies only when `versionStrategy` is 'commitMessage'"
+      },
+      "branchPattern": {
+         "type": "array",
+         "items": {
             "type": "string",
             "minLength": 1,
-            "description": "The prefix used for Git tags, usually the project name"
-        },
-        "versionStrategy": {
-            "type": "string",
-            "enum": ["branchPattern", "commitMessage"],
-            "default": "commitMessage",
-            "description": "The versioning strategy to use, either 'branchPattern' or 'commitMessage'. Select 'branchPattern' if you want to calculate the version based on the branch name, and 'commitMessage' if you want to calculate the version based on the commit message.",
-            "examples": ["branchPattern => v1.0.0 branchPattern 'patch*' => v1.0.1, branchPattern 'minor*' => v1.1.0, branchPattern 'major*' => v2.0.0"]
-        },
-        "preset": {
-            "type": "string",
-            "enum": ["angular", "conventional"],
-            "default": "angular",
-            "description": "The commit message convention preset used by commitizen. That applies only when `versionStrategy` is 'commitMessage'"
-        },
-        "branchPattern": {
-            "type": "array",
-            "items": {
-                "type": "string",
-                "minLength": 1,
-                "description": "Pattern to match the branch name"
-            },
-            "uniqueItems": true,
-            "minItems": 1,
-            "description": "The pattern to match the branch name. Only applies when `versionStrategy` is 'branchPattern'",
-            "examples": [["major, minor, patch"], ["break, feat, fix"]]
-        },
-        "commitMessage": {
+            "description": "Pattern to match the branch name"
+         },
+         "uniqueItems": true,
+         "minItems": 1,
+         "description": "The pattern to match the branch name. Only applies when `versionStrategy` is 'branchPattern'",
+         "examples": [["major, minor, patch"], ["break, feat, fix"]]
+      },
+      "commitMessage": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The commit message, this is just a commit message template, not related with `versionStrategy`.",
+         "examples": [
+            "[skip-ci]",
+            "chore(${projectName}): release version ${version} [skip-ci]"
+         ]
+      },
+      "synced": {
+         "type": "boolean",
+         "description": "Whether or not the local Git repository is synced with the remote repository"
+      },
+      "updateInternalDependencies": {
+         "type": "string",
+         "enum": ["major", "minor", "patch", false],
+         "description": "How to update internal dependencies between packages"
+      },
+      "skip": {
+         "type": "array",
+         "items": {
             "type": "string",
             "minLength": 1,
-            "description": "The commit message, this is just a commit message template, not related with `versionStrategy`.",
-            "examples": ["[skip-ci]", "chore(${projectName}): release version ${version} [skip-ci]"]
-        },
-        "synced": {
-            "type": "boolean",
-            "description": "Whether or not the local Git repository is synced with the remote repository"
-        },
-        "updateInternalDependencies": {
-            "type": "string",
-            "enum": ["major", "minor", "patch", false],
-            "description": "How to update internal dependencies between packages"
-        },
-        "skip": {
-            "type": "array",
-            "items": {
-                "type": "string",
-                "minLength": 1,
-                "description": "Name of the package to skip"
-            },
-            "uniqueItems": true,
-            "example": ["ui", "docs"],
-            "description": "A list of package names to skip publishing. When specified, these packages will be excluded from the publish process."
-        }
-    },
-    "required": ["tagPrefix", "baseBranch", "updateInternalDependencies"]
+            "description": "Name of the package to skip"
+         },
+         "uniqueItems": true,
+         "example": ["ui", "docs"],
+         "description": "A list of package names to skip publishing. When specified, these packages will be excluded from the publish process."
+      }
+   },
+   "required": ["tagPrefix", "baseBranch", "updateInternalDependencies"]
 }

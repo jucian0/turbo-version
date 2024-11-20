@@ -1,34 +1,35 @@
 {
-  "private": true,
-  "version": "0.0.1",
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "dev-docs": "turbo run dev-docs",
-    "lint": "turbo run lint",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "turbo run test",
-    "test:watch": "turbo run test:watch",
-    "prepare": "husky install",
-    "commit": "git-cz"
-  },
-  "devDependencies": {
-    "@turbo-version/release": "workspace:*",
-    "@turbo-version/version": "workspace:*",
-    "eslint": "^7.32.0",
-    "prettier": "^2.5.1",
-    "turbo": "latest",
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.3"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "packageManager": "pnpm@9.12.3"
+   "name": "turbo-version",
+   "private": true,
+   "version": "0.0.1",
+   "scripts": {
+      "build": "turbo run build",
+      "dev": "turbo run dev",
+      "dev-docs": "turbo run dev-docs",
+      "clean": "turbo run clean && rm -rf node_modules",
+      "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+      "test": "turbo run test",
+      "test:watch": "turbo run test:watch",
+      "prepare": "husky install",
+      "commit": "git-cz",
+      "lint": "biome check .",
+      "lint:fix": "biome check . --write"
+   },
+   "devDependencies": {
+      "@biomejs/biome": "1.9.4",
+      "@commitlint/cli": "^17.5.1",
+      "@commitlint/config-conventional": "^17.4.4",
+      "@turbo-version/release": "workspace:*",
+      "@turbo-version/version": "workspace:*",
+      "commitizen": "^4.3.0",
+      "cz-conventional-changelog": "^3.3.0",
+      "husky": "^8.0.3",
+      "turbo": "2.2.0"
+   },
+   "config": {
+      "commitizen": {
+         "path": "./node_modules/cz-conventional-changelog"
+      }
+   },
+   "packageManager": "pnpm@9.12.3"
 }

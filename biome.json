@@ -1,0 +1,26 @@
+{
+   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+   "formatter": {
+      "enabled": true,
+      "formatWithErrors": false,
+      "indentStyle": "space",
+      "indentWidth": 3,
+      "lineEnding": "lf",
+      "lineWidth": 80,
+      "attributePosition": "auto"
+   },
+   "linter": {
+      "rules": {
+         "recommended": false,
+         "a11y": {
+            "noBlankTarget": "error"
+         },
+         "complexity": {
+            "noExtraBooleanCast": "error",
+            "noMultipleSpacesInRegularExpressionLiterals": "error",
+            "noUselessCatch": "error",
+            "noWith": "error"
+         }
+      }
+   }
+}

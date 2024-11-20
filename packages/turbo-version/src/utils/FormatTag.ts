@@ -1,36 +1,36 @@
 import { createTemplateString } from "./TemplateString";
 
 type TagFormat = {
-  tagPrefix?: string;
-  name?: string;
-  synced: boolean;
+   tagPrefix?: string;
+   name?: string;
+   synced: boolean;
 };
 
 export function formatTagPrefix({
-  tagPrefix,
-  name,
-  synced,
+   tagPrefix,
+   name,
+   synced,
 }: TagFormat): string {
-  if (tagPrefix != null) {
-    return createTemplateString(tagPrefix, {
-      target: name,
-      packageName: name,
-    });
-  }
+   if (tagPrefix != null) {
+      return createTemplateString(tagPrefix, {
+         target: name,
+         packageName: name,
+      });
+   }
 
-  if (synced) {
-    return "v";
-  }
+   if (synced) {
+      return "v";
+   }
 
-  return `${name}-`;
+   return `${name}-`;
 }
 
 export function formatTag({
-  tagPrefix,
-  version,
+   tagPrefix,
+   version,
 }: {
-  tagPrefix: string;
-  version: string;
+   tagPrefix: string;
+   version: string;
 }): string {
-  return `${tagPrefix}${version}`;
+   return `${tagPrefix}${version}`;
 }
