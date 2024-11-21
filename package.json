@@ -28,5 +28,9 @@
          "path": "./node_modules/cz-conventional-changelog"
       }
    },
-   "packageManager": "pnpm@9.12.3"
+   "packageManager": "pnpm@9.12.3",
+   "dependencies": {
+      "@turbo-version/release": "^0.6.2",
+      "@turbo-version/version": "^0.6.2"
+   }
 }
