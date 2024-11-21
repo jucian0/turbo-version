@@ -1,61 +1,63 @@
 {
-   "name": "@turbo-version/release",
-   "description": "Release your packages in just one command.",
-   "version": "0.6.1",
-   "main": "./dist/index.js",
-   "module": "./dist/index.mjs",
-   "types": "./dist/index.d.ts",
-   "author": {
-      "name": "jucian0",
-      "email": "juciano@outlook.com.br"
-   },
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/jucian0/turbo-version/packages/turbo-release",
-      "homepage": "https://github.com/jucian0/turbo-version/packages/turbo-release"
-   },
-   "keywords": [
-      "version",
-      "semver",
-      "monorepo",
-      "turborepo",
-      "semantic-release",
-      "npm",
-      "release",
-      "publish"
-   ],
-   "license": "MIT",
-   "files": ["dist/**"],
-   "bin": {
-      "turbo-release": "./dist/index.js"
-   },
-   "scripts": {
-      "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-      "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
-      "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-      "test": "jest",
-      "test:watch": "jest --watch"
-   },
-   "devDependencies": {
-      "@types/node": "^18.15.3",
-      "tsup": "^5.10.1",
-      "typescript": "^4.5.3",
-      "ts-jest": "^29.0.5",
-      "@types/figlet": "^1.5.5",
-      "jest": "^29.5.0",
-      "@jest/globals": "29.5.0"
-   },
-   "dependencies": {
-      "commander": "^10.0.0",
-      "chalk": "4.1.2",
-      "figlet": "^1.5.2",
-      "@turbo-version/setup": "workspace:*",
-      "@turbo-version/log": "workspace:*",
-      "@turbo-version/git": "workspace:*",
-      "@turbo-version/fs": "workspace:*",
-      "@manypkg/get-packages": "^2.1.0"
-   },
-   "publishConfig": {
-      "access": "public"
-   }
+  "name": "@turbo-version/release",
+  "description": "Release your packages in just one command.",
+  "version": "0.6.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "author": {
+    "name": "jucian0",
+    "email": "juciano@outlook.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jucian0/turbo-version/packages/turbo-release",
+    "homepage": "https://github.com/jucian0/turbo-version/packages/turbo-release"
+  },
+  "keywords": [
+    "version",
+    "semver",
+    "monorepo",
+    "turborepo",
+    "semantic-release",
+    "npm",
+    "release",
+    "publish"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "bin": {
+    "turbo-release": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "tsup": "^5.10.1",
+    "typescript": "^4.5.3",
+    "ts-jest": "^29.0.5",
+    "@types/figlet": "^1.5.5",
+    "jest": "^29.5.0",
+    "@jest/globals": "29.5.0"
+  },
+  "dependencies": {
+    "commander": "^10.0.0",
+    "chalk": "4.1.2",
+    "figlet": "^1.5.2",
+    "@turbo-version/setup": "workspace:*",
+    "@turbo-version/log": "workspace:*",
+    "@turbo-version/git": "workspace:*",
+    "@turbo-version/fs": "workspace:*",
+    "@manypkg/get-packages": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
