@@ -32,7 +32,7 @@ export async function generateVersionByBranchPattern({
 
       const amountCommits = getCommitsLength(path ?? cwd());
 
-      if (latestTag && amountCommits === 0 && !type) {
+      if (latestTag && amountCommits === 0 && !type && !latestTag.includes("-")) {
          return null;
       }
 
