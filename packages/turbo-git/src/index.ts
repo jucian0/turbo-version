@@ -184,3 +184,9 @@ export async function lastMergeBranchName(
       return null;
    }
 }
+
+
+export function getCurrentBranch() {
+   const result = execSync("git rev-parse --abbrev-ref HEAD");
+   return result.toString().trim();
+}

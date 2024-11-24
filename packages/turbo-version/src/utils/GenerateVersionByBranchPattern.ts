@@ -1,5 +1,5 @@
 import { cwd } from "node:process";
-import { getCommitsLength, lastMergeBranchName } from "@turbo-version/git";
+import { getCommitsLength, getCurrentBranch, lastMergeBranchName } from "@turbo-version/git";
 import semver from "semver";
 
 type Version = {
@@ -24,7 +24,9 @@ export async function generateVersionByBranchPattern({
    try {
       const recommended = await genNextTagByBranchName(
          branchPattern,
+         latestTag,
          baseBranch,
+         type,
       );
 
       const currentVersion =
@@ -36,8 +38,7 @@ export async function generateVersionByBranchPattern({
          return null;
       }
 
-      const next = semver.inc(currentVersion, type ?? recommended,
-         prereleaseIdentifier);
+      const next = semver.inc(currentVersion, recommended, prereleaseIdentifier);
 
       if (!next) {
          throw Error();
@@ -50,10 +51,24 @@ export async function generateVersionByBranchPattern({
 
 async function genNextTagByBranchName(
    schema: string[],
+   latestTag: string,
    mainBranchName = "main",
+   type?: semver.ReleaseType
 ) {
-   const branch = await lastMergeBranchName(schema, mainBranchName);
+   if (latestTag.includes("-")) {
+      return type ?? 'patch'
+   }
 
+   if (type?.includes("pre")) {
+      return `pre${extractBranchPrefix(getCurrentBranch(), schema)}` as semver.ReleaseType
+   }
+   const branch = await lastMergeBranchName(schema, mainBranchName) as string;
+
+   return extractBranchPrefix(branch, schema) as semver.ReleaseType
+}
+
+
+function extractBranchPrefix(branch: string, schema: string[]) {
    if (branch?.includes(schema[0])) {
       return "major";
    }
