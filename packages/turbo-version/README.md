@@ -1,6 +1,6 @@
 # Turbo Version
 
-This is a command-line tool that allows you to bump the versions of your packages in a monorepo project according to Semantic Versioning. By automating the versioning process, **Turbo Version** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
+This is a command-line tool that allows you to bump the versions of your packages in project according to Semantic Versioning. By automating the versioning process, **Turbo Version** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
 
 ## Usage
 
@@ -14,13 +14,14 @@ yarn add -D turbo-version
 
 ### Synced
 
-In `synced` mode, all packages in the monorepo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages in the monorepo.
+In `synced` mode, all packages in the monorepo or common repo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages.
 
-For example, if you have a monorepo with three packages (package A, package B, and package C), and you release version 1.0.0 in synced mode, all three packages will have the same version number (1.0.0) and git tag (v1.0.0). If you make changes to package A and release a new version (e.g., 1.1.0), all three packages will be updated to version 1.1.0 with the git tag v1.1.0.
+- Monorepo example - If you have a monorepo with three packages (package A, package B, and package C), and you release version 1.0.0 in synced mode, all three packages will have the same version number (1.0.0) and git tag (v1.0.0). If you make changes to package A and release a new version (e.g., 1.1.0), all three packages will be updated to version 1.1.0 with the git tag v1.1.0.
+- Common repo - If you have a common repo, it will update the package version.
 
-Synced mode is typically used when all packages in the monorepo are closely related and should be updated together. However, if you only want to update the packages that have been affected by changes since the last release, you can run the command with `synced=false` or leave it undefined. In this mode, only the packages that have been affected by changes will be updated to the new version.
+For monorepos `synced` mode is typically used when all packages in the are closely related and should be updated together. However, if you only want to update the packages that have been affected by changes since the last release, you can run the command with `synced=false` or leave it undefined. In this mode, only the packages that have been affected by changes will be updated to the new version.
 
-### Async
+### Async (just for monorepos)
 
 In async mode, the **Turbo Version** command updates only the packages that have been affected by commits since the last release. This means that it analyzes the commit history and determines which packages have had changes made to them. It then applies the appropriate version bump to each affected package, according to the specifications in the version.config.json file.
 
