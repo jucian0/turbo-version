@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/jucian0/turbo-version/compare/v0.6.3...v0.7.0) (2024-11-25)
+
+
+### Features
+
+* **version:** add prereleaseIdentifier ([8b0952c](https://github.com/jucian0/turbo-version/commit/8b0952c7de730d0029fa63c2a4bcfd352b553644)), closes [#5](https://github.com/jucian0/turbo-version/issues/5)
+
+
+
 ## [0.6.3](https://github.com/jucian0/turbo-version/compare/v0.6.2...v0.6.3) (2024-11-21)
 
 

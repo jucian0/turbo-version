@@ -30,7 +30,7 @@
    },
    "packageManager": "pnpm@9.12.3",
    "dependencies": {
-      "@turbo-version/release": "^0.6.2",
-      "@turbo-version/version": "^0.6.2"
+      "@turbo-version/release": "workspace:^0.6.3",
+      "@turbo-version/version": "workspace:^0.6.3"
    }
 }
