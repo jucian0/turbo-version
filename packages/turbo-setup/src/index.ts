@@ -16,15 +16,16 @@ export type Config = {
    synced: boolean;
    packages: string[];
    updateInternalDependencies:
-      | "major"
-      | "minor"
-      | "patch"
-      | "no-internal-update";
+   | "major"
+   | "minor"
+   | "patch"
+   | "no-internal-update";
    strategy: "first-release" | "next-release" | "last-release";
    skip?: string[];
    commitMessage?: string;
    versionStrategy?: "branchPattern" | "commitMessage";
    branchPattern: string[];
+   prereleaseIdentifier?: string;
 };
 
 export function setup(): Promise<Config> {

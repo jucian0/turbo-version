@@ -4,6 +4,12 @@ import { getCommitsLength } from "@turbo-version/git";
 import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
 
+import { } from "conventional-recommended-bump";
+
+
+//https://www.npmjs.com/package/semver
+//https://www.npmjs.com/package/conventional-recommended-bump
+
 const recommendedBumpAsync = promisify(conventionalRecommendedBump);
 
 type Version = {
@@ -13,6 +19,7 @@ type Version = {
    type?: semver.ReleaseType;
    path?: string;
    name?: string;
+   prereleaseIdentifier?: string;
 };
 
 export async function generateVersion({
@@ -22,6 +29,7 @@ export async function generateVersion({
    type,
    path,
    name,
+   prereleaseIdentifier
 }: Version) {
    try {
       const recommendation: any = await recommendedBumpAsync(
@@ -43,7 +51,7 @@ export async function generateVersion({
          return null;
       }
 
-      const next = semver.inc(currentVersion, type ?? recommended);
+      const next = semver.inc(currentVersion, type ?? recommended, prereleaseIdentifier);
 
       if (!next) {
          throw Error();

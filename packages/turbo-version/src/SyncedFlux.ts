@@ -32,6 +32,7 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
             type,
             branchPattern,
             baseBranch,
+            prereleaseIdentifier: config.prereleaseIdentifier,
          });
       } else {
          version = await generateVersion({
@@ -39,6 +40,7 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
             preset,
             tagPrefix,
             type,
+            prereleaseIdentifier: config.prereleaseIdentifier,
          });
       }
 

@@ -61,6 +61,7 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
                   path,
                   branchPattern,
                   baseBranch,
+                  prereleaseIdentifier: config.prereleaseIdentifier,
                });
             } else {
                version = await generateVersion({
@@ -70,6 +71,7 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
                   type: type ?? (pkg.type as ReleaseType),
                   path,
                   name,
+                  prereleaseIdentifier: config.prereleaseIdentifier,
                });
             }
 

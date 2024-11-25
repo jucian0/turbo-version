@@ -46,6 +46,7 @@ export async function singleFlux(config: Config, options: any) {
                path,
                branchPattern,
                baseBranch,
+               prereleaseIdentifier: config.prereleaseIdentifier,
             });
          } else {
             version = await generateVersion({
@@ -55,6 +56,7 @@ export async function singleFlux(config: Config, options: any) {
                type,
                path,
                name,
+               prereleaseIdentifier: config.prereleaseIdentifier,
             });
          }
 
