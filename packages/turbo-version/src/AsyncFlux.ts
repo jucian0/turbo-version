@@ -100,6 +100,7 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
                   files: [path],
                   nextTag,
                   commitMessage,
+                  skipHooks: config.skipHooks,
                });
 
                log(["tag", `Git Tag generated for ${nextTag}.`, name]);

@@ -24,12 +24,14 @@ type GitCommit = {
    amend?: boolean;
    author?: string;
    date?: string;
+   skipHooks?: boolean;
 };
 
 type GitProcess = {
    files: string[];
    nextTag: string;
    commitMessage: string;
+   skipHooks: boolean;
 };
 
 export async function pullBranch(branch: string) {
@@ -61,8 +63,10 @@ async function gitCommit(options: GitCommit) {
    if (options.date) {
       command.push(`--date="${options.date}"`);
    }
+   if (options.skipHooks) {
+      command.push("--no-verify");
+   }
    command.push(`-m "chore: ${options.message}"`);
-   command.push("--no-verify");
 
    return execAsync(`git ${command.join(" ")}`);
 }
@@ -144,6 +148,7 @@ export async function gitProcess({
    files,
    nextTag,
    commitMessage,
+   skipHooks = false,
 }: GitProcess) {
    try {
       if (!isGitRepository(cwd())) {
@@ -156,6 +161,7 @@ export async function gitProcess({
 
       await gitCommit({
          message: commitMessage,
+         skipHooks,
       });
 
       const tagMessage = `New Version ${nextTag} generated at ${new Date().toISOString()}`;

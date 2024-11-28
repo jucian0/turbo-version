@@ -26,6 +26,7 @@ export type Config = {
    versionStrategy?: "branchPattern" | "commitMessage";
    branchPattern: string[];
    prereleaseIdentifier?: string;
+   skipHooks?: boolean;
 };
 
 export function setup(): Promise<Config> {
