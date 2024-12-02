@@ -78,6 +78,7 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
             files: [cwd()],
             nextTag,
             commitMessage,
+            skipHooks: config.skipHooks,
          });
          log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
       } else {

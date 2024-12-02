@@ -52,7 +52,7 @@ Format: `<type>(<scope>): <subject>`
 
 #### Example
 
-```
+```md
 feat: add hat wobble
 ^--^  ^------------^
 |     |
@@ -107,6 +107,7 @@ The following properties are defined in the schema:
 - `versionStrategy`: A string property that specifies the versioning strategy. The property can be set to either "branchPattern" or "commitMessage". By default, it's set to "commitMessage".
 - `branchPattern`: An array property that represents the branch name pattern used to calculate the next version. By default, it's set to [`major`, `minor`, `patch`(Applied just when `versionStrategy` is set to "branchPattern").
 - `prereleaseIdentifier`: String argument that will append the value of the string as a prerelease identifier `next | beta | alpha ...`
+- `skipHooks`: A boolean property that indicates whether the Git commit hooks are run or not.  Defaults to `false`.
 
 ### Required Properties
 

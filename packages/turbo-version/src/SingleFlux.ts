@@ -86,6 +86,7 @@ export async function singleFlux(config: Config, options: any) {
                files: [path],
                nextTag,
                commitMessage,
+               skipHooks: config.skipHooks,
             });
             log(["tag", `Git Tag successfully generated.`, name]);
          } else {
