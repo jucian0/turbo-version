@@ -76,7 +76,7 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
 
 
          await gitProcess({
-            files: packages.map((path) => [`${path.relativeDir}/package.json`, `${path.relativeDir}/CHANGELOG.md`]).flat(),
+            files: packages.filter(pkg => !config.skip?.some(sp => sp === pkg.packageJson.name)).map((path) => [`${path.relativeDir}/package.json`, `${path.relativeDir}/CHANGELOG.md`]).flat(),
             nextTag,
             commitMessage,
             skipHooks: config.skipHooks,
