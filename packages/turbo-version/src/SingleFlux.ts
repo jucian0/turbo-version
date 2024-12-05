@@ -82,8 +82,9 @@ export async function singleFlux(config: Config, options: any) {
                name,
             });
 
+
             await gitProcess({
-               files: [path],
+               files: [`${path}/package.json`, `${path}/CHANGELOG.md`],
                nextTag,
                commitMessage,
                skipHooks: config.skipHooks,

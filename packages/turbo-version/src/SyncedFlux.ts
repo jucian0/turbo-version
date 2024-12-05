@@ -12,6 +12,7 @@ import { generateVersionByBranchPattern } from "./utils/GenerateVersionByBranchP
 import { getLatestTag } from "./utils/GetLatestTag";
 import { formatCommitMessage } from "./utils/TemplateString";
 import { updatePackageVersion } from "./utils/UpdatePackageVersion";
+import { resolvePkgPath } from "@turbo-version/fs";
 
 export async function syncedFlux(config: Config, type?: ReleaseType) {
    try {
@@ -74,8 +75,10 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
             version,
          });
 
+         const files = resolvePkgPath(packages);
+
          await gitProcess({
-            files: [cwd()],
+            files,
             nextTag,
             commitMessage,
             skipHooks: config.skipHooks,

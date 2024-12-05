@@ -31,7 +31,7 @@ type GitProcess = {
    files: string[];
    nextTag: string;
    commitMessage: string;
-   skipHooks: boolean;
+   skipHooks?: boolean;
 };
 
 export async function pullBranch(branch: string) {
@@ -148,7 +148,7 @@ export async function gitProcess({
    files,
    nextTag,
    commitMessage,
-   skipHooks = false,
+   skipHooks,
 }: GitProcess) {
    try {
       if (!isGitRepository(cwd())) {
