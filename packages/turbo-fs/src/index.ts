@@ -1,4 +1,5 @@
 import { constants, promises as fs, accessSync, readFileSync } from "node:fs";
+import { cwd } from "node:process";
 
 export function fileExist(filePath: string) {
    try {
@@ -20,6 +21,6 @@ export async function writeFile(
    fs.writeFile(filePath, data, { encoding: "utf-8" });
 }
 
-export function resolvePkgPath(packages: { relativeDir: string }[]) {
-   return packages.map((path) => [`${path.relativeDir}/package.json`, `${path.relativeDir}/CHANGELOG.md`]).flat();
+export function resolvePkgPath(relativePath: string) {
+   return `${cwd()}/${relativePath}`;
 }
