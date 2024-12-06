@@ -18,6 +18,8 @@
       "@biomejs/biome": "1.9.4",
       "@commitlint/cli": "^17.5.1",
       "@commitlint/config-conventional": "^17.4.4",
+      "@turbo-version/release": "^0.7.0",
+      "@turbo-version/version": "^0.7.0",
       "commitizen": "^4.3.0",
       "cz-conventional-changelog": "^3.3.0",
       "husky": "^8.0.3",
