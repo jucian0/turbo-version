@@ -23,7 +23,7 @@ export async function singleFlux(config: Config, options: any) {
          (pkg) =>
             pkgNames.some((name) => name === pkg.packageJson.name) &&
             !config.synced,
-      );
+      ).filter(pkg => !config.skip?.some(sp => sp === pkg.packageJson.name))
 
       for (const pkg of packages) {
          const { name } = pkg.packageJson;
@@ -82,8 +82,9 @@ export async function singleFlux(config: Config, options: any) {
                name,
             });
 
+
             await gitProcess({
-               files: [path],
+               files: [`${path}/package.json`, `${path}/CHANGELOG.md`],
                nextTag,
                commitMessage,
                skipHooks: config.skipHooks,
