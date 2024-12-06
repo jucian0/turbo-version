@@ -17,12 +17,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^17.4.4
         version: 17.8.1
-      '@turbo-version/release':
-        specifier: workspace:*
-        version: link:packages/turbo-release
-      '@turbo-version/version':
-        specifier: workspace:*
-        version: link:packages/turbo-version
       commitizen:
         specifier: ^4.3.0
         version: 4.3.1(@types/node@20.5.1)(typescript@4.9.5)

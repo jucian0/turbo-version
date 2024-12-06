@@ -42,14 +42,14 @@ jobs:
 
       - name: Turbo Version
         shell: bash
-        run: npx turbo-version
+        run: npx @turbo-version/version
 
       - name: Turbo Release
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx turbo-release
+        run: npx @turbo-version/release
 
       - name: Push tags, and commits
         shell: bash
