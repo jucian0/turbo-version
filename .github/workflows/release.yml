@@ -35,9 +35,6 @@ jobs:
         shell: bash
         run: pnpm build
 
-      - name: Install turbo-version
-        run: pnpm i
-
       ##  We are going to replace it by a specif command to configure git environments
       - name: Temporally git user
         shell: bash
