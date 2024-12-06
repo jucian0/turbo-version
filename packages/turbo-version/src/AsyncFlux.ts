@@ -97,7 +97,7 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
                });
 
                await gitProcess({
-                  files: [path],
+                  files: [`${path}/package.json`, `${path}/CHANGELOG.md`],
                   nextTag,
                   commitMessage,
                   skipHooks: config.skipHooks,
