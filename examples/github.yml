@@ -35,9 +35,6 @@ jobs:
         shell: bash
         run: pnpm build
 
-      - name: Install turbo-version
-        run: pnpm i
-
       ##  We are going to replace it by a specif command to configure git environments
       - name: Temporally git user
         shell: bash
@@ -45,13 +42,13 @@ jobs:
 
       - name: Turbo Version
         shell: bash
-        run: pnpm turbo-version
+        run: npx @turbo-version/version
 
       - name: Turbo Release
         shell: bash
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm turbo-release
+        run: npx @turbo-version/release
 
       - name: Push tags, and commits
         shell: bash

@@ -10,6 +10,6 @@ pipelines:
           - curl -fL https://get.pnpm.io/v7.19.js | node - add --global pnpm
           - pnpm i
           - pnpm build
-          - pnpm turbo-version
-          - pnpm turbo-release
+          - pnpm @turbo-version/version
+          - pnpm @turbo-version/release
           - git push --tags && git push
