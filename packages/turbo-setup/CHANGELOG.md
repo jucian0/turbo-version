@@ -1,3 +1,12 @@
+# [0.8.0](https://github.com/jucian0/turbo-version/compare/v0.7.0...v0.8.0) (2024-12-06)
+
+
+### Features
+
+* add `skipHooks` config setting ([24a4ac8](https://github.com/jucian0/turbo-version/commit/24a4ac8158e04799856166c018533fdb12af0d7b))
+
+
+
 # [0.7.0](https://github.com/jucian0/turbo-version/compare/v0.6.3...v0.7.0) (2024-11-25)
 
 

@@ -1,3 +1,19 @@
+# [0.8.0](https://github.com/jucian0/turbo-version/compare/v0.7.0...v0.8.0) (2024-12-06)
+
+
+### Bug Fixes
+
+* **git:** fixing git commit command ([e760e32](https://github.com/jucian0/turbo-version/commit/e760e32c2b7629e6c12d2ebf57aa34cf3014805c)), closes [#11](https://github.com/jucian0/turbo-version/issues/11)
+* **turbo-version:** fix resolvePkgPath function ([e92aad7](https://github.com/jucian0/turbo-version/commit/e92aad77ec4b1168b32ff90ca2f56a2139fbfdbf)), closes [#11](https://github.com/jucian0/turbo-version/issues/11)
+* **version:** fixing skip feature for SyncedFlux and SingleFlux ([367620f](https://github.com/jucian0/turbo-version/commit/367620f1c68e6dbb84f7a10f27b2ef808e929e99)), closes [#11](https://github.com/jucian0/turbo-version/issues/11)
+
+
+### Features
+
+* add `skipHooks` config setting ([24a4ac8](https://github.com/jucian0/turbo-version/commit/24a4ac8158e04799856166c018533fdb12af0d7b))
+
+
+
 # [0.7.0](https://github.com/jucian0/turbo-version/compare/v0.6.3...v0.7.0) (2024-11-25)
 
 
