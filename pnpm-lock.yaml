@@ -18,11 +18,11 @@ importers:
         specifier: ^17.4.4
         version: 17.8.1
       '@turbo-version/release':
-        specifier: ^0.7.0
-        version: 0.7.0
+        specifier: workspace:*
+        version: link:packages/turbo-release
       '@turbo-version/version':
-        specifier: ^0.7.0
-        version: 0.7.0
+        specifier: workspace:*
+        version: link:packages/turbo-version
       commitizen:
         specifier: ^4.3.0
         version: 4.3.1(@types/node@20.5.1)(typescript@4.9.5)
@@ -782,31 +782,6 @@ packages:
 
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
-
-  '@turbo-version/dependents@0.7.0':
-    resolution: {integrity: sha512-kZADUh9sHJ7Rg3uerqSgfRuSL4B3c9QOKGv6ZSm847S+po3afXp+Dzc/KvQHpj54NmC0ddnbwEXAWvmsar6I1A==}
-    hasBin: true
-
-  '@turbo-version/fs@0.7.0':
-    resolution: {integrity: sha512-u2FWEFpeYnCzzABjHh4HvZkHocsL0DPIUjOJfF10vuTAfyTfFv1ZENns+/ABhQ3+HJn7Nt61vqjfua99tVuTHQ==}
-
-  '@turbo-version/git@0.7.0':
-    resolution: {integrity: sha512-YGZRRx3ToUeiOB7gm0nLnLyGjf/X1V+Jmw7qkRs0rquedwOHqR54mo2P52cS7p6UiyEB/jupGhqwvHCrXjhnZw==}
-
-  '@turbo-version/log@0.7.0':
-    resolution: {integrity: sha512-D1WD7MEN+o/+s5ipqnIWNCvD67VlA2jSU9ozFrBNQkw9SzKmbYwpAog7efNnnt2OIPrg9RhzdLoNRaKGfOJN9A==}
-    hasBin: true
-
-  '@turbo-version/release@0.7.0':
-    resolution: {integrity: sha512-pMFGBtYMViVhgSMrr3/F2v4R0xo9023IdxuPQLD4JXCPazob4phX5mKGl8eiHtPWgtNO2BMjyMXq/HDuOIekhA==}
-    hasBin: true
-
-  '@turbo-version/setup@0.7.0':
-    resolution: {integrity: sha512-qWUBVgZ4M23d6weCdprny1JZwMxHXICZWHGiYuxc8Fy5ehAwrnCjixMBspLEPgj420yPvAeSSHFpZigmYAUhRA==}
-
-  '@turbo-version/version@0.7.0':
-    resolution: {integrity: sha512-Y/PB4rnP5T0I2L3zMkfB8Ym1lBDPnL3P6djtuFnviIyCFjn6edZdSehMj8H/ZYQHW1Zg4r0dRznyUpQE7MdReQ==}
-    hasBin: true
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3693,56 +3668,6 @@ snapshots:
   '@tsconfig/node14@1.0.3': {}
 
   '@tsconfig/node16@1.0.4': {}
-
-  '@turbo-version/dependents@0.7.0':
-    dependencies:
-      '@manypkg/get-packages': 2.2.2
-      '@turbo-version/fs': 0.7.0
-      '@turbo-version/git': 0.7.0
-      '@turbo-version/setup': 0.7.0
-
-  '@turbo-version/fs@0.7.0': {}
-
-  '@turbo-version/git@0.7.0': {}
-
-  '@turbo-version/log@0.7.0':
-    dependencies:
-      chalk: 4.1.2
-
-  '@turbo-version/release@0.7.0':
-    dependencies:
-      '@manypkg/get-packages': 2.2.2
-      '@turbo-version/fs': 0.7.0
-      '@turbo-version/git': 0.7.0
-      '@turbo-version/log': 0.7.0
-      '@turbo-version/setup': 0.7.0
-      chalk: 4.1.2
-      commander: 10.0.1
-      figlet: 1.8.0
-
-  '@turbo-version/setup@0.7.0':
-    dependencies:
-      '@manypkg/get-packages': 2.2.2
-
-  '@turbo-version/version@0.7.0':
-    dependencies:
-      '@manypkg/get-packages': 2.2.2
-      '@turbo-version/dependents': 0.7.0
-      '@turbo-version/fs': 0.7.0
-      '@turbo-version/git': 0.7.0
-      '@turbo-version/log': 0.7.0
-      '@turbo-version/setup': 0.7.0
-      chalk: 4.1.2
-      commander: 10.0.1
-      compare-func: 2.0.0
-      conventional-changelog: 3.1.25
-      conventional-changelog-angular: 5.0.13
-      conventional-commits-parser: 3.2.4
-      conventional-recommended-bump: 6.1.0
-      figlet: 1.8.0
-      git-repository: 0.1.4
-      git-semver-tags: 4.1.1
-      semver: 7.6.3
 
   '@types/babel__core@7.20.5':
     dependencies:
