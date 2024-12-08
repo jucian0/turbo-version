@@ -1,4 +1,4 @@
-![turbo-version-logo](./logo.jpeg)
+![turbo-version-logo](./logo.svg)
 # Turbo Version
 
 > Automatically versioning for monorepos or common repos.
