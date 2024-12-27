@@ -1,11 +1,30 @@
 # Introduction
- 
-Welcome to Nextra! This is a basic docs template. You can use it as a starting point for your own project :)
+Welcome to TurboVersion documentation. Turbo Version is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
 
-## What is Nextra?
+## Motivation
+When working with monorepos or common repos, managing package versions can be a challenging task if you want to automate the process based on thr changes in the packages, by commit messages or branch names. Turbo Versions aims to simplify the process of managing package versions by providing two options for versioning; by commit messages or by branch names.
 
-A **simple**, **powerful** and **flexible** site generation framework with everything you love from Next.js.
 
-## Documentation
+## Installing
+To get started, you can install TurboVersion by running the following command:
 
-The documentation is available at [https://nextra.site](https://nextra.site).
+```bash
+npm install -g @turbo-version/version
+```
+
+You can also use `npx` to run TurboVersion without installing it:
+
+```bash
+npx @turbo-version/version
+```
+
+## Usage
+`@turbo-version/version` provides a set of CLI commands to manage package versions.
+
+Here's an example of how to use the `turbo-version -bump` command:
+
+```bash
+npx @turbo-version/version -bump major/minor/patch/premajor/preminor/prepatch/prerelease
+```
+This command will bump the major version of all packages in the repo.
+
