@@ -3,10 +3,11 @@ export default{
     title: 'Home',
     type: 'page'
   },
-  "quick-start": "Quick Start", 
+  "introduction": "Introduction", 
   "synced": "Synced",
   "async": "Async",
   "versioning": "Versioning",
+  "schema": "Schema",
   "contact": {
     "title": "Contact ↗",
     "type": "page",

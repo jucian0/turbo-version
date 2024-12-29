@@ -1,31 +1,7 @@
-# Another Page
+# Async (just for monorepos)
 
-```js filename="demo.js" {3} copy
-let a = 1;
+In async mode, the **Turbo Version** command updates only the packages that have been affected by commits since the last release. This means that it analyzes the commit history and determines which packages have had changes made to them. It then applies the appropriate version bump to each affected package, according to the specifications in the version.config.json file.
 
-console.log(a);
-```
+In async mode, if the user does not specify the bump kind, the tool will automatically determine the next version based on the commit messages since the last release. The tool will parse the commit messages and look for specific keywords to determine the appropriate semantic version bump. For example, if the commit messages contain the keyword "fix", the tool will automatically bump the patch version. If the messages contain the keyword "feat", the tool will bump the minor version.
 
-## Component
-
-import { useState } from 'react'
-
-{/* Import CSS modules */}
-import styles from '../components/counters.module.css'
-
-export const Counter = () => {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)} className={styles.counter}>Clicked {count} times</button>
-    </div>
-  );
-};
-
-<Counter/>
-
-## External Component
-
-import Counters from '../components/counters'
-
-<Counters />
+If there are no commit messages to determine the bump kind, the tool will default to the "patch" version bump. Once the bump kind is determined, the tool will update the version for all affected packages and generate the appropriate version tags. If the user specifies the target package, only that specific package will be updated; otherwise, all affected packages will be updated.

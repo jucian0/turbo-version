@@ -1,0 +1,11 @@
+# Branch name based versioning
+
+**TurboVersion** uses the Git branch name to determine the next version, by default TurboVersion will use [`major`, `minor`, `patch`] as the branch name pattern, for example, if your current version is 1.2.3, and you have a branch named `patch`, the next version will be 1.2.4 when the `patch` branch is merged into the `main` branch.
+
+## Configuration
+
+To use branch name-based versioning, you need to configure the `version.config.json` file with the following properties:
+
+- `baseBranch` - the main branch name, it's used to calculate the next version.
+- `versionStrategy` - the versioning strategy should be `branchPattern`.
+- `branchPattern` - the branch name pattern used to calculate the next version (optional, by default, it's [`major`, `minor`, `patch`]).
