@@ -24,12 +24,11 @@ const config: DocsThemeConfig = {
     const { route } = useRouter()
     const isDefault = route === '/' || !config.title
     const image =
-      'https://nextra.site/' +
-      (isDefault ? 'og.jpeg' : `/og?title=${config.title}`)
+      'https://turbo-version.vercel.app/' +
+      (isDefault ? 'logo.svg' : `/og?title=${config.title}`)
 
     const description =
-      config.frontMatter.description ||
-      'Make beautiful websites with Next.js & MDX.'
+      config.frontMatter.description || 'TurboVersion is a tool that helps you manage and version your software projects with ease.'
     const title = config.title + (route === '/' ? '' : ' - TurboVersion')
 
     return (
@@ -39,12 +38,11 @@ const config: DocsThemeConfig = {
         <meta name="description" content={description} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={image} />
-
         <meta name="msapplication-TileColor" content="#fff" />
         <meta httpEquiv="Content-Language" content="en" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site:domain" content="nextra.site" />
-        <meta name="twitter:url" content="https://nextra.site" />
+        <meta name="twitter:url" content="https://turbo-version.vercel.app" />
         <meta name="apple-mobile-web-app-title" content="TurboVersion" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.png" type="image/png" />
