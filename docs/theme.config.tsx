@@ -22,10 +22,7 @@ const config: DocsThemeConfig = {
   head: function useHead() {
     const config = useConfig()
     const { route } = useRouter()
-    const isDefault = route === '/' || !config.title
-    const image =
-      'https://turbo-version.vercel.app/' +
-      (isDefault ? 'logo.svg' : `/og?title=${config.title}`)
+    const image ='logo.svg'
 
     const description =
       config.frontMatter.description || 'TurboVersion is a tool that helps you manage and version your software projects with ease.'
