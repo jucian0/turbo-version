@@ -31,10 +31,10 @@ export default function HeroContent() {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link
-                  href="/quick-start"
+                  href="/introduction"
                   className="py-3.5 px-8 mr-2 mb-2 text-md text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg dark:bg-white dark:hover:bg-white dark:focus:ring-white dark:border-white dark:text-gray-800"
                 >
-                  Quick start
+                  Introduction
                 </Link>
                 <a
                   href="https://github.com/jucian0/turbo-version"
