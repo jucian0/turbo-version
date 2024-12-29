@@ -1,5 +1,9 @@
 export default{
-  "index": "Introduction",
+  index: {
+    title: 'Home',
+    type: 'page'
+  },
+  "quick-start": "Quick Start", 
   "synced": "Synced",
   "async": "Async",
   "versioning": "Versioning",
