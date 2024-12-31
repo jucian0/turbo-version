@@ -38,7 +38,7 @@ const config: DocsThemeConfig = {
         <meta name="msapplication-TileColor" content="#fff" />
         <meta httpEquiv="Content-Language" content="en" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site:domain" content="nextra.site" />
+        <meta name="twitter:site:domain" content="turbo-version.vercel.app/" />
         <meta name="twitter:url" content="https://turbo-version.vercel.app" />
         <meta name="apple-mobile-web-app-title" content="TurboVersion" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -70,7 +70,7 @@ const config: DocsThemeConfig = {
             target="_blank"
             rel="noreferrer"
             title="vercel.com homepage"
-            href="https://vercel.com?utm_source=nextra.site"
+            href="https://vercel.com?utm_source=turbo-version.vercel.app/"
           >
             <span>Powered by</span>
             <svg height={20} viewBox="0 0 283 64" fill="none">
