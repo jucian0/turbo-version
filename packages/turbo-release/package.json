@@ -1,7 +1,7 @@
 {
   "name": "@turbo-version/release",
   "description": "Release your packages in just one command.",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
