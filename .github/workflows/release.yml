@@ -35,7 +35,6 @@ jobs:
         shell: bash
         run: pnpm build
 
-      ##  We are going to replace it by a specif command to configure git environments
       - name: Temporally git user
         shell: bash
         run: git config --global user.name 'github-actions[bot]' && git config --global user.email 'github-actions[bot]@users.noreply.github.com'
@@ -43,6 +42,9 @@ jobs:
       - name: Turbo Version
         shell: bash
         run: npx @turbo-version/version
+
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Turbo Release
         shell: bash
