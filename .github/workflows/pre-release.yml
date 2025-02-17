@@ -45,7 +45,7 @@ jobs:
 
       - name: Turbo Version
         shell: bash
-        run: pnpm turbo-version -b prerelease
+        run: npx @turbo-version/version
 
       - name: Turbo Release
         shell: bash
