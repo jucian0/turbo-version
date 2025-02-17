@@ -52,7 +52,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm turbo-release
+        run: pnpm -r publish --no-git-checks --filter=!docs
 
       - name: Push tags, and commits
         shell: bash
