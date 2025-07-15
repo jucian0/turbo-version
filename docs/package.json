@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
-    "next": "^15.1.2",
+    "next": "^15.2.4",
     "nextra": "3.2.3",
     "nextra-theme-docs": "3.2.3",
     "react": "^19.0.0",
