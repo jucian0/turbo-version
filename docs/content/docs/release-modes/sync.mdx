@@ -1,11 +1,11 @@
 ---
-title: Synced Mode
+title: Sync Mode
 description: Unified versioning for coordinated package releases
 ---
 
-# Synced Mode: Unified Version Management
+# Sync Mode: Unified Version Management
 
-Synced mode ensures **all packages share the same version number**, ideal for tightly-coupled projects where components should progress in lockstep.
+Sync mode ensures **all packages share the same version number**, ideal for tightly-coupled projects where components should progress in lockstep.
 
 ```bash
 # Enable via CLI
@@ -14,7 +14,7 @@ turbo-version bump --synced
 { "synced": true }
 ```
 
-## When to Use Synced Mode
+## When to Use Sync Mode
 
 ✅ **Tightly Coupled Packages**
    When packages are interdependent and always released together
@@ -107,10 +107,10 @@ git commit -m "feat: add user profile system"
 
 ## Transition Guide
 
-### Switching from Async to Synced
-1. Align all package versions first:
-   ```bash
-   turbo-version align-versions --target-version=1.0.0
+### Switching from Async to Sync
+1. Just change config:
+   ```json
+   { "synced": true }
    ```
 2. Update config:
    ```json
@@ -118,7 +118,7 @@ git commit -m "feat: add user profile system"
    ```
 3. Verify with dry run:
    ```bash
-   turbo-version bump --dry-run
+   @turbo-version/version
    ```
 
 ## Troubleshooting
@@ -134,9 +134,3 @@ git commit -m "feat: add user profile system"
 
 **Q: How to handle breaking changes?**
 → TurboVersion automatically detects `BREAKING CHANGE:` in commits and performs major bumps.
-
-**Q: Can I temporarily disable sync?**
-→ Override via CLI:
-```bash
-turbo-version bump --no-synced
-```

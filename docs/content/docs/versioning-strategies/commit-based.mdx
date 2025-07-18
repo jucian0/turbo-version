@@ -91,7 +91,6 @@ git commit -m "feat: add password strength meter"
 ### 2. Monorepo Fix
 ```bash
 git commit -m "fix(analytics): correct session tracking"
-# Bumps patch version for @app/analytics
 ```
 
 ### 3. Breaking Change
@@ -133,9 +132,10 @@ git commit -m "feat(db)!: migrate to new query engine\n\nBREAKING CHANGE: Old qu
 
 ❌ **Wrong bump type applied**
 → Ensure breaking changes use correct format
-→ Use `--debug` to see commit analysis:
+→ Use git to verify commits
+
 ```bash
-turbo-version bump --debug
+git log --oneline --decorate --graph
 ```
 
 ## References

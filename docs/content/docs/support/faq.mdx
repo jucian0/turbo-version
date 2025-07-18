@@ -8,7 +8,7 @@ description: Answers to common questions and troubleshooting
 ## Versioning
 
 ### Q: How does TurboVersion determine the next version?
-It analyzes commits since the last release using:
+It analyzes commits or branch type since the last release using:
 - **Commit messages** (default):
   `feat:` → Minor bump
   `fix:` → Patch bump
@@ -24,7 +24,6 @@ Yes! Force a specific bump:
 turbo-version bump --major  # Force v2.0.0
 turbo-version bump --preid beta  # v1.0.0-beta.1
 ```
-
 ---
 
 ## Monorepos
@@ -89,18 +88,12 @@ git push --follow-tags  # Critical for CI/CD
 
 ## Advanced Usage
 
-### Q: Can I generate a changelog without bumping versions?
-Yes! Use the `changelog` command:
-```bash
-turbo-version changelog --from v1.0.0 --to HEAD
-```
-
 ### Q: How to integrate with CI/CD pipelines?
 1. **GitHub Actions**:
    ```yaml
    - name: Version Packages
      run: |
-       npx turbo-version bump
+       npx @turbo-version/version
        git push --follow-tags
    ```
 2. **Required permissions**:
@@ -112,7 +105,7 @@ turbo-version changelog --from v1.0.0 --to HEAD
 ## Migration
 
 ### Q: Switching from Lerna?
-1. Replace `lerna version` with `turbo-version bump`
+1. Replace `lerna version` with `npx @turbo-version/version`
 2. Convert config:
    ```diff
    - "version": "independent"

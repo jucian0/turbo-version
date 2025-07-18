@@ -127,7 +127,8 @@ git push origin patch/critical-bug
 
 ❌ **Wrong bump type applied**
 → Ensure patterns are ordered from highest to lowest priority
-→ Use `--debug` flag to see pattern matching:
+→ Use git log to see pattern matching:
+
 ```bash
-turbo-version bump --debug
+git log --oneline --decorate --graph
 ```
