@@ -1,0 +1,136 @@
+---
+title: Configuration Schema
+description: Master TurboVersion's configuration with detailed reference and examples
+---
+
+# Configuration Reference
+
+Customize TurboVersion's behavior through a `version.config.json` file or CLI arguments.
+**Example minimal config:**
+```json
+{
+  "tagPrefix": "v",
+  "baseBranch": "main",
+  "versionStrategy": "commitMessage"
+}
+```
+
+## Core Properties
+
+### 🏷️ Versioning Strategy
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `versionStrategy` | `"commitMessage"` \| `"branchPattern"` | `"commitMessage"` | How versions are calculated |
+| `preset` | `"angular"` \| `"conventional"` | `"angular"` | Commit message convention style |
+| `branchPattern` | `string[]` | `["major", "minor", "patch"]` | Branch prefixes that trigger bumps |
+
+**Example Branch Pattern Config:**
+```json
+{
+  "versionStrategy": "branchPattern",
+  "branchPattern": ["release/", "feature/", "hotfix/"]
+}
+```
+
+### 🔖 Tagging & Releases
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `tagPrefix` | `string` | `"v"` | Prefix for Git tags (e.g., `pkg@1.0.0`) |
+| `prereleaseIdentifier` | `string` | `null` | Prerelease tag (e.g., `-beta`, `-alpha`) |
+| `commitMessage` | `string` | `"chore(release): ${version} [skip-ci]"` | Template for release commits |
+
+**Custom Tag Example:**
+```json
+{
+  "tagPrefix": "pkg-",
+  "prereleaseIdentifier": "beta"
+}
+// Generates tag: pkg-1.0.0-beta.1
+```
+
+### 🧩 Monorepo Controls
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `synced` | `boolean` | `false` | Whether all packages share versions |
+| `updateInternalDependencies` | `"major"` \| `"minor"` \| `"patch"` \| `false` | `"patch"` | How to bump cross-package deps |
+| `skip` | `string[]` | `[]` | Packages to exclude from versioning |
+
+**Monorepo Example:**
+```json
+{
+  "synced": false,
+  "updateInternalDependencies": "minor",
+  "skip": ["internal-utils"]
+}
+```
+
+## Advanced Properties
+
+### 🔄 Git Integration
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `baseBranch` | `string` | `"main"` | Branch to compare changes against |
+| `skipHooks` | `boolean` | `false` | Bypass Git commit hooks |
+| `analyzeCommitsSince` | `string` | `"last-release"` | Alternative: `"tag:v1.0.0"` |
+
+### ⚠️ Validation Rules
+
+1. **Required Properties**
+   These must be defined in every config:
+   ```json
+   {
+     "tagPrefix": "v",  // Required
+     "baseBranch": "main"  // Required
+   }
+   ```
+
+2. **Value Restrictions**
+   - `preset` only accepts `angular` or `conventional`
+   - `updateInternalDependencies` requires semver level or `false`
+
+## Full Configuration Example
+
+```json
+{
+  "tagPrefix": "pkg@",
+  "baseBranch": "develop",
+  "versionStrategy": "commitMessage",
+  "preset": "angular",
+  "synced": false,
+  "updateInternalDependencies": "minor",
+  "prereleaseIdentifier": "rc",
+  "skip": ["docs", "test-utils"],
+  "commitMessage": "chore(release): ${packageName}@${version} [skip-ci]",
+  "skipHooks": true
+}
+```
+
+## CLI Overrides
+
+All properties can be set via command line:
+```bash
+turbo-version bump \
+  --tag-prefix="pkg@" \
+  --prerelease-identifier="beta" \
+  --skip="docs,test-utils"
+```
+
+## Migration Tips
+
+1. **From Lerna/Changesets**
+   Set these equivalents:
+   ```json
+   {
+     "tagPrefix": "${packageName}@",
+     "updateInternalDependencies": "minor",
+     "synced": false
+   }
+   ```
+
+2. **Troubleshooting**
+   - **"Invalid config"**: Run `turbo-version validate` to check errors
+   - **"Unknown property"**: Ensure you're on the latest version

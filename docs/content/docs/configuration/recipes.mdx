@@ -1,0 +1,186 @@
+---
+title: TurboVersion Recipes
+description: Battle-tested configurations for real-world scenarios
+---
+
+# 🧑‍🍳 TurboVersion Recipes
+
+## Starter Kits
+
+### 1. Single-Package Repository
+```json
+{
+  "tagPrefix": "v",
+  "baseBranch": "main",
+  "changelog": {
+    "header": "# Changelog\n\nAll notable changes\n"
+  }
+}
+```
+**When to use**: Simple JS libraries or apps
+**Features**:
+- Standard semantic versioning
+- Basic changelog generation
+
+---
+
+### 2. Monorepo (Independent Versions)
+```json
+{
+  "synced": false,
+  "tagPrefix": "${packageName}@",
+  "updateInternalDependencies": "minor",
+  "skip": ["docs", "examples"]
+}
+```
+**When to use**:
+- Component libraries
+- Microservices with separate release cycles
+
+---
+
+### 3. Monorepo (Lockstep Versions)
+```json
+{
+  "synced": true,
+  "tagPrefix": "release-",
+  "commitMessage": "chore(release): v${version} [skip-ci]"
+}
+```
+**When to use**:
+- Full-stack applications
+- Tightly coupled packages
+
+---
+
+## CI/CD Integrations
+
+### GitHub Actions
+```yaml
+name: Release
+on:
+  push:
+    branches: [main]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for commit analysis
+
+      - name: Version Packages
+        run: |
+          npx @turbo-version/version bump
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git push --follow-tags
+```
+
+### GitLab CI
+```yaml
+release_job:
+  image: node:18
+  script:
+    - npm install -g @turbo-version/version
+    - turbo-version bump
+    - git push origin HEAD --follow-tags
+  only:
+    - main
+```
+
+---
+
+## Advanced Patterns
+
+### 1. Prerelease Pipeline
+```json
+{
+  "prereleaseIdentifier": "beta",
+  "branchPattern": ["release/"],
+  "commitMessage": "chore(beta): v${version}"
+}
+```
+**Workflow**:
+```bash
+git checkout -b release/v2
+turbo-version bump --preid beta
+```
+
+### 2. Custom Changelog Groups
+```json
+{
+  "changelog": {
+    "groups": [
+      {
+        "title": "🚀 Features",
+        "types": ["feat"],
+        "labels": ["feature"]
+      },
+      {
+        "title": "🛠️ Maintenance",
+        "types": ["chore", "refactor"]
+      }
+    ]
+  }
+}
+```
+
+### 3. Enterprise Monorepo
+```json
+{
+  "synced": false,
+  "tagPrefix": "pkg-",
+  "analyzeCommitsSince": "last-week",
+  "updateInternalDependencies": false,
+  "plugins": [
+    "@company/turbo-version-audit-plugin"
+  ]
+}
+```
+
+---
+
+## Migration Recipes
+
+### From Lerna
+```diff
+# package.json
+{
+  "scripts": {
+-   "version": "lerna version",
++   "version": "turbo-version bump"
+  }
+}
+```
+
+### From Changesets
+1. Remove `.changesets` folder
+2. Add config:
+```json
+{
+  "preset": "conventional",
+  "commitMessage": "chore(release): ${packageName}@${version}"
+}
+```
+
+---
+
+## Troubleshooting Recipes
+
+❌ **Problem**: Dependent packages not updating
+**Solution**: Increase dependency bump level:
+```json
+{
+  "updateInternalDependencies": "minor"
+}
+```
+
+❌ **Problem**: Slow analysis in large repos
+**Solution**: Limit commit history:
+```json
+{
+  "analyzeCommitsSince": "last-month"
+}
+```

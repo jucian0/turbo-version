@@ -1,0 +1,95 @@
+---
+title: About TurboVersion
+description: The smart, automated versioning tool for monorepos and single-package projects
+---
+
+[![Version](https://img.shields.io/npm/v/@turbo-version/version)](https://npmjs.com/package/@turbo-version/version)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/turbo-version/turbo-version/blob/main/LICENSE)
+
+TurboVersion automates semantic versioning for your JavaScript/TypeScript projects, whether you're working with:
+
+- � **Single-package repositories**
+- 📦 **Monorepos with multiple packages**
+- 🚀 **Modern JavaScript workspaces**
+
+## Why Choose TurboVersion?
+
+| Feature        | TurboVersion | Standard Tools |
+|---------------|-------------|----------------|
+| Monorepo support | ✅ Automatic dependency tracking | ❌ Manual configuration |
+| Version strategies | ✅ Commit messages & branch patterns | ❌ Usually just commits |
+| Changelogs     | ✅ Automatic generation | ❌ Often separate tool |
+| Configuration  | ✅ Single config file | ❌ Multiple rc files |
+
+## Quick Start
+
+```bash
+# Install globally
+npm install -g @turbo-version/version
+
+# Initialize configuration
+turbo-version init
+
+# Bump versions based on changes
+turbo-version bump
+```
+
+## Key Features
+
+### 🚦 Intelligent Version Bumping
+- Automatically determines version bumps based on:
+  - Conventional commit messages (`feat:`, `fix:`, `BREAKING CHANGE:`)
+  - Branch name patterns (`feature/`, `fix/`, `release/`)
+- Supports all semver bump types: major, minor, patch, prereleases
+
+### 📜 Effortless Changelogs
+- Generates beautiful, organized changelogs from commits
+- Groups changes by type (Features, Fixes, Breaking Changes)
+- Links to commit history and GitHub comparisons
+
+### 🧩 Monorepo Optimized
+- Tracks dependencies between packages
+- Only versions changed packages (async mode)
+- Or keeps all packages in sync (synced mode)
+- Updates cross-package references automatically
+
+### ⚙️ Flexible Configuration
+```json
+// version.config.json
+{
+  "tagPrefix": "v",
+  "preset": "angular",
+  "synced": false,
+  "updateInternalDependencies": "patch"
+}
+```
+
+## How It Works
+
+1. **Analyzes Changes**
+   Reads git history to detect affected packages
+
+2. **Determines Version Bump**
+   Uses commit messages or branch patterns
+
+3. **Updates Versions**
+   Modifies package.json files appropriately
+
+4. **Generates Artifacts**
+   Creates changelog, commits, and tags
+
+5. **Ready for Publishing**
+   Outputs clean package state for your CI/CD pipeline
+
+## Getting Help
+
+- [Documentation](https://turbo-version.dev/docs)
+- [GitHub Issues](https://github.com/turbo-version/turbo-version/issues)
+- [Community Discord](https://discord.gg/turbo-version)
+
+```bash
+# Show all available commands
+turbo-version --help
+```
+
+TurboVersion is [MIT licensed](https://github.com/turbo-version/turbo-version/blob/main/LICENSE).

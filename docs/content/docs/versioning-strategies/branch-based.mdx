@@ -1,0 +1,133 @@
+---
+title: Branch-Based Versioning
+description: Automate version bumps using Git branch naming conventions
+---
+
+# 🌿 Branch Name Versioning
+
+TurboVersion can determine version bumps by analyzing your Git branch names, providing an alternative to commit message parsing.
+
+## How It Works
+
+When `versionStrategy: "branchPattern"` is set:
+
+1. **On merge to `baseBranch`**:
+   TurboVersion checks the merged branch's name
+2. **Pattern matching**:
+   Compares against your `branchPattern` list
+3. **Version bump**:
+   Applies the highest-priority match
+
+### Default Behavior
+With default configuration (`branchPattern: ["major", "minor", "patch"]`):
+
+| Branch Name      | Version Bump | Example (from v1.2.3) |
+|------------------|--------------|-----------------------|
+| `feature/add-login`  | *None*       | -                     |
+| `patch/fix-issue`    | Patch        | 1.2.3 → 1.2.4         |
+| `minor/new-endpoint` | Minor        | 1.2.3 → 1.3.0         |
+| `major/v2-rewrite`   | Major        | 1.2.3 → 2.0.0         |
+
+## Configuration
+
+Set up in `version.config.json`:
+
+```json
+{
+  "versionStrategy": "branchPattern",
+  "baseBranch": "main",
+  "branchPattern": [
+    "major/",
+    "minor/",
+    "patch/",
+    "hotfix/"
+  ]
+}
+```
+
+### Advanced Configuration
+
+**Custom Prefixes**:
+```json
+{
+  "branchPattern": [
+    "release/",    // Major
+    "feat/",       // Minor
+    "bugfix/"      // Patch
+  ]
+}
+```
+
+**Regex Support**:
+```json
+{
+  "branchPattern": [
+    "^breaking/",  // Major
+    "^feature/",   // Minor
+    "^fix/"        // Patch
+  ]
+}
+```
+
+## Usage Examples
+
+### 1. Standard Workflow
+```bash
+git checkout -b minor/new-feature
+# Develop your feature...
+git commit -m "Implement new API endpoint"
+git push origin minor/new-feature
+# Merge to main → bumps minor version
+```
+
+### 2. Hotfix Release
+```bash
+git checkout -b patch/critical-bug
+# Apply fixes...
+git commit -m "Resolve security vulnerability"
+git push origin patch/critical-bug
+# Merge to main → bumps patch version
+```
+
+## Best Practices
+
+1. **Branch Naming Consistency**:
+   ```bash
+   # Good
+   git checkout -b feat/user-profile
+   git checkout -b fix/login-flow
+
+   # Avoid
+   git checkout -b update-stuff
+   ```
+
+2. **CI/CD Integration**:
+   ```yaml
+   # GitHub Actions example
+   - name: Version Check
+     run: |
+       if [[ $GITHUB_REF == refs/heads/major/* ]]; then
+         echo "::set-output name=BUMP_TYPE::major"
+       fi
+   ```
+
+3. **Combine with Conventional Commits**:
+   ```json
+   {
+     "versionStrategy": "branchPattern",
+     "preset": "angular" // Fallback to commits if no branch match
+   }
+   ```
+
+## Troubleshooting
+
+❌ **No version bump occurs**
+→ Verify branch name matches exactly (case-sensitive)
+→ Check merge target is your configured `baseBranch`
+
+❌ **Wrong bump type applied**
+→ Ensure patterns are ordered from highest to lowest priority
+→ Use `--debug` flag to see pattern matching:
+```bash
+turbo-version bump --debug
+```

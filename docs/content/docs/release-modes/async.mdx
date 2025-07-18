@@ -1,0 +1,124 @@
+---
+title: Async Mode
+description: Smart, incremental versioning for changed packages only
+---
+
+# Async Mode: Optimized Monorepo Versioning
+
+Async mode enables **granular version control** by only updating packages with actual changes since the last release. Perfect for monorepos where packages evolve independently.
+
+```bash
+# Run in async mode (default for monorepos)
+turbo-version bump --async
+# or via config
+{ "synced": false }
+```
+
+## How Async Mode Works
+
+1. **Detects Changed Packages**
+   Analyzes git history to identify modified packages
+
+2. **Calculates Version Bumps**
+   Examines commit messages for affected packages:
+   - `feat:` → Minor bump (1.0.0 → 1.1.0)
+   - `fix:` → Patch bump (1.0.0 → 1.0.1)
+   - `BREAKING CHANGE:` → Major bump (1.0.0 → 2.0.0)
+
+3. **Updates Dependencies**
+   Adjusts dependent packages based on your `updateInternalDependencies` setting
+
+## Example Workflow
+
+**Project Structure**
+```
+monorepo/
+├── packages/
+│   ├── ui/       # Last release: 1.2.0
+│   ├── utils/    # Last release: 0.5.0
+│   └── api/      # Last release: 3.1.4
+```
+
+**After These Commits:**
+```bash
+git commit -m "feat(ui): add dark mode support"
+git commit -m "fix(utils): resolve cache issue"
+```
+
+**Running Async Versioning:**
+```bash
+turbo-version bump
+```
+
+**Result:**
+```
+ui:    1.2.0 → 1.3.0  (feat → minor bump)
+utils: 0.5.0 → 0.5.1  (fix → patch bump)
+api:   (unchanged)    (no commits → no bump)
+```
+
+## Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `async` | boolean | `false` | Enable async mode |
+| `updateInternalDependencies` | string | `"patch"` | How to bump dependent packages (`"major"`, `"minor"`, `"patch"`, or `false`) |
+| `analyzeCommitsSince` | string | `"last-release"` | Alternative: `"tag:<TAG>"` or `"commit:<SHA>"` |
+
+**Example Config:**
+```json
+{
+  "synced": false,
+  "updateInternalDependencies": "minor",
+  "tagPrefix": "pkg-"
+}
+```
+
+## When to Use Async Mode
+
+✅ **Independent Packages**
+   When components evolve at different paces
+
+✅ **Partial Releases**
+   When only some packages need publishing
+
+✅ **Large Monorepos**
+   To avoid unnecessary version bumps
+
+## Pro Tips
+
+1. **Combine with Conventional Commits**
+   Ensure consistent commit messages for accurate version bumps:
+   ```bash
+   feat(ui): add new component
+   fix(utils): patch memory leak
+   ```
+
+2. **View Planned Changes**
+   Preview version bumps before applying:
+   ```bash
+   turbo-version bump --dry-run
+   ```
+
+3. **Customize Bump Logic**
+   Override automatic detection:
+   ```bash
+   turbo-version bump ui --minor
+   ```
+
+## Troubleshooting
+
+**Q: My dependent package didn't get bumped**
+→ Set `updateInternalDependencies` to `"minor"` or `"major"` for stricter updates
+
+**Q: Async mode is too slow**
+→ Try limiting commit analysis range:
+```json
+{ "analyzeCommitsSince": "tag:v1.4.0" }
+```
+
+**Q: How to force all packages to update?**
+→ Use synced mode instead:
+```bash
+turbo-version bump --synced
+```

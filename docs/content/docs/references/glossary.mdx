@@ -1,0 +1,131 @@
+---
+title: TurboVersion Glossary
+description: Key terms and concepts explained
+---
+
+# 📖 TurboVersion Glossary
+
+## Core Concepts
+
+### Semantic Versioning (SemVer)
+A versioning scheme using `MAJOR.MINOR.PATCH` numbers:
+- **MAJOR**: Breaking changes
+- **MINOR**: Backward-compatible features
+- **PATCH**: Backward-compatible fixes
+*Example*: `v2.1.3` = Major 2, Minor 1, Patch 3
+
+### Conventional Commits
+A standardized commit message format:
+```
+<type>(<scope>): <description>
+[BREAKING CHANGE: <details>]
+```
+*Common types*: `feat`, `fix`, `docs`, `chore`
+
+---
+
+## Versioning Modes
+
+### Synced Mode
+All packages share the same version number.
+*Use case*: Full-stack apps where frontend/backend versions stay aligned.
+
+### Async Mode
+Packages version independently based on changes.
+*Use case*: Component libraries with decoupled releases.
+
+---
+
+## Technical Terms
+
+### Monorepo
+A single repository containing multiple packages/projects with:
+- Shared configuration
+- Cross-package dependencies
+- Unified tooling
+
+### Changelog
+Auto-generated release notes grouping changes by:
+- Features (`feat`)
+- Fixes (`fix`)
+- Breaking Changes
+
+### Tag Prefix
+Git tag format preceding version numbers:
+- Default: `v` → `v1.0.0`
+- Monorepo: `${packageName}@` → `@ui/button@1.0.0`
+
+---
+
+## TurboVersion Specific
+
+### Presets
+Predefined commit message rules:
+- **Angular**: `feat:`, `fix:`, etc.
+- **Conventional**: Extended Angular format
+
+### Bump Strategies
+How versions increment:
+- **Commit-based**: Analyzes commit messages
+- **Branch-based**: Uses branch name patterns
+
+### Prerelease Identifier
+Version suffix for unstable releases:
+- Formats: `-alpha`, `-beta`, `-rc`
+*Example*: `v2.0.0-alpha.1`
+
+---
+
+## Related Technologies
+
+### Lerna
+A monorepo management tool TurboVersion can replace.
+
+### Changesets
+An alternative versioning system TurboVersion integrates with.
+
+### Workspaces
+Node.js/Yarn feature for monorepo package linking.
+
+---
+
+## Git Terms
+
+### Follow-tags
+Flag required to push version tags:
+```bash
+git push --follow-tags
+```
+
+### Base Branch
+The primary branch (usually `main` or `master`) used for version comparison.
+
+---
+
+## CLI Terms
+
+### Dry Run
+Preview changes without modifying files:
+```bash
+turbo-version bump --dry-run
+```
+
+### Prerelease ID
+Custom identifier for test versions:
+```bash
+turbo-version bump --preid beta
+```
+
+---
+
+## Troubleshooting Terms
+
+### Version Conflict
+When Git tags/versions become misaligned.
+*Fix*: Use `turbo-version repair --clean-tags`
+
+### No Changes Detected
+Means TurboVersion found no qualifying commits.
+*Check*: `git log` for `feat:`/`fix:` messages
+
+---

@@ -1,0 +1,143 @@
+---
+title: Commit Message Versioning
+description: Automate version bumps using semantic commit conventions
+---
+
+# ✨ Commit-Based Versioning
+
+TurboVersion analyzes your commit messages to determine the appropriate version bump according to Semantic Versioning principles.
+
+## How It Works
+
+1. **Analyzes commits** since last release
+2. **Identifies highest-impact** change type
+3. **Applies version bump**:
+
+   | Commit Type  | Version Bump | Example          |
+   |-------------|--------------|------------------|
+   | `feat:`     | Minor (0.1.0 → 0.2.0) | New user dashboard |
+   | `fix:`      | Patch (0.1.0 → 0.1.1) | Bug resolution    |
+   | `BREAKING CHANGE:` | Major (0.1.0 → 1.0.0) | API incompatibility |
+   | Other types | No version bump | Docs, chores, etc. |
+
+## Commit Message Format
+
+### Basic Structure
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+### Monorepo Example with Scope
+```
+feat(ui): add dark mode toggle
+^   ^   ^
+|   |   |
+|   |   +-> Description in present tense
+|   |
+|   +-> Affected package (optional but recommended)
+|
++-> Commit type (feat, fix, etc.)
+```
+
+## Commit Types That Trigger Version Bumps
+
+| Type       | Bump    | When to Use                      | Example                    |
+|------------|---------|----------------------------------|----------------------------|
+| `feat:`    | Minor   | New user-facing functionality    | `feat(auth): add OAuth login` |
+| `fix:`     | Patch   | Bug fixes                        | `fix(ui): button alignment` |
+| Contains `BREAKING CHANGE:` | Major | Backward-incompatible changes | See below                  |
+
+*Other types (`docs:`, `chore:`, etc.) don't trigger version bumps*
+
+## Breaking Changes
+
+Indicate major version bumps with:
+
+1. **Footer method** (recommended):
+   ```
+   feat(core): redesign API interface
+
+   BREAKING CHANGE: Previous API clients will no longer work
+   ```
+
+2. **Prefix method**:
+   ```
+   feat(core)!: remove deprecated API
+   ```
+
+## Configuration
+
+Set in `version.config.json`:
+```json
+{
+  "versionStrategy": "commitMessage",
+  "preset": "angular", // or "conventional"
+  "baseBranch": "main"
+}
+```
+
+## Real-World Examples
+
+### 1. Simple Feature
+```bash
+git commit -m "feat: add password strength meter"
+# Bumps minor version (1.2.3 → 1.3.0)
+```
+
+### 2. Monorepo Fix
+```bash
+git commit -m "fix(analytics): correct session tracking"
+# Bumps patch version for @app/analytics
+```
+
+### 3. Breaking Change
+```bash
+git commit -m "feat(db)!: migrate to new query engine\n\nBREAKING CHANGE: Old query syntax no longer supported"
+# Bumps major version (2.1.4 → 3.0.0)
+```
+
+## Best Practices
+
+1. **Monorepo Scoping**:
+   ```bash
+   # Good
+   git commit -m "feat(ui-button): add loading state"
+
+   # Avoid
+   git commit -m "feat: update button component"
+   ```
+
+2. **Multi-Package Changes**:
+   ```bash
+   git commit -m "feat(ui,api): implement new auth flow"
+   ```
+
+3. **CI/CD Integration**:
+   ```yaml
+   # GitHub Actions step to verify commits
+   - name: Check Commit Messages
+     uses: conventional-commit-message-checker@v1
+     with:
+       requireScope: true
+   ```
+
+## Troubleshooting
+
+❌ **No version bump occurs**
+→ Verify commits are on target branch
+→ Check for `feat:`/`fix:` prefixes
+
+❌ **Wrong bump type applied**
+→ Ensure breaking changes use correct format
+→ Use `--debug` to see commit analysis:
+```bash
+turbo-version bump --debug
+```
+
+## References
+- [Conventional Commits Specification](https://www.conventionalcommits.org)
+- [Angular Commit Guidelines](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format)

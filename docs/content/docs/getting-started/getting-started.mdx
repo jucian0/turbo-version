@@ -1,0 +1,102 @@
+---
+title: Getting Started with TurboVersion
+description: Go from zero to first release in under 5 minutes
+---
+
+# 🚀 TurboVersion Quick Start
+
+## Before You Begin
+- **Node.js** 16+ installed
+- **Git** repository initialized
+- Package manager ready (npm/yarn/pnpm)
+
+```bash
+# Verify environment
+node --version
+git --version
+```
+
+## Step 1: Installation
+Choose your preferred method:
+
+```bash
+# npm
+npm install -g @turbo-version/version
+
+# yarn
+yarn global add @turbo-version/version
+
+# pnpm
+pnpm add -g @turbo-version/version
+```
+
+> 💡 Prefer project-local installation? Use `npx @turbo-version/version` instead.
+
+## Step 2: Configuration
+Run the interactive setup:
+
+```bash
+turbo-version init
+```
+
+You'll configure:
+1. **Project type**:
+   - Monorepo (multiple packages)
+   - Single-package
+2. **Version strategy**:
+   - Commit messages (recommended)
+   - Branch patterns
+3. **Tag format**:
+   - Classic (`v1.0.0`)
+   - Package-scoped (`pkg@1.0.0`)
+
+Example output:
+```text
+✅ Created version.config.json
+{
+  "tagPrefix": "v",
+  "preset": "angular",
+  "baseBranch": "main"
+}
+```
+
+## Step 3: Make Your First Release
+1. Make some changes:
+```bash
+git commit -m "feat: add user login component"
+git commit -m "fix: resolve header alignment issue"
+```
+
+2. Run version bump:
+```bash
+turbo-version bump
+```
+
+3. Push changes with tags:
+```bash
+git push --follow-tags
+```
+
+## Expected Outcome
+```
+🔄 Analyzing 2 commits since last release
+📦 Detected changes in: @app/ui
+⬆️ Bumping @app/ui from 1.0.0 → 1.1.0
+📝 Generated CHANGELOG.md
+🏷️ Created tag v1.1.0
+```
+
+## Next Steps
+- [Learn schema options →](/docs/schema)
+- [Set up CI automation →](/docs/ci-cd)
+- [Explore monorepo features →](/docs/monorepos)
+
+## Troubleshooting First Run
+❌ **"Not in a git repository"**
+   → Run `git init` first
+
+❌ **"No valid commits found"**
+   → Use conventional commit messages (`feat:`, `fix:`)
+
+❌ **"Permission denied"**
+   → Prefix install commands with `sudo`

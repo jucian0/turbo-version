@@ -1,0 +1,136 @@
+---
+title: TurboVersion FAQ
+description: Answers to common questions and troubleshooting
+---
+
+# ❓ TurboVersion Frequently Asked Questions
+
+## Versioning
+
+### Q: How does TurboVersion determine the next version?
+It analyzes commits since the last release using:
+- **Commit messages** (default):
+  `feat:` → Minor bump
+  `fix:` → Patch bump
+  `BREAKING CHANGE:` → Major bump
+- **Branch names** (if configured):
+  `feature/` → Minor
+  `hotfix/` → Patch
+  `release/` → Major
+
+### Q: Can I override automatic version detection?
+Yes! Force a specific bump:
+```bash
+turbo-version bump --major  # Force v2.0.0
+turbo-version bump --preid beta  # v1.0.0-beta.1
+```
+
+---
+
+## Monorepos
+
+### Q: Synced vs Async mode - which should I use?
+| **Sync Mode** | **Async Mode** |
+|--------------|---------------|
+| All packages share one version | Packages version independently |
+| Best for tightly coupled projects | Ideal for modular monorepos |
+| Single git tag | Individual package tags |
+
+**Pro Tip**: Start with sync mode for simpler projects.
+
+### Q: How are cross-package dependencies handled?
+Configure update rules in `version.config.json`:
+```json
+{
+  "updateInternalDependencies": "minor" // or "major"/"patch"/false
+}
+```
+
+---
+
+## Configuration
+
+### Q: Where should I put my config file?
+TurboVersion looks for:
+1. `version.config.json` (project root)
+2. `.turbo-versionrc` (JSON/YAML)
+3. `turboVersion` key in `package.json`
+
+### Q: How to skip versioning for some packages?
+```json
+{
+  "skip": ["docs", "test-utils", "examples/*"]
+}
+```
+
+---
+
+## Troubleshooting
+
+### Q: Version bump fails with "No changes detected"
+1. Verify commits follow [Conventional Commits](https://www.conventionalcommits.org):
+   ```bash
+   git log --oneline -n 5  # Check recent commits
+   ```
+2. Try expanding commit history range:
+   ```json
+   {
+     "analyzeCommitsSince": "last-month"
+   }
+   ```
+
+### Q: Git tags aren't being pushed
+Ensure you use:
+```bash
+git push --follow-tags  # Critical for CI/CD
+```
+
+---
+
+## Advanced Usage
+
+### Q: Can I generate a changelog without bumping versions?
+Yes! Use the `changelog` command:
+```bash
+turbo-version changelog --from v1.0.0 --to HEAD
+```
+
+### Q: How to integrate with CI/CD pipelines?
+1. **GitHub Actions**:
+   ```yaml
+   - name: Version Packages
+     run: |
+       npx turbo-version bump
+       git push --follow-tags
+   ```
+2. **Required permissions**:
+   `contents: write` for tags
+   `pull-requests: write` for changelog comments
+
+---
+
+## Migration
+
+### Q: Switching from Lerna?
+1. Replace `lerna version` with `turbo-version bump`
+2. Convert config:
+   ```diff
+   - "version": "independent"
+   + "synced": false
+   ```
+
+### Q: Coming from Changesets?
+1. Remove `.changeset` folder
+2. Set commit preset:
+   ```json
+   {
+     "preset": "conventional"
+   }
+   ```
+
+---
+
+## Still have questions?
+- [Browse GitHub Discussions](https://github.com/turbo-version/turbo-version/discussions)
+- [Join our Discord](https://discord.gg/turbo-version)
+- [Open an Issue](https://github.com/turbo-version/turbo-version/issues)

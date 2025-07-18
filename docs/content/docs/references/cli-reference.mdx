@@ -1,0 +1,129 @@
+---
+title: CLI Command Reference
+description: Master TurboVersion's command-line interface
+---
+
+# ⚡ TurboVersion CLI Reference
+
+## Core Commands
+
+### `bump` - Version Management
+```bash
+turbo-version bump [options]
+```
+**Options**:
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--major`/`--minor`/`--patch` | Force version bump type | `bump --major` |
+| `--preid <identifier>` | Prerelease tag (alpha/beta/rc) | `bump --preid beta` |
+| `--package <name>` | Target specific package | `bump --package @app/core` |
+| `--dry-run` | Preview changes | `bump --dry-run` |
+| `--async` | Async mode (monorepos) | `bump --async` |
+| `--synced` | Synced mode | `bump --synced` |
+
+**Examples**:
+```bash
+# Minor release with changelog
+turbo-version bump --minor
+
+# Prerelease for testing
+turbo-version bump --preid alpha
+
+# Monorepo selective update
+turbo-version bump --package=@ui/button --minor
+```
+
+---
+
+### `changelog` - Changelog Generation
+```bash
+turbo-version changelog [options]
+```
+**Options**:
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--from <ref>` | Start commit/tag | `changelog --from v1.0.0` |
+| `--to <ref>` | End commit/tag | `changelog --to HEAD` |
+| `--file <path>` | Output file | `changelog --file RELEASES.md` |
+
+**Examples**:
+```bash
+# Generate since last release
+turbo-version changelog
+
+# Custom range to file
+turbo-version changelog --from v2.1.0 --to v2.3.0 --file CHANGES.md
+```
+
+---
+
+### `init` - Configuration Setup
+```bash
+turbo-version init [options]
+```
+**Options**:
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--force` | Overwrite existing config | `init --force` |
+| `--defaults` | Skip prompts | `init --defaults` |
+
+---
+
+## Global Flags
+Available for all commands:
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--config <path>` | Custom config file | `--config ./custom.config.json` |
+| `--debug` | Verbose output | `--debug` |
+| `--silent` | Suppress logs | `--silent` |
+| `--version` | Show version | `--version` |
+
+---
+
+## Common Workflows
+
+### 1. Production Release
+```bash
+turbo-version bump --minor && git push --follow-tags
+```
+
+### 2. Monorepo Hotfix
+```bash
+turbo-version bump --patch --package @lib/utils \
+  --commit "fix(utils): emergency patch"
+```
+
+### 3. CI/CD Integration
+```bash
+turbo-version bump --minor \
+  --commit "chore(release): ${version} [skip-ci]" \
+  --debug
+```
+
+---
+
+## Exit Codes
+| Code | Meaning | Troubleshooting |
+|------|---------|-----------------|
+| 0 | Success | - |
+| 1 | General error | Check debug logs |
+| 2 | Configuration error | Validate config file |
+| 3 | Version conflict | Resolve git state |
+| 4 | No changes detected | Verify commit history |
+
+---
+
+## Command Aliases
+For faster usage:
+| Full Command | Alias |
+|-------------|-------|
+| `bump` | `tv bump` |
+| `changelog` | `tv log` |
+| `init` | `tv init` |
+
+```bash
+# Equivalent commands:
+turbo-version bump --minor
+tv bump --minor
+```
