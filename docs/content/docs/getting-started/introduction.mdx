@@ -1,9 +1,9 @@
 ---
 title: Introduction
-description: Turbo Version is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
+description: Turboversion is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
 ---
 
-Welcome to TurboVersion documentation. Turbo Version is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
+Welcome to TurboVersion documentation. Turboversion is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
 
 ## Motivation
 When working with monorepos or common repos, managing package versions can be a challenging task if you want to automate the process based on thr changes in the packages, by commit messages or branch names. Turbo Versions aims to simplify the process of managing package versions by providing two options for versioning; by commit messages or by branch names.
@@ -13,21 +13,21 @@ When working with monorepos or common repos, managing package versions can be a 
 To get started, you can install TurboVersion by running the following command:
 
 ```bash
-npm install -g @turbo-version/version
+npm install -g @turboversion/version
 ```
 
 You can also use `npx` to run TurboVersion without installing it:
 
 ```bash
-npx @turbo-version/version
+npx @turboversion/version
 ```
 
 ## Usage
-`@turbo-version/version` provides a set of CLI commands to manage package versions.
+`@turboversion/version` provides a set of CLI commands to manage package versions.
 
-Here's an example of how to use the `turbo-version -bump` command:
+Here's an example of how to use the `turboversion -bump` command:
 
 ```bash
-npx @turbo-version/version -bump major/minor/patch/premajor/preminor/prepatch/prerelease
+npx @turboversion/version -bump major/minor/patch/premajor/preminor/prepatch/prerelease
 ```
 This command will bump the major version of all packages in the repo.

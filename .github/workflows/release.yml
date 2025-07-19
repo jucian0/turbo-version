@@ -39,9 +39,9 @@ jobs:
         shell: bash
         run: git config --global user.name 'github-actions[bot]' && git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Turbo Version
+      - name: Turboversion
         shell: bash
-        run: npx @turbo-version/version
+        run: npx @turboversion/version
 
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc

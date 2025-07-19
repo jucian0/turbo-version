@@ -1,5 +1,5 @@
 {
-  "name": "@turbo-version/dependents",
+  "name": "@turboversion/dependents",
   "description": "Automatically versioning for monorepos.",
   "version": "0.8.6",
   "main": "./dist/index.js",
@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-version",
-    "homepage": "https://turbo-version.vercel.app"
+    "url": "https://github.com/jucian0/turboversion",
+    "homepage": "https://turboversion.vercel.app"
   },
   "keywords": [
     "version",
@@ -46,9 +46,9 @@
   },
   "dependencies": {
     "@manypkg/get-packages": "^2.1.0",
-    "@turbo-version/setup": "workspace:*",
-    "@turbo-version/fs": "workspace:*",
-    "@turbo-version/git": "workspace:*"
+    "@turboversion/setup": "workspace:*",
+    "@turboversion/fs": "workspace:*",
+    "@turboversion/git": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

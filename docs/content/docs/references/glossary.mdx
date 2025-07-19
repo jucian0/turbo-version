@@ -107,13 +107,13 @@ The primary branch (usually `main` or `master`) used for version comparison.
 ### Dry Run
 Preview changes without modifying files:
 ```bash
-turbo-version bump --dry-run
+turboversion bump --dry-run
 ```
 
 ### Prerelease ID
 Custom identifier for test versions:
 ```bash
-turbo-version bump --preid beta
+turboversion bump --preid beta
 ```
 
 ---
@@ -122,7 +122,7 @@ turbo-version bump --preid beta
 
 ### Version Conflict
 When Git tags/versions become misaligned.
-*Fix*: Use `turbo-version repair --clean-tags`
+*Fix*: Use `turboversion repair --clean-tags`
 
 ### No Changes Detected
 Means TurboVersion found no qualifying commits.

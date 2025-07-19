@@ -1,5 +1,5 @@
 {
-  "name": "@turbo-version/version",
+  "name": "@turboversion/version",
   "description": "Automatically versioning for monorepos.",
   "version": "0.8.6",
   "main": "./dist/index.js",
@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-version",
-    "homepage": "https://turbo-version.vercel.app"
+    "url": "https://github.com/jucian0/turboversion",
+    "homepage": "https://turboversion.vercel.app"
   },
   "keywords": [
     "version",
@@ -27,7 +27,7 @@
     "turbov.schema.json"
   ],
   "bin": {
-    "turbo-version": "./dist/index.js"
+    "turboversion": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
@@ -63,11 +63,11 @@
     "conventional-changelog-angular": "^5.0.13",
     "conventional-commits-parser": "3.2.4",
     "figlet": "^1.5.2",
-    "@turbo-version/log": "workspace:*",
-    "@turbo-version/git": "workspace:*",
-    "@turbo-version/fs": "workspace:*",
-    "@turbo-version/dependents": "workspace:*",
-    "@turbo-version/setup": "workspace:*"
+    "@turboversion/log": "workspace:*",
+    "@turboversion/git": "workspace:*",
+    "@turboversion/fs": "workspace:*",
+    "@turboversion/dependents": "workspace:*",
+    "@turboversion/setup": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

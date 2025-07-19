@@ -9,7 +9,7 @@ Async mode enables **granular version control** by only updating packages with a
 
 ```bash
 # Run in async mode (default for monorepos)
-turbo-version bump --async
+turboversion bump --async
 # or via config
 { "synced": false }
 ```
@@ -47,7 +47,7 @@ git commit -m "fix(utils): resolve cache issue"
 
 **Running Async Versioning:**
 ```bash
-turbo-version bump
+turboversion bump
 ```
 
 **Result:**
@@ -94,16 +94,10 @@ api:   (unchanged)    (no commits → no bump)
    fix(utils): patch memory leak
    ```
 
-2. **View Planned Changes**
-   Preview version bumps before applying:
-   ```bash
-   turbo-version bump --dry-run
-   ```
-
-3. **Customize Bump Logic**
+2. **Customize Bump Logic**
    Override automatic detection:
    ```bash
-   turbo-version bump ui --minor
+   turboversion bump ui --minor
    ```
 
 ## Troubleshooting
@@ -111,14 +105,8 @@ api:   (unchanged)    (no commits → no bump)
 **Q: My dependent package didn't get bumped**
 → Set `updateInternalDependencies` to `"minor"` or `"major"` for stricter updates
 
-**Q: Async mode is too slow**
-→ Try limiting commit analysis range:
-```json
-{ "analyzeCommitsSince": "tag:v1.4.0" }
-```
-
 **Q: How to force all packages to update?**
 → Use synced mode instead:
 ```bash
-turbo-version bump --synced
+@turboversion/version bump --synced
 ```

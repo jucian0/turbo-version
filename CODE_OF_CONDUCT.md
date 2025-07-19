@@ -1,6 +1,6 @@
 # Code of Conduct
 
-As contributors and maintainers of Turbo Version, we pledge to create a welcoming and inclusive environment for everyone who wishes to participate in the project.
+As contributors and maintainers of Turboversion, we pledge to create a welcoming and inclusive environment for everyone who wishes to participate in the project.
 
 We value the diversity of perspectives and experiences that our contributors bring, and we recognize the importance of creating an inclusive community that fosters respect, kindness, and empathy.
 

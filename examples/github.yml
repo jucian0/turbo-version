@@ -40,15 +40,15 @@ jobs:
         shell: bash
         run: git config --global user.name 'github-actions[bot]' && git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Turbo Version
+      - name: Turboversion
         shell: bash
-        run: npx @turbo-version/version
+        run: npx @turboversion/version
 
       - name: Turbo Release
         shell: bash
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx @turbo-version/release
+        run: npx @turboversion/release
 
       - name: Push tags, and commits
         shell: bash

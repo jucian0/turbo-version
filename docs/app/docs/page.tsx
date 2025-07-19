@@ -41,7 +41,7 @@ export default function Page(props: Route.ComponentProps) {
   return (
     <DocsLayout
       nav={{
-        title: "Turbo Version",
+        title: "Turboversion",
       }}
       tree={tree as PageTree.Root}
     >

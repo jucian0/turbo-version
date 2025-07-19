@@ -48,7 +48,7 @@ export default function HeroContent() {
                 </Link>
 
                 <a
-                  href="https://github.com/jucian0/turbo-version"
+                  href="https://github.com/jucian0/turboversion"
                   className="relative py-2.5 px-8 mr-3 mb-2 text-md font-medium rounded-lg group
                     bg-white/80 hover:bg-white text-violet-800
                     dark:bg-violet-900/30 dark:hover:bg-violet-900/40 dark:text-violet-100

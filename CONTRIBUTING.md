@@ -1,10 +1,10 @@
 # Contribution Guidelines
 
-We welcome contributions to Turbo Version from anyone, regardless of skill level or experience. If you are interested in contributing, please follow these guidelines:
+We welcome contributions to Turboversion from anyone, regardless of skill level or experience. If you are interested in contributing, please follow these guidelines:
 
 ## Getting Started
 
-Fork the Turbo Version repository to your own account.
+Fork the Turboversion repository to your own account.
 Clone your forked repository to your local machine.
 Install the required dependencies by running npm install in the root directory of the project.
 
@@ -22,7 +22,7 @@ Install the required dependencies by running npm install in the root directory o
 
 6. Push your changes to your forked repository.
 
-7. Submit a pull request to the Turbo Version repository.
+7. Submit a pull request to the Turboversion repository.
 
 ## Pull Request Guidelines
 
@@ -33,6 +33,6 @@ Install the required dependencies by running npm install in the root directory o
 5. Be open to feedback and willing to make changes if necessary.
 6. Ensure that your code is well-documented and follows best practices.
 7. Follow the project's code of conduct and be respectful and kind to other contributors.
-8. Once your pull request is submitted, it will be reviewed by a maintainer. We may ask for additional changes or information, and we appreciate your patience and willingness to work with us to improve Turbo Version.
+8. Once your pull request is submitted, it will be reviewed by a maintainer. We may ask for additional changes or information, and we appreciate your patience and willingness to work with us to improve Turboversion.
 
-Thank you for your interest in contributing to Turbo Version!
+Thank you for your interest in contributing to Turboversion!

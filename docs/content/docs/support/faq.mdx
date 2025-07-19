@@ -21,8 +21,8 @@ It analyzes commits or branch type since the last release using:
 ### Q: Can I override automatic version detection?
 Yes! Force a specific bump:
 ```bash
-turbo-version bump --major  # Force v2.0.0
-turbo-version bump --preid beta  # v1.0.0-beta.1
+turboversion bump --major  # Force v2.0.0
+turboversion bump --preid beta  # v1.0.0-beta.1
 ```
 ---
 
@@ -52,7 +52,7 @@ Configure update rules in `version.config.json`:
 ### Q: Where should I put my config file?
 TurboVersion looks for:
 1. `version.config.json` (project root)
-2. `.turbo-versionrc` (JSON/YAML)
+2. `.turboversionrc` (JSON/YAML)
 3. `turboVersion` key in `package.json`
 
 ### Q: How to skip versioning for some packages?
@@ -93,7 +93,7 @@ git push --follow-tags  # Critical for CI/CD
    ```yaml
    - name: Version Packages
      run: |
-       npx @turbo-version/version
+       npx @turboversion/version
        git push --follow-tags
    ```
 2. **Required permissions**:
@@ -105,7 +105,7 @@ git push --follow-tags  # Critical for CI/CD
 ## Migration
 
 ### Q: Switching from Lerna?
-1. Replace `lerna version` with `npx @turbo-version/version`
+1. Replace `lerna version` with `npx @turboversion/version`
 2. Convert config:
    ```diff
    - "version": "independent"
@@ -124,6 +124,6 @@ git push --follow-tags  # Critical for CI/CD
 ---
 
 ## Still have questions?
-- [Browse GitHub Discussions](https://github.com/turbo-version/turbo-version/discussions)
-- [Join our Discord](https://discord.gg/turbo-version)
-- [Open an Issue](https://github.com/turbo-version/turbo-version/issues)
+- [Browse GitHub Discussions](https://github.com/turboversion/turboversion/discussions)
+- [Join our Discord](https://discord.gg/turboversion)
+- [Open an Issue](https://github.com/turboversion/turboversion/issues)

@@ -9,7 +9,7 @@ description: Master TurboVersion's command-line interface
 
 ### `bump` - Version Management
 ```bash
-turbo-version bump [options]
+turboversion bump [options]
 ```
 **Options**:
 | Flag | Description | Example |
@@ -24,20 +24,20 @@ turbo-version bump [options]
 **Examples**:
 ```bash
 # Minor release with changelog
-turbo-version bump --minor
+turboversion bump --minor
 
 # Prerelease for testing
-turbo-version bump --preid alpha
+turboversion bump --preid alpha
 
 # Monorepo selective update
-turbo-version bump --package=@ui/button --minor
+turboversion bump --package=@ui/button --minor
 ```
 
 ---
 
 ### `changelog` - Changelog Generation
 ```bash
-turbo-version changelog [options]
+turboversion changelog [options]
 ```
 **Options**:
 | Flag | Description | Example |
@@ -49,17 +49,17 @@ turbo-version changelog [options]
 **Examples**:
 ```bash
 # Generate since last release
-turbo-version changelog
+turboversion changelog
 
 # Custom range to file
-turbo-version changelog --from v2.1.0 --to v2.3.0 --file CHANGES.md
+turboversion changelog --from v2.1.0 --to v2.3.0 --file CHANGES.md
 ```
 
 ---
 
 ### `init` - Configuration Setup
 ```bash
-turbo-version init [options]
+turboversion init [options]
 ```
 **Options**:
 | Flag | Description | Example |
@@ -85,18 +85,18 @@ Available for all commands:
 
 ### 1. Production Release
 ```bash
-turbo-version bump --minor && git push --follow-tags
+turboversion bump --minor && git push --follow-tags
 ```
 
 ### 2. Monorepo Hotfix
 ```bash
-turbo-version bump --patch --package @lib/utils \
+turboversion bump --patch --package @lib/utils \
   --commit "fix(utils): emergency patch"
 ```
 
 ### 3. CI/CD Integration
 ```bash
-turbo-version bump --minor \
+turboversion bump --minor \
   --commit "chore(release): ${version} [skip-ci]" \
   --debug
 ```
@@ -124,6 +124,6 @@ For faster usage:
 
 ```bash
 # Equivalent commands:
-turbo-version bump --minor
+turboversion bump --minor
 tv bump --minor
 ```

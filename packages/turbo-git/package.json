@@ -1,5 +1,5 @@
 {
-  "name": "@turbo-version/git",
+  "name": "@turboversion/git",
   "description": "Automatically versioning for monorepos.",
   "version": "0.8.6",
   "main": "./dist/index.js",
@@ -11,8 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jucian0/turbo-version",
-    "homepage": "https://turbo-version.vercel.app"
+    "url": "https://github.com/jucian0/turboversion",
+    "homepage": "https://turboversion.vercel.app"
   },
   "keywords": [
     "version",

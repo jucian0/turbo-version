@@ -1,14 +1,14 @@
-# Turbo Version
+# Turboversion
 
-This is a command-line tool that allows you to bump the versions of your packages in project according to Semantic Versioning. By automating the versioning process, **Turbo Version** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
+This is a command-line tool that allows you to bump the versions of your packages in project according to Semantic Versioning. By automating the versioning process, **Turboversion** can save developers time and reduce the risk of errors that can occur when version numbers are assigned manually. Additionally, using semantic commit messages can help improve communication and collaboration among team members by providing clear and consistent information about the changes being made to the codebase.
 
 ## Usage
 
-You can use **Turbo Version** in two ways: **synced**, **async** mode, and **manually** or **affected** packages by commits since the last release.
+You can use **Turboversion** in two ways: **synced**, **async** mode, and **manually** or **affected** packages by commits since the last release.
 
 ```bash
 
-yarn add -D turbo-version
+yarn add -D turboversion
 
 ```
 
@@ -23,7 +23,7 @@ For monorepos `synced` mode is typically used when all packages in the are close
 
 ### Async (just for monorepos)
 
-In async mode, the **Turbo Version** command updates only the packages that have been affected by commits since the last release. This means that it analyzes the commit history and determines which packages have had changes made to them. It then applies the appropriate version bump to each affected package, according to the specifications in the version.config.json file.
+In async mode, the **Turboversion** command updates only the packages that have been affected by commits since the last release. This means that it analyzes the commit history and determines which packages have had changes made to them. It then applies the appropriate version bump to each affected package, according to the specifications in the version.config.json file.
 
 In async mode, if the user does not specify the bump kind, the tool will automatically determine the next version based on the commit messages since the last release. The tool will parse the commit messages and look for specific keywords to determine the appropriate semantic version bump. For example, if the commit messages contain the keyword "fix", the tool will automatically bump the patch version. If the messages contain the keyword "feat", the tool will bump the minor version.
 
@@ -44,7 +44,7 @@ If there are no commit messages to determine the bump kind, the tool will defaul
 
 Semantic Commit Messages-based versioning
 
-**Turbo Version** analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, **Turbo Version** might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, **Turbo Version** might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
+**Turboversion** analyzes these semantic commit messages and automatically determines the appropriate version number to assign to the next release of the package. For example, if a commit message indicates that a bug was fixed, **Turboversion** might increment the patch version number (e.g. from 1.2.3 to 1.2.4). If a commit message indicates that a new feature was added, **Turboversion** might increment the minor version number (e.g. from 1.2.3 to 1.3.0).
 
 Format: `<type>(<scope>): <subject>`
 
@@ -118,15 +118,15 @@ The following properties are required in the schema:
 - `baseBranch`: The `baseBranch` property is required and must be a non-empty string.
 - `updateInternalDependencies`: The `updateInternalDependencies` property is required and must be set to one of the three possible string values - "major", "minor", or "patch", or the boolean value `false`.
 
-## Turbo Version + PNPM
+## Turboversion + PNPM
 
-We believe that PNPM is the perfect match for Turbo Version. With Turbo Version, you can easily manage your monorepo version packages, and deliver them with PNPM using just two commands:
+We believe that PNPM is the perfect match for Turboversion. With Turboversion, you can easily manage your monorepo version packages, and deliver them with PNPM using just two commands:
 
 ```bash
-pnpm turbo-version
+pnpm turboversion
 
 pnpm publish -r
 ```
 
-- `pnpm turbo-version` - generates new changelogs, tags, and updates package versions.
+- `pnpm turboversion` - generates new changelogs, tags, and updates package versions.
 - `pnpm publish -r` - recursively publishes all packages in your monorepo that have not yet been published.

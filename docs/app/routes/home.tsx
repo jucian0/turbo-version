@@ -6,7 +6,7 @@ import { span } from "framer-motion/m";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Turbo Version" },
+    { title: "Turboversion" },
     {
       name: "description",
       content:
@@ -22,13 +22,13 @@ export default function Home() {
         title: (
           <span className="flex items-center">
             <img src="/favicon.svg" alt="Turbo Logo" className="w-6 h-6 mr-2" />{" "}
-            Turbo Version
+            Turboversion
           </span>
         ),
       }}
     >
       <div className="p-4 flex flex-col items-center justify-center text-center flex-1">
-        {/* <h1 className="text-xl font-bold mb-2">Turbo Version</h1>
+        {/* <h1 className="text-xl font-bold mb-2">Turboversion</h1>
         <p className="text-fd-muted-foreground mb-4">
           The smart, automated versioning tool for monorepos and single-package
           projects

@@ -72,7 +72,7 @@ jobs:
 
       - name: Version Packages
         run: |
-          npx @turbo-version/version bump
+          npx @turboversion/version bump
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git push --follow-tags
@@ -83,8 +83,8 @@ jobs:
 release_job:
   image: node:18
   script:
-    - npm install -g @turbo-version/version
-    - turbo-version bump
+    - npm install -g @turboversion/version
+    - turboversion bump
     - git push origin HEAD --follow-tags
   only:
     - main
@@ -105,7 +105,7 @@ release_job:
 **Workflow**:
 ```bash
 git checkout -b release/v2
-turbo-version bump --preid beta
+turboversion bump --preid beta
 ```
 
 ### 2. Custom Changelog Groups
@@ -135,7 +135,7 @@ turbo-version bump --preid beta
   "analyzeCommitsSince": "last-week",
   "updateInternalDependencies": false,
   "plugins": [
-    "@company/turbo-version-audit-plugin"
+    "@company/turboversion-audit-plugin"
   ]
 }
 ```
@@ -150,7 +150,7 @@ turbo-version bump --preid beta
 {
   "scripts": {
 -   "version": "lerna version",
-+   "version": "turbo-version bump"
++   "version": "turboversion bump"
   }
 }
 ```
