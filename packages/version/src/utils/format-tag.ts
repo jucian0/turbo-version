@@ -1,0 +1,36 @@
+import { createTemplateString } from "./template-string";
+
+type TagFormat = {
+  tagPrefix?: string;
+  name?: string;
+  synced: boolean;
+};
+
+export function formatTagPrefix({
+  tagPrefix,
+  name,
+  synced,
+}: TagFormat): string {
+  if (tagPrefix != null) {
+    return createTemplateString(tagPrefix, {
+      target: name,
+      packageName: name,
+    });
+  }
+
+  if (synced) {
+    return "v";
+  }
+
+  return `${name}-`;
+}
+
+export function formatTag({
+  tagPrefix,
+  version,
+}: {
+  tagPrefix: string;
+  version: string;
+}): string {
+  return `${tagPrefix}${version}`;
+}
