@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 import { exit } from "node:process";
-import { setup } from "@turboversion/setup";
 import chalk from "chalk";
 import { Command, Option } from "commander";
 import { syncedFlux } from "./sync-mode";
 import { singleFlux } from "./single-mode";
 import { asyncFlux } from "./async-mode";
+import { setup } from "../setup";
 
 type BumpOption =
   | "patch"

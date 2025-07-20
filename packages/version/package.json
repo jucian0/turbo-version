@@ -1,7 +1,7 @@
 {
-  "name": "@turboversion/version",
+  "name": "turboversion",
   "description": "Automatically versioning for monorepos.",
-  "version": "0.9.0",
+  "version": "0.1.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -63,12 +63,7 @@
     "compare-func": "^2.0.0",
     "conventional-changelog-angular": "^5.0.13",
     "conventional-commits-parser": "3.2.4",
-    "figlet": "^1.5.2",
-    "@turboversion/log": "workspace:*",
-    "@turboversion/git": "workspace:*",
-    "@turboversion/fs": "workspace:*",
-    "@turboversion/dependents": "workspace:*",
-    "@turboversion/setup": "workspace:*"
+    "figlet": "^1.5.2"
   },
   "publishConfig": {
     "access": "public"

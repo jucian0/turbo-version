@@ -1,10 +1,10 @@
 import { cwd } from "node:process";
 import { promisify } from "util";
-import { getCommitsLength } from "@turboversion/git";
 import conventionalRecommendedBump from "conventional-recommended-bump";
 import semver from "semver";
 
 import {} from "conventional-recommended-bump";
+import { getCommitsLength } from "./git";
 
 //https://www.npmjs.com/package/semver
 //https://www.npmjs.com/package/conventional-recommended-bump

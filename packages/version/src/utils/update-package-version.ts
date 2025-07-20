@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { fileExist, resolvePkgPath } from "@turboversion/fs";
+import { fileExist, resolvePkgPath } from "./fs";
 
 type PackageVersion = {
   path: string;

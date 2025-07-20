@@ -1,10 +1,6 @@
 import { cwd } from "node:process";
-import {
-  getCommitsLength,
-  getCurrentBranch,
-  lastMergeBranchName,
-} from "@turboversion/git";
 import semver from "semver";
+import { getCommitsLength, getCurrentBranch, lastMergeBranchName } from "./git";
 
 type Version = {
   latestTag: string;

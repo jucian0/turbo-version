@@ -1,8 +1,5 @@
 import { cwd, exit } from "node:process";
 import { getPackagesSync } from "@manypkg/get-packages";
-import { gitProcess } from "@turboversion/git";
-import { log } from "@turboversion/log";
-import type { Config } from "@turboversion/setup";
 import chalk from "chalk";
 import type { ReleaseType } from "semver";
 import { formatTag, formatTagPrefix } from "../utils/format-tag";
@@ -12,6 +9,9 @@ import { generateVersionByBranchPattern } from "../utils/generate-version-by-bra
 import { getLatestTag } from "../utils/get-latest-tag";
 import { formatCommitMessage } from "../utils/template-string";
 import { updatePackageVersion } from "../utils/update-package-version";
+import { Config } from "../setup";
+import { log } from "node:console";
+import { gitProcess } from "../utils/git";
 
 export async function syncedFlux(config: Config, type?: ReleaseType) {
   try {

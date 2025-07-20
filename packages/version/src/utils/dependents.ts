@@ -1,7 +1,7 @@
 import { cwd } from "node:process";
 import { type Package as PKG, getPackagesSync } from "@manypkg/get-packages";
-import { getFoldersWithCommits } from "@turboversion/git";
-import type { Config } from "@turboversion/setup";
+import { Config } from "../setup";
+import { getFoldersWithCommits } from "./git";
 
 type Package = PKG & { type?: string };
 

@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
-import { resolvePkgPath } from "@turboversion/fs";
 import conventionalChangelog from "conventional-changelog";
+import { resolvePkgPath } from "./fs";
 
 type ChangeLog = {
   tagPrefix: string;
