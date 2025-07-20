@@ -18,7 +18,7 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
     const { packages } = getPackagesSync(cwd());
 
     const tagPrefix = formatTagPrefix({
-      synced: config.synced,
+      sync: config.sync,
     });
     const { preset, baseBranch, branchPattern } = config;
 

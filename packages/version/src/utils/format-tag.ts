@@ -3,14 +3,10 @@ import { createTemplateString } from "./template-string";
 type TagFormat = {
   tagPrefix?: string;
   name?: string;
-  synced: boolean;
+  sync: boolean;
 };
 
-export function formatTagPrefix({
-  tagPrefix,
-  name,
-  synced,
-}: TagFormat): string {
+export function formatTagPrefix({ tagPrefix, name, sync }: TagFormat): string {
   if (tagPrefix != null) {
     return createTemplateString(tagPrefix, {
       target: name,
@@ -18,7 +14,7 @@ export function formatTagPrefix({
     });
   }
 
-  if (synced) {
+  if (sync) {
     return "v";
   }
 

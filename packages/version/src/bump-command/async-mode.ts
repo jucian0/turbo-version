@@ -47,7 +47,7 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
         const tagPrefix = formatTagPrefix({
           tagPrefix: config.tagPrefix,
           name,
-          synced: config.synced,
+          sync: config.sync,
         });
         const latestTag = await getLatestTag(tagPrefix);
 

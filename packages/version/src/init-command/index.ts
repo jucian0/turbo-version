@@ -78,8 +78,8 @@ export function initCommand(): Command {
           },
           {
             type: "confirm",
-            name: "synced",
-            message: "Use synced mode for all packages?",
+            name: "sync",
+            message: "Use sync mode for all packages?",
             default: false,
           },
         ]);

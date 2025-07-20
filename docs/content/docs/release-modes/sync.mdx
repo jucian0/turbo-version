@@ -9,9 +9,9 @@ Sync mode ensures **all packages share the same version number**, ideal for tigh
 
 ```bash
 # Enable via CLI
-turboversion bump --synced
+turboversion bump --sync
 # Or in config
-{ "synced": true }
+{ "sync": true }
 ```
 
 ## When to Use Sync Mode
@@ -58,7 +58,7 @@ turboversion bump --synced
 ### Basic Setup
 ```json
 {
-  "synced": true,
+  "sync": true,
   "tagPrefix": "v",
   "baseBranch": "main"
 }
@@ -67,7 +67,7 @@ turboversion bump --synced
 ### With Pre-releases
 ```json
 {
-  "synced": true,
+  "sync": true,
   "prereleaseIdentifier": "beta",
   "commitMessage": "chore(release): v${version} [skip-ci]"
 }
@@ -86,7 +86,7 @@ packages/
 **Config:**
 ```json
 {
-  "synced": true,
+  "sync": true,
   "updateInternalDependencies": false,
   "tagPrefix": "lib-"
 }
@@ -110,11 +110,11 @@ git commit -m "feat: add user profile system"
 ### Switching from Async to Sync
 1. Just change config:
    ```json
-   { "synced": true }
+   { "sync": true }
    ```
 2. Update config:
    ```json
-   { "synced": true }
+   { "sync": true }
    ```
 3. Verify with dry run:
    ```bash
@@ -123,11 +123,11 @@ git commit -m "feat: add user profile system"
 
 ## Troubleshooting
 
-**Q: Some packages shouldn't be synced**
+**Q: Some packages shouldn't be sync**
 → Use `skip` for exceptions:
 ```json
 {
-  "synced": true,
+  "sync": true,
   "skip": ["docs", "legacy"]
 }
 ```

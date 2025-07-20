@@ -11,7 +11,7 @@ Async mode enables **granular version control** by only updating packages with a
 # Run in async mode (default for monorepos)
 turboversion bump --async
 # or via config
-{ "synced": false }
+{ "sync": false }
 ```
 
 ## How Async Mode Works
@@ -68,7 +68,7 @@ api:   (unchanged)    (no commits → no bump)
 **Example Config:**
 ```json
 {
-  "synced": false,
+  "sync": false,
   "updateInternalDependencies": "minor",
   "tagPrefix": "pkg-"
 }
@@ -106,7 +106,7 @@ api:   (unchanged)    (no commits → no bump)
 → Set `updateInternalDependencies` to `"minor"` or `"major"` for stricter updates
 
 **Q: How to force all packages to update?**
-→ Use synced mode instead:
+→ Use sync mode instead:
 ```bash
-@turboversion/version bump --synced
+@turboversion/version bump --sync
 ```

@@ -87,7 +87,7 @@ const highlights = [
       "Seamlessly handles both complex monorepos and simple single-package projects with equal ease.",
     features: [
       "Async mode for independent versions",
-      "Synced mode for lockstep releases",
+      "Sync mode for lockstep releases",
       "Automatic dependency management",
     ],
     img: (

@@ -13,7 +13,7 @@ export type Config = {
   tagPrefix: string;
   preset: string;
   baseBranch: string;
-  synced: boolean;
+  sync: boolean;
   packages: string[];
   updateInternalDependencies:
     | "major"

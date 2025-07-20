@@ -54,14 +54,14 @@ Customize TurboVersion's behavior through a `version.config.json` file or CLI ar
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `synced` | `boolean` | `false` | Whether all packages share versions |
+| `sync` | `boolean` | `false` | Whether all packages share versions |
 | `updateInternalDependencies` | `"major"` \| `"minor"` \| `"patch"` \| `false` | `"patch"` | How to bump cross-package deps |
 | `skip` | `string[]` | `[]` | Packages to exclude from versioning |
 
 **Monorepo Example:**
 ```json
 {
-  "synced": false,
+  "sync": false,
   "updateInternalDependencies": "minor",
   "skip": ["internal-utils"]
 }
@@ -100,7 +100,7 @@ Customize TurboVersion's behavior through a `version.config.json` file or CLI ar
   "baseBranch": "develop",
   "versionStrategy": "commitMessage",
   "preset": "angular",
-  "synced": false,
+  "sync": false,
   "updateInternalDependencies": "minor",
   "prereleaseIdentifier": "rc",
   "skip": ["docs", "test-utils"],
@@ -127,7 +127,7 @@ turboversion bump \
    {
      "tagPrefix": "${packageName}@",
      "updateInternalDependencies": "minor",
-     "synced": false
+     "sync": false
    }
    ```
 
