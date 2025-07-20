@@ -9,9 +9,9 @@ import { getLatestTag } from "../utils/get-latest-tag";
 import { formatCommitMessage } from "../utils/template-string";
 import { updatePackageVersion } from "../utils/update-package-version";
 import { Config } from "../setup";
-import { log } from "node:console";
 import { summarizePackages } from "../utils/dependents";
 import { gitProcess } from "../utils/git";
+import { log } from "../utils/log";
 
 export async function asyncFlux(config: Config, type?: ReleaseType) {
   const { preset, baseBranch, branchPattern } = config;

@@ -10,8 +10,8 @@ import { getLatestTag } from "../utils/get-latest-tag";
 import { formatCommitMessage } from "../utils/template-string";
 import { updatePackageVersion } from "../utils/update-package-version";
 import { Config } from "../setup";
-import { log } from "node:console";
 import { gitProcess } from "../utils/git";
+import { log } from "../utils/log";
 
 export async function syncedFlux(config: Config, type?: ReleaseType) {
   try {
