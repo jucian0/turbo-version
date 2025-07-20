@@ -48,7 +48,8 @@
     "@types/figlet": "^1.5.5",
     "ts-jest": "^29.0.5",
     "jest": "^29.5.0",
-    "@jest/globals": "29.5.0"
+    "@jest/globals": "29.5.0",
+    "inquirer": "^12.7.0"
   },
   "dependencies": {
     "@manypkg/get-packages": "^2.1.0",

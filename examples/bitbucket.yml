@@ -11,5 +11,5 @@ pipelines:
           - pnpm i
           - pnpm build
           - pnpm @turboversion/version
-          - pnpm @turboversion/release
+          - pnpm -r publish
           - git push --tags && git push

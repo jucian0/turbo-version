@@ -5,13 +5,13 @@ import { log } from "@turboversion/log";
 import type { Config } from "@turboversion/setup";
 import chalk from "chalk";
 import type { ReleaseType } from "semver";
-import { formatTag, formatTagPrefix } from "./utils/FormatTag";
-import { generateChangelog } from "./utils/GenerateChangelog";
-import { generateVersion } from "./utils/GenerateVersion";
-import { generateVersionByBranchPattern } from "./utils/GenerateVersionByBranchPattern";
-import { getLatestTag } from "./utils/GetLatestTag";
-import { formatCommitMessage } from "./utils/TemplateString";
-import { updatePackageVersion } from "./utils/UpdatePackageVersion";
+import { formatTag, formatTagPrefix } from "../utils/format-tag";
+import { generateChangelog } from "../utils/generate-changelog";
+import { generateVersion } from "../utils/generate-version";
+import { generateVersionByBranchPattern } from "../utils/generate-version-by-branch-pattern";
+import { getLatestTag } from "../utils/get-latest-tag";
+import { formatCommitMessage } from "../utils/template-string";
+import { updatePackageVersion } from "../utils/update-package-version";
 
 export async function asyncFlux(config: Config, type?: ReleaseType) {
   const { preset, baseBranch, branchPattern } = config;
