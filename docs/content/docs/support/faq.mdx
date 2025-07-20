@@ -28,7 +28,7 @@ turboversion bump --preid beta  # v1.0.0-beta.1
 
 ## Monorepos
 
-### Q: Synced vs Async mode - which should I use?
+### Q: Sync vs Async mode - which should I use?
 | **Sync Mode** | **Async Mode** |
 |--------------|---------------|
 | All packages share one version | Packages version independently |
@@ -109,7 +109,7 @@ git push --follow-tags  # Critical for CI/CD
 2. Convert config:
    ```diff
    - "version": "independent"
-   + "synced": false
+   + "sync": false
    ```
 
 ### Q: Coming from Changesets?

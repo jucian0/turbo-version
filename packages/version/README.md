@@ -4,7 +4,7 @@ This is a command-line tool that allows you to bump the versions of your package
 
 ## Usage
 
-You can use **Turboversion** in two ways: **synced**, **async** mode, and **manually** or **affected** packages by commits since the last release.
+You can use **Turboversion** in two ways: **sync**, **async** mode, and **manually** or **affected** packages by commits since the last release.
 
 ```bash
 
@@ -12,14 +12,14 @@ yarn add -D turboversion
 
 ```
 
-### Synced
+### Sync
 
-In `synced` mode, all packages in the monorepo or common repo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages.
+In `sync` mode, all packages in the monorepo or common repo will be updated with the same version and tag. This means that when a new version is released, all packages will have the same version number and git tag. This is useful when you want to maintain consistency across all packages.
 
-- Monorepo example - If you have a monorepo with three packages (package A, package B, and package C), and you release version 1.0.0 in synced mode, all three packages will have the same version number (1.0.0) and git tag (v1.0.0). If you make changes to package A and release a new version (e.g., 1.1.0), all three packages will be updated to version 1.1.0 with the git tag v1.1.0.
+- Monorepo example - If you have a monorepo with three packages (package A, package B, and package C), and you release version 1.0.0 in sync mode, all three packages will have the same version number (1.0.0) and git tag (v1.0.0). If you make changes to package A and release a new version (e.g., 1.1.0), all three packages will be updated to version 1.1.0 with the git tag v1.1.0.
 - Common repo - If you have a common repo, it will update the package version.
 
-For monorepos `synced` mode is typically used when all packages in the are closely related and should be updated together. However, if you only want to update the packages that have been affected by changes since the last release, you can run the command with `synced=false` or leave it undefined. In this mode, only the packages that have been affected by changes will be updated to the new version.
+For monorepos `sync` mode is typically used when all packages in the are closely related and should be updated together. However, if you only want to update the packages that have been affected by changes since the last release, you can run the command with `sync=false` or leave it undefined. In this mode, only the packages that have been affected by changes will be updated to the new version.
 
 ### Async (just for monorepos)
 
@@ -97,10 +97,10 @@ This is a JSON schema used to configure the versioning process for a project. Th
 
 The following properties are defined in the schema:
 
-- `tagPrefix`: A string property that represents the prefix used for Git tags in the project. This property is usually set to the name of the project. `${projectName}@` or just `v` for synced workspaces.
+- `tagPrefix`: A string property that represents the prefix used for Git tags in the project. This property is usually set to the name of the project. `${projectName}@` or just `v` for sync workspaces.
 - `preset`: A property that specifies the commit message convention preset used by the commitizen tool in the project. The property is a string with a default value of "angular" and can only take one of the two possible string values - "angular" or "conventional".(Only used if `versionStrategy` is set to "commitMessage").
 - `baseBranch`: A string property that represents the Git branch that should be used as the base for versioning in the project.
-- `synced`: A boolean property that indicates whether or not the local Git repository is synced with the remote repository.
+- `sync`: A boolean property that indicates whether or not the local Git repository is sync with the remote repository.
 - `updateInternalDependencies`: A property that specifies how to update internal dependencies between packages. The property is a string with a default value of "patch" and can only take one of the three possible string values - "major", "minor", or "patch". Alternatively, the property can be set to the boolean value `false` to disable automatic updates.
 - `skip`: A list of package names that should be excluded from the versioning process. When you specify one or more package names in this list, those packages will be skipped in the versioning process. This is useful when you have packages that don't need to be versioned, or that require additional steps before they can be published.
 - `commitMessage`: A string property that represents the commit message pattern used by the commitizen tool in the project. This property is a regular expression. Example: `chore(new version): release version ${version} [skip-ci]` or `chore(${packageName}): release version ${version} [skip-ci]`.

@@ -6,6 +6,6 @@
   "prereleaseIdentifier": "beta",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "synced": true,
+  "sync": true,
   "commitMessage": "chore(v): release version ${version} [skip-ci]"
 }

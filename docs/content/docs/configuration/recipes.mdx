@@ -27,7 +27,7 @@ description: Battle-tested configurations for real-world scenarios
 ### 2. Monorepo (Independent Versions)
 ```json
 {
-  "synced": false,
+  "sync": false,
   "tagPrefix": "${packageName}@",
   "updateInternalDependencies": "minor",
   "skip": ["docs", "examples"]
@@ -42,7 +42,7 @@ description: Battle-tested configurations for real-world scenarios
 ### 3. Monorepo (Lockstep Versions)
 ```json
 {
-  "synced": true,
+  "sync": true,
   "tagPrefix": "release-",
   "commitMessage": "chore(release): v${version} [skip-ci]"
 }
@@ -130,7 +130,7 @@ turboversion bump --preid beta
 ### 3. Enterprise Monorepo
 ```json
 {
-  "synced": false,
+  "sync": false,
   "tagPrefix": "pkg-",
   "analyzeCommitsSince": "last-week",
   "updateInternalDependencies": false,

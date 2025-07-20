@@ -32,7 +32,7 @@ export function bumpCommand(): Command {
     )
     .option(
       "-t, --target <project>",
-      "Specific project to version (ignored in synced mode)"
+      "Specific project to version (ignored in sync mode)"
     )
     .addOption(
       new Option("-b, --bump <version>", "Specify version bump type")
@@ -65,16 +65,16 @@ export function bumpCommand(): Command {
           config.branchPattern = ["major", "minor", "patch"];
         }
 
-        if (config.synced && options.target) {
+        if (config.sync && options.target) {
           console.log(
             chalk.yellow.bold("⚠ Warning:") +
               chalk.yellow(
-                " Target option ignored in synced mode. All projects will be versioned together."
+                " Target option ignored in sync mode. All projects will be versioned together."
               )
           );
         }
 
-        if (config.synced) {
+        if (config.sync) {
           await syncedFlux(config, options.bump);
         } else if (options.bump && options.target) {
           await singleFlux(config, options);

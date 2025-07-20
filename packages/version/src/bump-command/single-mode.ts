@@ -22,8 +22,7 @@ export async function singleFlux(config: Config, options: any) {
     const packages = pkgs
       .filter(
         (pkg) =>
-          pkgNames.some((name) => name === pkg.packageJson.name) &&
-          !config.synced
+          pkgNames.some((name) => name === pkg.packageJson.name) && !config.sync
       )
       .filter((pkg) => !config.skip?.some((sp) => sp === pkg.packageJson.name));
 
@@ -33,7 +32,7 @@ export async function singleFlux(config: Config, options: any) {
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
         name,
-        synced: config.synced,
+        sync: config.sync,
       });
 
       const latestTag = await getLatestTag(tagPrefix);
