@@ -41,7 +41,7 @@ jobs:
 
       - name: Turboversion
         shell: bash
-        run: npx @turboversion/version
+        run: npx turboversion bump
 
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
