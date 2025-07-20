@@ -25,17 +25,17 @@ export function bumpCommand(): Command {
   const program = new Command();
 
   return program
-    .command("bump")
+    .command("bump", { isDefault: true, hidden: true })
     .description(
       "Version the application following the version.config.json specifications\n" +
         chalk.gray("Default behavior depends on your configuration")
     )
     .option(
       "-t, --target <project>",
-      "Specific project to version (ignored in sync mode)"
+      "Specific project to version (ignored in sync mode or single project mode)"
     )
     .addOption(
-      new Option("-b, --bump <version>", "Specify version bump type")
+      new Option("-t, --type <version>", "Specify version bump type")
         .choices([
           "patch",
           "minor",
