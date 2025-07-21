@@ -42,7 +42,7 @@ jobs:
 
       - name: Turboversion
         shell: bash
-        run: npx @turboversion/version
+        run: npx turboversion
 
       - name: Turbo Release
         shell: bash
