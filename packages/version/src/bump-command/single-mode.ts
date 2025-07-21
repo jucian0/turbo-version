@@ -1,6 +1,5 @@
 import { cwd, exit } from "node:process";
 import { getPackagesSync } from "@manypkg/get-packages";
-import chalk from "chalk";
 import { formatTag, formatTagPrefix } from "../utils/format-tag";
 import { generateChangelog } from "../utils/generate-changelog";
 import { generateVersion } from "../utils/generate-version";
@@ -8,12 +7,12 @@ import { generateVersionByBranchPattern } from "../utils/generate-version-by-bra
 import { getLatestTag } from "../utils/get-latest-tag";
 import { formatCommitMessage } from "../utils/template-string";
 import { updatePackageVersion } from "../utils/update-package-version";
-import { log } from "../utils/log";
+import { logger } from "../utils/logger";
 import { gitProcess } from "../utils/git";
-import { Config } from "../setup";
+import { ConfigType } from "../config-schema";
 
-export async function singleFlux(config: Config, options: any) {
-  const { preset, baseBranch, branchPattern } = config;
+export async function singleMode(config: ConfigType, options: any) {
+  const { preset, baseBranch, branchPattern = [] } = config;
   const pkgNames: string[] = options.target.split(",");
   const type = options.bump;
   const { packages: pkgs } = getPackagesSync(cwd());
@@ -32,11 +31,10 @@ export async function singleFlux(config: Config, options: any) {
       const tagPrefix = formatTagPrefix({
         tagPrefix: config.tagPrefix,
         name,
-        sync: config.sync,
+        sync: Boolean(config.sync),
       });
 
       const latestTag = await getLatestTag(tagPrefix);
-
       let version: string | null = null;
 
       if (config.versionStrategy === "branchPattern") {
@@ -62,11 +60,17 @@ export async function singleFlux(config: Config, options: any) {
       }
 
       if (version && name && version && path) {
-        log(["new", `New version calculated ${version}`, name]);
+        logger.new({
+          message: `New version calculated ${version}`,
+          packageName: name,
+        });
 
         const nextTag = formatTag({ tagPrefix, version });
         await updatePackageVersion({ path, version, name });
-        log(["paper", "Package version updated", name]);
+        logger.paper({
+          message: "Package version updated",
+          packageName: name,
+        });
 
         await generateChangelog({
           tagPrefix,
@@ -75,7 +79,10 @@ export async function singleFlux(config: Config, options: any) {
           version,
           name,
         });
-        log(["list", `Changelog generated`, name]);
+        logger.list({
+          message: "Changelog generated",
+          packageName: name,
+        });
 
         const commitMessage = formatCommitMessage({
           commitMessage: config.commitMessage,
@@ -89,17 +96,19 @@ export async function singleFlux(config: Config, options: any) {
           commitMessage,
           skipHooks: config.skipHooks,
         });
-        log(["tag", `Git Tag successfully generated.`, name]);
+        logger.tag({
+          message: "Git Tag successfully generated",
+          packageName: name,
+        });
       } else {
-        log([
-          "no_changes",
-          "There are no changes since the last release.",
-          name,
-        ]);
+        logger.noChanges({
+          message: "There are no changes since the last release",
+          packageName: name,
+        });
       }
     }
   } catch (err: any) {
-    log(["error", chalk.red(err.message), "Failure"]);
+    logger.error({ message: "An error occurred", details: err.message });
     exit(1);
   }
 }

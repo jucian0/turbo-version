@@ -1,7 +1,7 @@
 import { cwd } from "node:process";
 import { type Package as PKG, getPackagesSync } from "@manypkg/get-packages";
-import { Config } from "../setup";
 import { getFoldersWithCommits } from "./git";
+import { ConfigType } from "../config-schema";
 
 type Package = PKG & { type?: string };
 
@@ -34,7 +34,9 @@ function filterPackages(packages: Package[], folders: string[]) {
   });
 }
 
-export async function summarizePackages(config: Config): Promise<Package[]> {
+export async function summarizePackages(
+  config: ConfigType
+): Promise<Package[]> {
   try {
     const folders = await getFoldersWithCommits();
     const monoRepo = getPackagesSync(cwd());

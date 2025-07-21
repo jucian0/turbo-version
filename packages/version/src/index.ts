@@ -34,7 +34,6 @@ async function main() {
     .addCommand(bumpCommand())
     .addCommand(helpCommand())
     .action(() => {
-      showBanner();
       bumpCommand().parse(process.argv);
     });
 

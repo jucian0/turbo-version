@@ -1,5 +1,4 @@
 import { exit } from "node:process";
-import chalk from "chalk";
 import type { ReleaseType } from "semver";
 import { formatTag, formatTagPrefix } from "../utils/format-tag";
 import { generateChangelog } from "../utils/generate-changelog";
@@ -8,46 +7,38 @@ import { generateVersionByBranchPattern } from "../utils/generate-version-by-bra
 import { getLatestTag } from "../utils/get-latest-tag";
 import { formatCommitMessage } from "../utils/template-string";
 import { updatePackageVersion } from "../utils/update-package-version";
-import { Config } from "../setup";
 import { summarizePackages } from "../utils/dependents";
 import { gitProcess } from "../utils/git";
-import { log } from "../utils/log";
+import { logger } from "../utils/logger";
+import { ConfigType } from "../config-schema";
 
-export async function asyncFlux(config: Config, type?: ReleaseType) {
-  const { preset, baseBranch, branchPattern } = config;
+export async function asyncMode(config: ConfigType, type?: ReleaseType) {
+  const { preset, baseBranch, branchPattern = [] } = config;
 
   try {
     const packages = await summarizePackages(config);
 
     if (packages.length === 0) {
-      log([
-        "no_changes",
-        "There are no changes since last release.",
-        "All clean",
-      ]);
-      return;
+      return logger.noChanges({
+        message: "There are no changes since last release.",
+      });
     }
 
-    console.log(
-      chalk.cyan(
-        `Working on ${packages
-          .map((n: { packageJson: { name: string } }) =>
-            chalk.hex("#FF1F57")(n.packageJson.name)
-          )
-          .toString()} package(s).\n`
-      )
-    );
+    logger.tag({
+      message: `Working on package(s)`,
+      details: packages.map((pkg) => pkg.packageJson.name).join(", "),
+    });
     for (const pkg of packages) {
       const name = pkg.packageJson.name;
       const path = pkg.relativeDir;
 
       if (config.skip?.some((p) => p === pkg.packageJson.name)) {
-        log(["skip", "Skipped", name]);
+        logger.skip({ message: "Skipped", packageName: name });
       } else {
         const tagPrefix = formatTagPrefix({
           tagPrefix: config.tagPrefix,
           name,
-          sync: config.sync,
+          sync: Boolean(config.sync),
         });
         const latestTag = await getLatestTag(tagPrefix);
 
@@ -76,10 +67,16 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
         }
 
         if (version) {
-          log(["new", `New version calculated ${version}`, name]);
+          logger.new({
+            message: `New version calculated ${version}`,
+            details: name,
+          });
           const nextTag = formatTag({ tagPrefix, version });
           await updatePackageVersion({ path, version, name });
-          log(["paper", "Package version updated", name]);
+          logger.paper({
+            message: `Package version updated ${version}`,
+            details: name,
+          });
 
           await generateChangelog({
             tagPrefix,
@@ -88,7 +85,11 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
             version,
             name,
           });
-          log(["list", "Changelog generated", name]);
+
+          logger.list({
+            message: "Changelog generated",
+            details: name,
+          });
 
           const commitMessage = formatCommitMessage({
             commitMessage: config.commitMessage,
@@ -103,18 +104,20 @@ export async function asyncFlux(config: Config, type?: ReleaseType) {
             skipHooks: config.skipHooks,
           });
 
-          log(["tag", `Git Tag generated for ${nextTag}.`, name]);
+          logger.tag({
+            message: `Git Tag generated for ${nextTag} successfully`,
+            details: name,
+          });
         } else {
-          log([
-            "no_changes",
-            "There are no changes since the last release.",
-            name,
-          ]);
+          logger.noChanges({
+            message: "No changes detected since last version",
+            packageName: name,
+          });
         }
       }
     }
   } catch (err: any) {
-    log(["error", chalk.red(err.message), "Failure"]);
+    logger.error({ message: "An error occurred", details: err.message });
     exit(1);
   }
 }

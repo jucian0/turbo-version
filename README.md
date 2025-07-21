@@ -93,6 +93,11 @@ Turboversion analyzes commit messages to determine version bumps:
 - `test`: Test changes
 - `chore`: Maintenance tasks
 
+Example:
+```bash
+git commit -m "feat(button): add new button"
+```
+
 ### 2. Branch Pattern Strategy
 Alternative approach using branch names:
 

@@ -1,6 +1,5 @@
 import { cwd, exit } from "node:process";
 import { getPackagesSync } from "@manypkg/get-packages";
-import chalk from "chalk";
 import type { ReleaseType } from "semver";
 import { formatTag, formatTagPrefix } from "../utils/format-tag";
 import { generateChangelog } from "../utils/generate-changelog";
@@ -9,18 +8,18 @@ import { generateVersionByBranchPattern } from "../utils/generate-version-by-bra
 import { getLatestTag } from "../utils/get-latest-tag";
 import { formatCommitMessage } from "../utils/template-string";
 import { updatePackageVersion } from "../utils/update-package-version";
-import { Config } from "../setup";
 import { gitProcess } from "../utils/git";
-import { log } from "../utils/log";
+import { logger } from "../utils/logger";
+import { ConfigType } from "../config-schema";
 
-export async function syncedFlux(config: Config, type?: ReleaseType) {
+export async function syncedMode(config: ConfigType, type?: ReleaseType) {
   try {
+    const { preset, baseBranch, branchPattern = [] } = config;
     const { packages } = getPackagesSync(cwd());
 
     const tagPrefix = formatTagPrefix({
-      sync: config.sync,
+      sync: Boolean(config.sync),
     });
-    const { preset, baseBranch, branchPattern } = config;
 
     const latestTag = await getLatestTag(tagPrefix);
 
@@ -45,7 +44,10 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
     }
 
     if (typeof version === "string") {
-      log(["new", `New version calculated ${version}`, "All"]);
+      logger.new({
+        message: `New version calculated ${version}`,
+        packageName: "All",
+      });
       const nextTag = formatTag({ tagPrefix, version });
 
       for (const pkg of packages) {
@@ -53,10 +55,10 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
         const path = pkg.relativeDir;
 
         if (config.skip?.some((p) => p === pkg.packageJson.name)) {
-          log(["skip", "Skipped", name]);
+          logger.skip({ message: "Skipped", packageName: name });
         } else {
           await updatePackageVersion({ path, version, name });
-          log(["paper", "Package version updated", name]);
+          logger.paper({ message: "Updated", packageName: name });
 
           await generateChangelog({
             tagPrefix,
@@ -65,7 +67,7 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
             version,
             name,
           });
-          log(["list", "Changelog generated", name]);
+          logger.paper({ message: "Generated", packageName: name });
         }
       }
 
@@ -88,16 +90,18 @@ export async function syncedFlux(config: Config, type?: ReleaseType) {
         commitMessage,
         skipHooks: config.skipHooks,
       });
-      log(["tag", `Git Tag generated for ${nextTag}.`, "All"]);
+      logger.tag({
+        message: `Git Tag generated for ${nextTag}.`,
+        packageName: "All",
+      });
     } else {
-      log([
-        "no_changes",
-        "There are no changes since the last release.",
-        "All",
-      ]);
+      logger.noChanges({
+        message: "There are no changes since last release.",
+        packageName: "All",
+      });
     }
   } catch (err: any) {
-    log(["error", chalk.red(err.message), "Failure"]);
+    logger.error({ message: "An error occurred", details: err.message });
     exit(1);
   }
 }

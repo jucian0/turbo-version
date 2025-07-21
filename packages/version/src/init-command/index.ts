@@ -2,6 +2,7 @@ import inquirer from "inquirer";
 import { writeFileSync } from "node:fs";
 import { Command } from "commander";
 import chalk from "chalk";
+import { logger } from "../utils/logger";
 
 export function initCommand(): Command {
   const program = new Command();
@@ -91,11 +92,15 @@ export function initCommand(): Command {
         };
 
         writeFileSync("version.config.json", JSON.stringify(config, null, 2));
-        console.log(
-          chalk.green("✔ Configuration created: version.config.json")
-        );
-      } catch (error) {
-        console.error(chalk.red("✖ Error creating configuration:"), error);
+        logger.success({
+          message: "Configuration created successfully",
+          details: "version.config.json",
+        });
+      } catch (err: any) {
+        logger.error({
+          message: "Error creating configuration",
+          details: err.message,
+        });
         process.exit(1);
       }
     });
