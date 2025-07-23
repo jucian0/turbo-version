@@ -1,33 +1,111 @@
 ---
-title: Introduction
-description: Turboversion is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
+title: TurboVersion Documentation
+description: Automated version management for monorepos and single-package projects
 ---
 
-Welcome to TurboVersion documentation. Turboversion is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects and single package projects.
+# TurboVersion
 
-## Motivation
-When working with monorepos or common repos, managing package versions can be a challenging task if you want to automate the process based on thr changes in the packages, by commit messages or branch names. Turbo Versions aims to simplify the process of managing package versions by providing two options for versioning; by commit messages or by branch names.
+![TurboVersion Banner](https://placehold.co/1200x400/FF1F57/white?text=TurboVersion) <!-- Replace with actual banner -->
 
+## Introduction
 
-## Installing
-To get started, you can install TurboVersion by running the following command:
+TurboVersion is a universal solution for managing package versions in **both monorepos and single-package projects**. It provides:
 
+- Automated version bumps based on commit messages or branch names
+- Support for all [Semantic Versioning](https://semver.org) (SemVer) increments
+- Flexible configuration for different project architectures
+
+## Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Dual Versioning Strategies** | Choose between commit message or branch name based versioning |
+| **Monorepo Ready** | Supports both synchronized and independent versioning modes |
+| **CI/CD Friendly** | Designed for seamless integration in automated workflows |
+| **Smart Dependency Handling** | Automatic internal dependency version updates |
+
+## Installation
 ```bash
+# Global install
 npm install -g turboversion
-```
 
-You can also use `npx` to run TurboVersion without installing it:
+# Local install (recommended)
+npm install -D turboversion
 
-```bash
+# Using npx
 npx turboversion
 ```
 
-## Usage
-`turboversion` provides a set of CLI commands to manage package versions.
-
-Here's an example of how to use the `turboversion -bump` command:
-
+## Basic Usage
 ```bash
-npx turboversion -bump major/minor/patch/premajor/preminor/prepatch/prerelease
+# Interactive version bump
+turboversion bump
+
+# Direct version specification
+turboversion bump minor
+turboversion bump patch --preid beta
 ```
-This command will bump the major version of all packages in the repo.
+
+## Configuration
+Create `version.config.json`:
+```json
+{
+  "versionStrategy": "commitMessage",
+  "tagPrefix": "v",
+  "baseBranch": "main",
+  "branchPattern": ["major", "minor", "patch"]
+}
+```
+
+## Versioning Strategies
+### 1. Commit Message Strategy (Default)
+```
+fix:      → Patch version bump
+feat:     → Minor version bump
+BREAKING  → Major version bump
+```
+
+### 2. Branch Pattern Strategy
+```
+feature/* → Minor bump
+fix/*     → Patch bump
+release/* → Major bump
+```
+
+## Advanced Usage
+```bash
+# Target specific package
+turboversion bump --target my-package
+
+# Dry run
+turboversion bump --dry-run
+
+# Prerelease
+turboversion bump prerelease --preid alpha
+```
+
+## Integration
+### PNPM Workflow
+```bash
+pnpm turboversion bump
+pnpm publish -r
+```
+
+### CI/CD Example
+```yaml
+steps:
+  - run: npx turboversion bump
+  - run: npm publish
+```
+
+## Troubleshooting
+**Q:** How to skip packages?
+**A:** Add to `skip` array in config.
+
+**Q:** Custom commit formats?
+**A:** Configure `preset` option.
+
+---
+
+📚 [Full Documentation](https://turboversion.docs)
+🐞 [Report Issues](https://github.com/turboversion/issues)
