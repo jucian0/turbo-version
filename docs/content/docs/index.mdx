@@ -1,11 +1,9 @@
 ---
-title: TurboVersion Documentation
+title: TurboVersion
 description: Automated version management for monorepos and single-package projects
 ---
 
-# TurboVersion
-
-![TurboVersion Banner](https://placehold.co/1200x400/FF1F57/white?text=TurboVersion) <!-- Replace with actual banner -->
+![TurboVersion Banner](logo.svg)
 
 ## Introduction
 
@@ -14,6 +12,19 @@ TurboVersion is a universal solution for managing package versions in **both mon
 - Automated version bumps based on commit messages or branch names
 - Support for all [Semantic Versioning](https://semver.org) (SemVer) increments
 - Flexible configuration for different project architectures
+
+## Motivation
+Managing versions manually in monorepos is error-prone and time-consuming. TurboVersion solves:
+
+- **Human errors** in version bumps
+- **Inconsistent dependencies** between packages
+- **Wasted time** on manual version updates
+- **CI/CD complexity** in release workflows
+
+By automating versioning through:
+✔ Commit message analysis
+✔ Branch name patterns
+✔ Smart dependency resolution
 
 ## Key Features
 
@@ -59,14 +70,14 @@ Create `version.config.json`:
 
 ## Versioning Strategies
 ### 1. Commit Message Strategy (Default)
-```
+```bash
 fix:      → Patch version bump
 feat:     → Minor version bump
 BREAKING  → Major version bump
 ```
 
 ### 2. Branch Pattern Strategy
-```
+```bash
 feature/* → Minor bump
 fix/*     → Patch bump
 release/* → Major bump
@@ -95,7 +106,7 @@ pnpm publish -r
 ```yaml
 steps:
   - run: npx turboversion bump
-  - run: npm publish
+  - run: pnpm publish
 ```
 
 ## Troubleshooting
