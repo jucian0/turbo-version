@@ -63,7 +63,9 @@
     "compare-func": "^2.0.0",
     "conventional-changelog-angular": "^5.0.13",
     "conventional-commits-parser": "3.2.4",
-    "figlet": "^1.5.2"
+    "figlet": "^1.5.2",
+    "zod": "^4",
+    "boxen": "^8.0.1"
   },
   "publishConfig": {
     "access": "public"

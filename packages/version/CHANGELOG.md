@@ -1,3 +1,17 @@
+# [1.0.0](https://github.com/jucian0/turboversion/compare/v0.10.0...v1.0.0) (2025-07-20)
+
+
+### Bug Fixes
+
+* **workspace:** rename synced to sync ([afbfc64](https://github.com/jucian0/turboversion/commit/afbfc645c10474c85541365182e0baacdacf282d))
+
+
+### BREAKING CHANGES
+
+* **workspace:** Rename synced to sync
+
+
+
 # [0.10.0](https://github.com/jucian0/turboversion/compare/v0.9.0...v0.10.0) (2025-07-20)
 
 

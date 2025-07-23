@@ -1,33 +1,122 @@
 ---
-title: Introduction
-description: Turboversion is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects.
+title: TurboVersion
+description: Automated version management for monorepos and single-package projects
 ---
 
-Welcome to TurboVersion documentation. Turboversion is a universal solution for managing package versions (MONOREPO or NOT) and releasing packages. It provides a set of tools and utilities that simplify versioning and releasing packages for monorepo projects and single package projects.
+![TurboVersion Banner](logo.svg)
+
+## Introduction
+
+TurboVersion is a universal solution for managing package versions in **both monorepos and single-package projects**. It provides:
+
+- Automated version bumps based on commit messages or branch names
+- Support for all [Semantic Versioning](https://semver.org) (SemVer) increments
+- Flexible configuration for different project architectures
 
 ## Motivation
-When working with monorepos or common repos, managing package versions can be a challenging task if you want to automate the process based on thr changes in the packages, by commit messages or branch names. Turbo Versions aims to simplify the process of managing package versions by providing two options for versioning; by commit messages or by branch names.
+Managing versions manually in monorepos is error-prone and time-consuming. TurboVersion solves:
 
+- **Human errors** in version bumps
+- **Inconsistent dependencies** between packages
+- **Wasted time** on manual version updates
+- **CI/CD complexity** in release workflows
 
-## Installing
-To get started, you can install TurboVersion by running the following command:
+By automating versioning through:
+✔ Commit message analysis
+✔ Branch name patterns
+✔ Smart dependency resolution
 
+## Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Dual Versioning Strategies** | Choose between commit message or branch name based versioning |
+| **Monorepo Ready** | Supports both synchronized and independent versioning modes |
+| **CI/CD Friendly** | Designed for seamless integration in automated workflows |
+| **Smart Dependency Handling** | Automatic internal dependency version updates |
+
+## Installation
 ```bash
-npm install -g @turboversion/version
+# Global install
+npm install -g turboversion
+
+# Local install (recommended)
+npm install -D turboversion
+
+# Using npx
+npx turboversion
 ```
 
-You can also use `npx` to run TurboVersion without installing it:
-
+## Basic Usage
 ```bash
-npx @turboversion/version
+# Interactive version bump
+turboversion bump
+
+# Direct version specification
+turboversion bump minor
+turboversion bump patch --preid beta
 ```
 
-## Usage
-`@turboversion/version` provides a set of CLI commands to manage package versions.
-
-Here's an example of how to use the `turboversion -bump` command:
-
-```bash
-npx @turboversion/version -bump major/minor/patch/premajor/preminor/prepatch/prerelease
+## Configuration
+Create `version.config.json`:
+```json
+{
+  "versionStrategy": "commitMessage",
+  "tagPrefix": "v",
+  "baseBranch": "main",
+  "branchPattern": ["major", "minor", "patch"]
+}
 ```
-This command will bump the major version of all packages in the repo.
+
+## Versioning Strategies
+### 1. Commit Message Strategy (Default)
+```bash
+fix:      → Patch version bump
+feat:     → Minor version bump
+BREAKING  → Major version bump
+```
+
+### 2. Branch Pattern Strategy
+```bash
+feature/* → Minor bump
+fix/*     → Patch bump
+release/* → Major bump
+```
+
+## Advanced Usage
+```bash
+# Target specific package
+turboversion bump --target my-package
+
+# Dry run
+turboversion bump --dry-run
+
+# Prerelease
+turboversion bump prerelease --preid alpha
+```
+
+## Integration
+### PNPM Workflow
+```bash
+pnpm turboversion bump
+pnpm publish -r
+```
+
+### CI/CD Example
+```yaml
+steps:
+  - run: npx turboversion bump
+  - run: pnpm publish
+```
+
+## Troubleshooting
+**Q:** How to skip packages?
+**A:** Add to `skip` array in config.
+
+**Q:** Custom commit formats?
+**A:** Configure `preset` option.
+
+---
+
+📚 [Full Documentation](https://turboversion.docs)
+🐞 [Report Issues](https://github.com/turboversion/issues)

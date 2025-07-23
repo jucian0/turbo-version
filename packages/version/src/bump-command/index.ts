@@ -3,10 +3,10 @@
 import { exit } from "node:process";
 import chalk from "chalk";
 import { Command, Option } from "commander";
-import { syncedFlux } from "./sync-mode";
-import { singleFlux } from "./single-mode";
-import { asyncFlux } from "./async-mode";
-import { setup } from "../setup";
+import { syncedMode } from "./sync-mode";
+import { singleMode } from "./single-mode";
+import { asyncMode } from "./async-mode";
+import { loadConfig } from "../load-config";
 
 type BumpOption =
   | "patch"
@@ -32,10 +32,10 @@ export function bumpCommand(): Command {
     )
     .option(
       "-t, --target <project>",
-      "Specific project to version (ignored in sync mode)"
+      "Specific project to version (ignored in sync mode or single project mode)"
     )
     .addOption(
-      new Option("-b, --bump <version>", "Specify version bump type")
+      new Option("-t, --type <version>", "Specify version bump type")
         .choices([
           "patch",
           "minor",
@@ -56,14 +56,7 @@ export function bumpCommand(): Command {
     )
     .action(async (options: CommandOptions) => {
       try {
-        const config = await setup();
-
-        if (
-          config.versionStrategy === "branchPattern" &&
-          !config.branchPattern
-        ) {
-          config.branchPattern = ["major", "minor", "patch"];
-        }
+        const config = await loadConfig();
 
         if (config.sync && options.target) {
           console.log(
@@ -75,11 +68,11 @@ export function bumpCommand(): Command {
         }
 
         if (config.sync) {
-          await syncedFlux(config, options.bump);
+          await syncedMode(config, options.bump);
         } else if (options.bump && options.target) {
-          await singleFlux(config, options);
+          await singleMode(config, options);
         } else {
-          await asyncFlux(config, options.bump);
+          await asyncMode(config, options.bump);
         }
       } catch (error: unknown) {
         const errorMessage =

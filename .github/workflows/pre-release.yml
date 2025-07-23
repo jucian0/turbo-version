@@ -36,7 +36,7 @@ jobs:
         run: pnpm build
 
       - name: Install turboversion
-        run: pnpm i @turboversion/version @turboversion/release -w
+        run: pnpm i turboversion @turboversion/release -w
 
       ##  We are going to replace it by a specif command to configure git environments
       - name: Temporally git user
@@ -45,7 +45,7 @@ jobs:
 
       - name: Turboversion
         shell: bash
-        run: npx @turboversion/version
+        run: npx turboversion
 
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc

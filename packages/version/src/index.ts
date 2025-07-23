@@ -34,8 +34,7 @@ async function main() {
     .addCommand(bumpCommand())
     .addCommand(helpCommand())
     .action(() => {
-      showBanner();
-      program.help(); // Show help if no command provided
+      bumpCommand().parse(process.argv);
     });
 
   await program.parseAsync();

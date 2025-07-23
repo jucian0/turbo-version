@@ -93,7 +93,7 @@ git push --follow-tags  # Critical for CI/CD
    ```yaml
    - name: Version Packages
      run: |
-       npx @turboversion/version
+       npx turboversion
        git push --follow-tags
    ```
 2. **Required permissions**:
@@ -105,7 +105,7 @@ git push --follow-tags  # Critical for CI/CD
 ## Migration
 
 ### Q: Switching from Lerna?
-1. Replace `lerna version` with `npx @turboversion/version`
+1. Replace `lerna version` with `npx turboversion`
 2. Convert config:
    ```diff
    - "version": "independent"
